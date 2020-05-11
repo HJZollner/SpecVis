@@ -10,6 +10,11 @@ SpecVis is a repository of R functions to visualize quantitative MRS results fro
 - Correlation plots with group-level facets and correlations for sub-groups.
 - Statistics script which automatically performs appropriate statistics, including descriptive statistics, tests for normality, variance analysis, and post hoc tests. So far, only paired post hoc tests are performed.
 
+## Example plots
+
+![Raincloud](/examples/RaincloudByLCMwithLimits4colums.tif)
+Format: ![Alt Text](url)
+
 ## Supported file formats
 - Osprey .csv-files
 - LCModel .coord-files
