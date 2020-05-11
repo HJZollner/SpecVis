@@ -48,7 +48,7 @@ For any sort of questions, feedback, suggestions, or critique, please reach out 
 - [Helge J. Zöllner](mailto:hzoelln2@jhu.edu)
 - [Georg Oeltzschner](mailto:goeltzs1@jhu.edu)
 
-Should you publish material that made use of Osprey, please cite the following publication:
+Should you publish material that made use of SpecVis, please cite the following publication:
 
 [G Oeltzschner, HJ Zöllner, SCN Hui, M Mikkelsen, MG Saleh, S Tapper, RAE Edden. Osprey: Open-Source Processing, Reconstruction  & Estimation of Magnetic Resonance Spectroscopy Data. bioRxiv 2020.](https://www.biorxiv.org/content/10.1101/2020.02.12.944207v1)
 
