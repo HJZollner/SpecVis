@@ -4,14 +4,14 @@ SpecVis is a repository of R functions to visualize quantitative MRS results fro
 ## Features
 - Load LCM-native result files from Osprey (.csv), LCModel (.coord), and Tarquin (.csv).
 - Load statistics .csv-files which include group variables and correlation measures
-- Raincloud plots with individual datapoints, boxplots, distributions, and mean +- SD representations.
+- Raincloud plots (https://wellcomeopenresearch.org/articles/4-63) with individual datapoints, boxplots, distributions, and mean +- SD representations.
 - Boxplots with individual datapoints
 - Correlation plots with collapsed-correlations, group-level correlations, and indicators for sub-groups.
 - Correlation plots with group-level facets and correlations for sub-groups.
 - Statistics script which automatically performs appropriate statistics, including descriptive statistics, tests for normality, variance analysis, and post hoc tests. So far, only paired post hoc tests are performed.
 
 ## Example plots
-
+### Raincloud plot (https://wellcomeopenresearch.org/articles/4-63)
 ![Raincloud](/examples/RaincloudByLCMwithLimits4colums.png)
 
 ## Supported file formats
@@ -58,6 +58,6 @@ Should you publish material that made use of SpecVis, please cite the following 
 
 ## Acknowledgements
 
-We wish to thank Martin Wilson (University of Birmingham, Birmingham) for shared import code from the 'spant' R-package https://martin3141.github.io/spant/index.html
+We wish to thank Martin Wilson (University of Birmingham, Birmingham) for shared import code from the 'spant' R-package https://martin3141.github.io/spant/index.html. This code builds on modified version of the raincloud plots by David      Poggiali https://github.com/RainCloudPlots/RainCloudPlots.
 
 This work has been supported by NIH grants R01EB016089, P41EB15909, R01EB023963, and K99AG062230.
