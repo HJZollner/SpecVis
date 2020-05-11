@@ -3,7 +3,7 @@ SpecVis is a repository of R functions to visualize quantitative MRS results fro
 
 ## Features
 - Load LCM-native result files from Osprey (.csv), LCModel (.coord), and Tarquin (.csv).
-- Load statistics .csv-files which include grouping variables and correlation measures
+- Load statistics .csv-files which include group variables and correlation measures
 - Raincloud plots with individual datapoints, boxplots, distributions, and mean +- SD representations.
 - Boxplots with individual datapoints
 - Correlation plots with collapsed-correlations, group-level correlations, and indicators for sub-groups.
@@ -34,6 +34,10 @@ Download the latest **SpecVis** code from its [GitHub
 repository](https://github.com/hezoe100/SpecVis), then include the SpecVis folder as
 workdir (setwd()). Make sure to regularly check for updates, as we frequently commit new features, bug fixes, and improved
 functions.
+
+## Examples
+
+An example script is included in the /examples folder of the repository. You can adapt your own script based on it.
 
 # Contact, Feedback, Suggestions
 
