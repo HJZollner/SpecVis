@@ -5,7 +5,7 @@
  'Comparison of Multivendor Single-Voxel MR Spectroscopy Data Acquired in Healthy Brain at 26 Sites' 
  Považan et al. (2020). The analysis includes three sites (G1, P3, S5) which are each split into two 
  abritrary halfs and analyzed with Osprey (), LCModel (), and Tarquin () to demonstrate the capabilities
- of the functions. It can be found in the [examples](../SpecVis/master/examples) to be run manually in R.
+ of the functions. It can be found in the [examples](https://github.com/hezoe100/SpecVis/tree/master/examples) to be run manually in R.
  
 AUTHOR:
   Dr. Helge Zöllner (Johns Hopkins University, 2020-04-15)
