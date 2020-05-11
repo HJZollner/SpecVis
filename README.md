@@ -13,6 +13,10 @@ SpecVis is a repository of R functions to visualize quantitative MRS results fro
 ## Example plots
 ### Raincloud plot (https://wellcomeopenresearch.org/articles/4-63)
 ![Raincloud](/examples/RaincloudByLCMwithLimits4colums.png)
+### Correlation plot
+![Correlation](/examples/CorrelationByVendorWithSubgroups.png)
+### Correlation facet plot
+![CorrelationFacet](/examples/CorrelationFacetSmall.png)
 
 ## Supported file formats
 - Osprey .csv-files
