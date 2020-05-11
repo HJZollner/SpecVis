@@ -62,6 +62,6 @@ Should you publish material that made use of SpecVis, please cite the following 
 
 ## Acknowledgements
 
-We wish to thank Martin Wilson (University of Birmingham, Birmingham) for shared import code from the 'spant' R-package https://martin3141.github.io/spant/index.html. This code builds on modified version of the raincloud plots by David      Poggiali https://github.com/RainCloudPlots/RainCloudPlots.
+We wish to thank Martin Wilson (University of Birmingham, Birmingham) for shared import code from the 'spant' R-package https://martin3141.github.io/spant/index.html. This code builds on modified version of the raincloud plots by Davide      Poggiali https://github.com/RainCloudPlots/RainCloudPlots.
 
 This work has been supported by NIH grants R01EB016089, P41EB15909, R01EB023963, and K99AG062230.
