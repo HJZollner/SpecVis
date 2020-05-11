@@ -12,7 +12,7 @@ SpecVis is a repository of R functions to visualize quantitative MRS results fro
 
 ## Example plots
 
-![Raincloud](/examples/RaincloudByLCMwithLimits4colums.tif)
+![Raincloud](/examples/RaincloudByLCMwithLimits4colums.pnf)
 
 ## Supported file formats
 - Osprey .csv-files
