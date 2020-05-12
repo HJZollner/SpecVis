@@ -4,7 +4,7 @@
  It uses short-TE PRESS data from the https://www.nitrc.org/projects/biggaba/. Details are described in 
  'Comparison of Multivendor Single-Voxel MR Spectroscopy Data Acquired in Healthy Brain at 26 Sites' 
  Považan et al. (2020). The analysis includes three sites (G1, P3, S5) which are each split into two 
- abritrary halfs and analyzed with Osprey (), LCModel (), and Tarquin () to demonstrate the capabilities
+ abritrary halfs and analyzed with Osprey (https://www.biorxiv.org/content/10.1101/2020.02.12.944207v1), LCModel (https://doi.org/10.1002/mrm.1910300604), and Tarquin (https://doi.org/10.1002/mrm.22579) to demonstrate the capabilities
  of the functions. It can be found in the [examples](https://github.com/hezoe100/SpecVis/tree/master/examples) to be run manually in R.
  
 AUTHOR:
