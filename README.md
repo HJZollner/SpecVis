@@ -59,6 +59,7 @@ Should you publish material that made use of SpecVis, please cite the following 
 [G Oeltzschner, HJ Zöllner, SCN Hui, M Mikkelsen, MG Saleh, S Tapper, RAE Edden. Osprey: Open-Source Processing, Reconstruction  & Estimation of Magnetic Resonance Spectroscopy Data. bioRxiv 2020.](https://www.biorxiv.org/content/10.1101/2020.02.12.944207v1)
 
 Should you publish material that made use of the Raincloud plot script, please additionally cite: 
+
 [Allen M, Poggiali D, Whitaker K et al. Raincloud plots: a multi-platform tool for robust data visualization. Wellcome Open Res 2019, 4:63](https://wellcomeopenresearch.org/articles/4-63)
 
 ## Acknowledgements
