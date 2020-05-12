@@ -111,7 +111,7 @@ dfData <- dplyr::bind_rows(dfGE,dfPh,dfSi)
 
 Now we are going to create the first plot, which will be a raincloud plot. This plot inlcudes individual datapoints, boxplots, distributions, and mean +- SD representations of the dataframe. The first variable indicates the dataframe to plot, the second variable is added to the axis lables, the third variable indicates the list of variables to be plotted (you can plot all variables form the dataframe), the fourth variable indicates the name of the Grouping variable, the fifth and sixth variables are the upper and lower limits of the plot (optional). The next variable indicates the title, and the last variable the number of columns. Some variables are optional.
 
-Create a collapsed overview for tNAA, tCho, Ins, and Glx of the whole dataset
+Create a collapsed overview for tNAA, tCho, Ins, and Glx of the whole dataset.
 ```r
 pR1 <- spvs_RainCloud(dfData, '/ [tCr]',list('tNAA','tCho','Ins','Glx'))
 ggsave(file=paste(SpecVisPath ,'examples/RaincloudCollapsed.pdf',sep='/'), 
@@ -120,7 +120,7 @@ pR1
 ```
 ![pR1](/examples/RaincloudCollapsed.png)
 
-Add groups to the plot
+Add groups to the plot.
 ```r
 pR2 <- spvs_RainCloud(dfData, '/ [tCr]',list('tNAA','tCho','Ins','Glx'),c('Group'))
 ggsave(file=paste(SpecVisPath ,'examples/RaincloudByLCM.pdf',sep='/'),
@@ -129,7 +129,7 @@ pR2
 ```
 ![pR2](/examples/RaincloudByLCM.png)
 
-Add reproducible upper and lower limits to the plot
+Add reproducible upper and lower limits to the plot.
 ```r
 lowerLimit <- c(0.75,.05,0.4,0.75)
 upperLimit <- c(2.1,0.33,1.22,2.75)
@@ -153,9 +153,9 @@ pR4
 
 ## 4 - Normal correlation plots
 
-`spvs_Correaltion()` function is used to generate correlation plots.
+`spvs_Correlation()` function is used to generate correlation plots.
 
-Now we are going to create a number of correaltion plots. The correlation plot can visualize global, correaltions and within group correaltions. Further, different sub-groups can be specified within a groups, in our case we have the vendor as groups and the half split of each site is going to be the sub-group. The first variable is a list of dataframes, each dataframe corresponds to one group. The second variable is again added to the axis lables. The third variable is the list of measures to be correlated (e.g. the sub-plots of metabolites). The fourth variable indicates the which measure to be plotted as x- and y-axis (e.g. Osprey and LCModel). The fifth varaible indicates the group, which corresponds to each dataframe named in the list (e.g. GE, Philips, Siemens). The sixth variable indicates if a sub-grouping (e.g. per site) should be added. The reamianing variables are lower and upper limit, number of columns and title.
+Now we are going to create a number of correlation plots. The correlation plot can visualize global, correlations and within group correlations. Further, different sub-groups can be specified within a groups, in our case we have the vendor as groups and the half split of each site is going to be the sub-group. The first variable is a list of dataframes, each dataframe corresponds to one group. The second variable is again added to the axis lables. The third variable is the list of measures to be correlated (e.g. the sub-plots of metabolites). The fourth variable indicates the which measure to be plotted as x- and y-axis (e.g. Osprey and LCModel). The fifth varaible indicates the group, which corresponds to each dataframe named in the list (e.g. GE, Philips, Siemens). The sixth variable indicates if a sub-grouping (e.g. per site) should be added. The remaining variables are lower and upper limit, number of columns and title.
 ```r
 lowerLimit <- c(0.75,.05,0.4,0.75)
 upperLimit <- c(2.1,0.33,1.22,2.75)
@@ -228,7 +228,7 @@ pC3
 ```
 ![pC3](/examples/CorrelationByVendorWithSubgroups.png)
 
-We can also correlate measures within one dataframe e.g. metabolite estimates with age. Here the numbers between the dataframes, groups and sub-groups has to match. The correaltions are idnicated as pairs 'age years' 'tNAA' with each pair creating one sub plot. The number of pairs and names for the x- and y-axis has to match. In the current implementation x- and y-axis labels may have to be changes manually in other softwares.
+We can also correlate measures within one dataframe e.g. metabolite estimates with age. Here the numbers between the dataframes, groups and sub-groups has to match. The correlations are idnicated as pairs 'age years' 'tNAA' with each pair creating one sub plot. The number of pairs and names for the x- and y-axis has to match. In the current implementation x- and y-axis labels may have to be changes manually in other softwares.
 
 ```r
 lowerLimit <- c(20,.75,20,.05,20,.4,20,.75)
@@ -257,7 +257,7 @@ pC4
 ![pC4](/examples/CorrelationAge.png)
 
 ## 5 - Facet correlation plots
-We can also create a facetted correaltion plot, which addtionally shows correaltions for the sub-groups and gives an easier overview by facetting the plot.
+We can also create a facetted correlation plot, which addtionally shows correlations for the sub-groups and gives an easier overview by facetting the plot.
 ```r
 lowerLimit <- c(0.75,.05,0.4,0.75)
 upperLimit <- c(2.1,0.33,1.22,2.75)
