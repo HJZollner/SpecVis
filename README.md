@@ -4,7 +4,7 @@ SpecVis is a repository of R functions to visualize quantitative MRS results fro
 
 ## Prerequisites
 
-SpecVis was developed in [RStudio](https://rstudio.com/) and
+SpecVis was developed in [RStudio (Version 1.2.5019)](https://rstudio.com/) and
 the needed libraries are downloaded and installed automatically.
 
 ## Installation
@@ -14,11 +14,11 @@ repository](https://github.com/hezoe100/SpecVis), then include the SpecVis folde
 workdir (setwd()). Make sure to regularly check for updates, as we frequently commit new features, bug fixes, and improved
 functions.
 
-## Examples
+## Example markdown and script
 
 An example [markdown](https://github.com/hezoe100/SpecVis/blob/master/examples/Example.md) is included in the repository. You can adapt your own script based on this [function](https://github.com/hezoe100/SpecVis/blob/master/examples/LC_comp.R).
 
-## Features
+# Features
 - Load LCM-native result files from Osprey (.csv), LCModel (.coord), and Tarquin (.csv).
 - Load statistics .csv-files which include group variables and correlation measures
 - Raincloud plots (https://wellcomeopenresearch.org/articles/4-63) with individual datapoints, boxplots, distributions, and mean +- SD representations.
@@ -27,19 +27,19 @@ An example [markdown](https://github.com/hezoe100/SpecVis/blob/master/examples/E
 - Correlation plots with group-level facets and correlations for sub-groups.
 - Statistics script which automatically performs appropriate statistics, including descriptive statistics, tests for normality, variance analysis, and post hoc tests. So far, only paired post hoc tests are performed.
 
-## Example plots
+## Supported file formats
+- Osprey .csv-files
+- LCModel .coord-files
+- Tarquin .csv-files
+- arbitrary .csv-files
+
+# Example plots
 ### Raincloud plot (https://wellcomeopenresearch.org/articles/4-63)
 ![Raincloud](/examples/RaincloudByLCMwithLimits4colums.png)
 ### Correlation plot
 ![Correlation](/examples/CorrelationByVendorWithSubgroups.png)
 ### Correlation facet plot
 ![CorrelationFacet](/examples/CorrelationFacetSmall.png)
-
-## Supported file formats
-- Osprey .csv-files
-- LCModel .coord-files
-- Tarquin .csv-files
-- arbitrary .csv-files
 
 ## Planned features
 - Tests without paired post hoc tests.
