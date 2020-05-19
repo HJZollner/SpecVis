@@ -1,5 +1,5 @@
 spvs_Statistics <- function(dataFrame,MeasureVar){
-  source('summarySE.r')
+  source('functions/summarySE.r')
   #for (meas in MeasureVar){
    # dataFrame[names(dataFrame) == meas] <- log10(dataFrame[names(dataFrame) == meas][[1]]+ (1-min(dataFrame[names(dataFrame) == meas][[1]])))
   #}

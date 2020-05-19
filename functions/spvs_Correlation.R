@@ -35,10 +35,10 @@ spvs_Correlation <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarN
   #   HISTORY:
   #     2020-04-15: First version of the code.
   # 1 Falling back into defaults ---------------------------------------------------------- 
-  source("summarySE.R")
-  source("spvs_CombineCorrelationDataFrame.R")
-  source("spvs_shadeColormap.R")
-  source("spvs_nth_element.R")
+  source("functions/summarySE.R")
+  source("functions/spvs_CombineCorrelationDataFrame.R")
+  source("functions/spvs_shadeColormap.R")
+  source("functions/spvs_nth_element.R")
   if(missing(Quant)){
     Quant <- "/ [tCr]"
   }

@@ -1,10 +1,10 @@
-source('dependencies.R')
-source('spvs_importResults.R')
-source('spvs_Correlation.R')
-source('spvs_Correlation_Facet.R')
-source('spvs_AddStatsToDataframe.R')
-source('spvs_ConcatenateDataFrame.R')
-source('spvs_RainCloud.R')
+source('functions/dependencies.R')
+source('functions/spvs_importResults.R')
+source('functions/spvs_Correlation.R')
+source('functions/spvs_Correlation_Facet.R')
+source('functions/spvs_AddStatsToDataframe.R')
+source('functions/spvs_ConcatenateDataFrame.R')
+source('functions/spvs_RainCloud.R')
 
 dfPhOsp <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/QuantifyResults/off_tCr.csv')
 dfSiOsp <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/QuantifyResults/off_tCr.csv')
@@ -15,22 +15,22 @@ dataSiLCM <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/Siemens/deriv
 dfSiLCM <- dataSiLCM[[1]]
 dataGELCM <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/GE/derivativesLCM/LCMBaseline/LCMoutput_015')
 dfGELCM <- dataGELCM[[1]]
-dataPhTar <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/TarquinBaseline/TarquinAnalysis_Basis_10ms')
+dataPhTar <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/TarquinBaseline/TarquinAnalysis_Basis_10ms_raw')
 dfPhTar <- dataPhTar[[1]]
-dataSiTar <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/TarquinBaseline/TarquinAnalysis_Basis_10ms')
+dataSiTar <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/TarquinBaseline/TarquinAnalysis_Basis_10ms_raw')
 dfSiTar <- dataSiTar[[1]]
-dataGETar <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/GE/derivativesLCM/TarquinBaseline/TarquinAnalysis_Basis_10ms')
+dataGETar <- spvs_importResults('/Volumes/Samsung_T5/working/ISMRM/GE/derivativesLCM/TarquinBaseline/TarquinAnalysis_Basis_10ms_raw')
 dfGETar <- dataGETar[[1]]
 
 dfGELCMbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/GE/derivativesLCM/baselineValue/GE_LCModel_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
 dfGETarbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/GE/derivativesLCM/baselineValue/GE_Tarquin_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
 dfGEOspbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/GE/derivativesLCM/baselineValue/GE_overview_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
-dfPhLCMbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/baselineValue/Ph_LCModel_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
-dfPhTarbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/baselineValue/Ph_Tarquin_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
-dfPhOspbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/baselineValue/Ph_overview_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
-dfSiLCMbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/baselineValue/Si_LCModel_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
-dfSiTarbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/baselineValue/Si_Tarquin_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
-dfSiOspbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/baselineValue/Si_overview_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
+dfPhLCMbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/baselineValue/Philips_LCModel_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
+dfPhTarbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/baselineValue/Philips_Tarquin_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
+dfPhOspbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/baselineValue/Philips_overview_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
+dfSiLCMbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/baselineValue/Siemens_LCModel_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
+dfSiTarbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/baselineValue/Siemens_Tarquin_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
+dfSiOspbase <- read.csv('/Volumes/Samsung_T5/working/ISMRM/Siemens/derivativesLCM/baselineValue/Siemens_overview_baselinepMM.csv', header = TRUE,stringsAsFactors = FALSE)
 
 
 dfGELCM <- bind_cols(dfGELCM,dfGELCMbase) 

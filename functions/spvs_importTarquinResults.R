@@ -42,7 +42,7 @@ spvs_importTarquinResults <- function(dir,quant) {
     results$diags <- rbind(results$diags, subject$diags)
   }
   
-  source('spvs_createDataFrame.R')
+  source('functions/spvs_createDataFrame.R')
   amps <- spvs_createDataFrame(results$amps)
   crlbs <- spvs_createDataFrame(results$crlbs)
   

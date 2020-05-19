@@ -45,7 +45,7 @@ spvs_importLCMResults <- function(dir,quant) {
 
   # 3 Create dataframe ------------------------------------------------------
   # Create a dataframe from the imported list and rename it to defined defaults to allow dataframe subsetting
-  source('spvs_createDataFrame.R')
+  source('functions/spvs_createDataFrame.R')
   amps <- spvs_createDataFrame(results$amps)
   crlbs <- spvs_createDataFrame(results$crlbs)
   
