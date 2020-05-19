@@ -1,0 +1,64 @@
+$`Descriptive Statistics`
+          Group   N      mean    median         sd        skew          se         CV
+1  tNAA LCModel 112 1.3865977 1.3793262 0.10222082  0.10657936 0.009658959 0.07372060
+2   tNAA Osprey 112 1.4967288 1.4881999 0.12206378  0.55524017 0.011533943 0.08155371
+3  tNAA Tarquin 112 1.4019551 1.4118338 0.12400955  0.23535339 0.011717801 0.08845472
+4  tCho LCModel 112 0.1674332 0.1677709 0.01795668 -0.13890500 0.001696747 0.10724682
+5   tCho Osprey 112 0.1766206 0.1753782 0.01767674 -0.33660121 0.001670295 0.10008314
+6  tCho Tarquin 112 0.1570588 0.1588978 0.03107593  0.47894059 0.002936399 0.19786174
+7   Ins LCModel 112 0.8099962 0.8011709 0.08054787  0.60399850 0.007611058 0.09944228
+8    Ins Osprey 112 0.8560680 0.8609385 0.10213453 -0.27515484 0.009650806 0.11930656
+9   Ins Tarquin 112 0.6007340 0.5891204 0.09143094  1.79008000 0.008639412 0.15219870
+10  Glx LCModel 112 1.4585857 1.4324320 0.14255718  0.65920493 0.013470387 0.09773658
+11   Glx Osprey 112 1.3404733 1.3335893 0.16008205 -0.02703223 0.015126332 0.11942204
+12  Glx Tarquin 112 1.7696374 1.7799548 0.18989029 -0.01954892 0.017942946 0.10730463
+
+$`Test for Normal Distribution`
+   VarsName      method      stat            p normal
+1      tNAA ShapiroWilk 0.9461561 7.736702e-01      1
+2      tNAA ShapiroWilk 0.9461561 6.407349e-03      0
+3      tNAA ShapiroWilk 0.9461561 7.359388e-01      1
+4      tCho ShapiroWilk 0.9461561 5.958042e-01      1
+5      tCho ShapiroWilk 0.9461561 2.516067e-01      1
+6      tCho ShapiroWilk 0.9461561 1.540914e-02      0
+7       Ins ShapiroWilk 0.9461561 1.560506e-02      0
+8       Ins ShapiroWilk 0.9461561 5.492522e-01      1
+9       Ins ShapiroWilk 0.9461561 3.896818e-08      0
+10      Glx ShapiroWilk 0.9461561 1.337602e-02      0
+11      Glx ShapiroWilk 0.9461561 3.405627e-01      1
+12      Glx ShapiroWilk 0.9461561 1.985123e-04      0
+
+$`Test for Normal Distribution of Variances`
+  VarsName  method       stat            p VarianceDiff
+1     tNAA Fligner  2.5964215 2.730199e-01            0
+2     tCho Fligner 36.6271030 1.113078e-08            1
+3      Ins Fligner 11.9562337 2.533593e-03            1
+4      Glx Fligner  0.9700526 6.156810e-01            0
+
+$`Post hoc test heterogeneous variances`
+              VarsName  method        adj        stat         padj sig
+1  tCho LCModel Osprey Fligner Bomferroni  0.20671716 3.896116e+00   0
+2  tCho Osprey Tarquin Fligner Bomferroni 24.57008788 4.299326e-06 ***
+3 tCho Tarquin LCModel Fligner Bomferroni 24.14778823 5.353115e-06 ***
+4   Ins LCModel Osprey Fligner Bomferroni  7.61178006 3.479293e-02   *
+5   Ins Osprey Tarquin Fligner Bomferroni  9.37354623 1.320835e-02   *
+6  Ins Tarquin LCModel Fligner Bomferroni  0.05075833 4.930494e+00   0
+
+$`Variance Analysis`
+  VarsName method      stat            p differ
+1     tNAA  ANOVA  29.35195 1.817499e-12      1
+2     tCho  Welch  18.65281 3.427412e-08      1
+3      Ins  Welch 239.62364 5.815104e-56      1
+4      Glx  ANOVA 201.36777 4.762071e-58      1
+
+$`Posthoc test Variance Analysis`
+                       method multi_comp_cor      LCModel       Osprey sig.LCModel sig.Osprey
+tNAA Osprey       pairedTtest     bonferroni 9.245756e-29           NA         ***       <NA>
+tNAA Tarquin UnVarPairedTtest     bonferroni 9.561868e-02 5.785034e-17           0        ***
+tCho Osprey  UnVarPairedTtest     bonferroni 6.395939e-15           NA         ***       <NA>
+tCho Tarquin      pairedTtest     bonferroni 2.132474e-05 1.100984e-12         ***        ***
+Ins Osprey        pairedTtest     bonferroni 9.946100e-06           NA         ***       <NA>
+Ins Tarquin  UnVarPairedTtest     bonferroni 3.620417e-57 1.170448e-52         ***        ***
+Glx Osprey   UnVarPairedTtest     bonferroni 1.586069e-10           NA         ***       <NA>
+Glx Tarquin       pairedTtest     bonferroni 1.113967e-40 1.077812e-44         ***        ***
+

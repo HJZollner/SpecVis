@@ -34,8 +34,8 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
   #   HISTORY:
   #     2020-04-15: First version of the code.
   # 1 Falling back into defaults ----------------------------------------------------------  
-  source("summarySE.R")
-  source("R_rainclouds.R")
+  source("functions/summarySE.R")
+  source("functions/R_rainclouds.R")
     if(missing(Quant)){
       Quant <- "/ [tCr]"
     }

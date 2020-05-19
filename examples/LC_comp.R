@@ -1,59 +1,61 @@
 ## Description
 #
 # This script describes how to use several functions of the Spectra Visualizer R-package.
-# It uses short-TE PRESS data from the https://www.nitrc.org/projects/biggaba/. Details are described in 
-# 'Comparison of Multivendor Single-Voxel MR Spectroscopy Data Acquired in Healthy Brain at 26 Sites' 
-# Považan et al. (2020). The analysis includes three sites (G1, P3, S5) which are each split into two 
+# It uses short-TE PRESS data from the https://www.nitrc.org/projects/biggaba/. Details are described in
+# 'Comparison of Multivendor Single-Voxel MR Spectroscopy Data Acquired in Healthy Brain at 26 Sites'
+# Považan et al. (2020). The analysis includes three sites (G1, P3, S5) which are each split into two
 # abritrary halfs and analyzed with Osprey (), LCModel (), and Tarquin () to demonstrate the capabilities
-# of the functions. 
+# of the functions.
 #
 # AUTHOR:
 #  Dr. Helge Zöllner (Johns Hopkins University, 2020-04-15)
 #
-# MAIL:  
+# MAIL:
 #  hzoelln2@jhmi.edu
 #
-# CREDITS:    
+# CREDITS:
 #  This code is based on numerous functions from the spant toolbox by
 # Dr. Martin Wilson (University of Birmingham)
 # https://martin3141.github.io/spant/index.html
 
 # 1 - Source needed scripts and set up path -----------------------------------
-source('dependencies.R')
-source('spvs_importResults.R')
-source('spvs_Correlation.R')
-source('spvs_Correlation_Facet.R')
-source('spvs_AddStatsToDataframe.R')
-source('spvs_ConcatenateDataFrame.R')
-source('spvs_RainCloud.R')
-source('spvs_Statistics.R')
-SpecVisPath <- '~/Documents/R/SpecVis'
+# You need to set the SpecVis directory as your working directory (setwd())
+SpecVisPath <- '~/Documents/GitHub/SpecVis'
+source('functions/dependencies.R')
+source('functions/spvs_importResults.R')
+source('functions/spvs_Correlation.R')
+source('functions/spvs_Correlation_Facet.R')
+source('functions/spvs_AddStatsToDataframe.R')
+source('functions/spvs_ConcatenateDataFrame.R')
+source('functions/spvs_RainCloud.R')
+source('functions/spvs_Statistics.R')
+
 
 
 # 2 - Load data and create dataframes -------------------------------------
-# In the next part the results (from LCM native outputs) from the analysis with Osprey, LCModel, 
-# and Tarquin are loaded into different data containers. They are loaded for each vendor and 
-# LC modelling (LCM) algorithm creating 9 dataframes (dfGEOsp, dfPhOsp, dfSiOsp, dfGELCM, dfPhLCM, 
-# dfSiLCM, dfGETar, dfPhTar, dfSiTar). 
+# In the next part the results (from LCM native outputs) from the analysis with Osprey, LCModel,
+# and Tarquin are loaded into different data containers. They are loaded for each vendor and
+# LC modelling (LCM) algorithm creating 9 dataframes (dfGEOsp, dfPhOsp, dfSiOsp, dfGELCM, dfPhLCM,
+# dfSiLCM, dfGETar, dfPhTar, dfSiTar).
 # An additional 'stat.csv' is loaded and added to the dataframe for each vendor. This file can include
-# any further measures to be corrrelated with the metabolite estimates, here we use 'age (years)'. 
-# It also includes the grouping variables 'group name' with the group names and a numerical group 
+# any further measures to be corrrelated with the metabolite estimates, here we use 'age (years)'.
+# It also includes the grouping variables 'group name' with the group names and a numerical group
 # variable 'group'. These are used to group the data in the plots and you have to use these names to group
 # your own data.
-# Next the dataframes are combined into different frames either as vendor-collapsed dataframes (dfGE, dfPh, dfSi) 
-# with the LCM algorithm as group, or as LCM-collapsed dataframes (dfOsp, dfLCM, dfTar) with the vendor as group, 
+# Next the dataframes are combined into different frames either as vendor-collapsed dataframes (dfGE, dfPh, dfSi)
+# with the LCM algorithm as group, or as LCM-collapsed dataframes (dfOsp, dfLCM, dfTar) with the vendor as group,
 # or as complete dataset (dfData).
 
 # spvs_importResults() is used to import the resutls from the LCM analysis.
 
-# Load Osprey results from the 'off_tCr.csv' output from Osprey. Here the path points to a single file 
+# Load Osprey results from the 'off_tCr.csv' output from Osprey. Here the path points to a single file
 # for each vendor
 dfGEOsp <- spvs_importResults(paste(SpecVisPath , 'examples/data/GE/off_tCr.csv', sep = '/'))
 dfPhOsp <- spvs_importResults(paste(SpecVisPath , 'examples/data/Philips/off_tCr.csv', sep = '/'))
 dfSiOsp <- spvs_importResults(paste(SpecVisPath , 'examples/data/Siemens/off_tCr.csv', sep = '/'))
 
 # Load LCModel results from .coord-files using a 'spant' function. Here the path points to the folder containing all
-# .coord-files which are consecutivley loaded. It includes the quantification results, CRLBs, and quality 
+# .coord-files which are consecutivley loaded. It includes the quantification results, CRLBs, and quality
 # control output. The first entry is picked as it contains the metabolite estimates.
 dataGELCM <- spvs_importResults(paste(SpecVisPath , 'examples/data/GE/LCModelOutput', sep = '/'))
 dfGELCM <- dataGELCM[[1]]
@@ -63,7 +65,7 @@ dataSiLCM <- spvs_importResults(paste(SpecVisPath , 'examples/data/Siemens/LCMod
 dfSiLCM <- dataSiLCM[[1]]
 
 # Load Tarquin results from .csv-files using a 'spant' function. Here the path points to the folder containing all
-# .csv-files which are consecutivley loaded. It includes the quantification results, CRLBs, and quality 
+# .csv-files which are consecutivley loaded. It includes the quantification results, CRLBs, and quality
 # control output. The first entry is picked as it contains the metabolite estimates.
 dataGETar <- spvs_importResults(paste(SpecVisPath , 'examples/data/GE/TarquinOutput', sep = '/'))
 dfGETar <- dataGETar[[1]]
@@ -92,7 +94,7 @@ dfGE <- spvs_ConcatenateDataFrame(list(dfGELCM,dfGEOsp,dfGETar),c('LCModel','Osp
 dfPh <- spvs_ConcatenateDataFrame(list(dfPhLCM,dfPhOsp,dfPhTar),c('LCModel','Osprey','Tarquin'))
 dfSi <- spvs_ConcatenateDataFrame(list(dfSiLCM,dfSiOsp,dfSiTar),c('LCModel','Osprey','Tarquin'))
 
-# Concatenate all LCM dataframes into LCM-collapsed dataframes using a list of dataframes and an array 
+# Concatenate all LCM dataframes into LCM-collapsed dataframes using a list of dataframes and an array
 # of the corresponding group names.
 dfOsp <- spvs_ConcatenateDataFrame(list(dfGEOsp,dfPhOsp,dfSiOsp),c('GE','Philips','Siemens'))
 dfLCM <- spvs_ConcatenateDataFrame(list(dfGELCM,dfPhLCM,dfSiLCM),c('GE','Philips','Siemens'))
@@ -107,17 +109,17 @@ dfData <- dplyr::bind_rows(dfGE,dfPh,dfSi)
 # spvs_RainCloud() function is used to generate Raincloud plots.
 
 # Now we are going to create the first plot, which will be a raincloud plot. This plot inlcudes
-# individual datapoints, boxplots, distributions, and mean +- SD representations of the dataframe. 
-# The first variable indicates the dataframe to plot, the second variable is added to the axis lables, 
+# individual datapoints, boxplots, distributions, and mean +- SD representations of the dataframe.
+# The first variable indicates the dataframe to plot, the second variable is added to the axis lables,
 # the third variable indicates the list of variables to be plotted (you can plot all variables form the dataframe),
-# the fourth variable indicates the name of the Grouping variable, the fifth and sixth variables are the upper 
-# and lower limits of the plot (optional). The next variable indicates the title, and the last variable the 
+# the fourth variable indicates the name of the Grouping variable, the fifth and sixth variables are the upper
+# and lower limits of the plot (optional). The next variable indicates the title, and the last variable the
 # number of columns. Some variables are optional.
 
 # Create a collapsed overview for tNAA, tCho, Ins, and Glx of the whole dataset
 pR1 <- spvs_RainCloud(dfData, '/ [tCr]',list('tNAA','tCho','Ins','Glx'))
 pR1
-ggsave(file=paste(SpecVisPath ,'examples/RaincloudCollapsed.pdf',sep='/'), 
+ggsave(file=paste(SpecVisPath ,'examples/RaincloudCollapsed.pdf',sep='/'),
        pR1, width = 10, height = 10,device=cairo_pdf) #saves g
 
 # Add groups to the plot
@@ -147,8 +149,8 @@ ggsave(file=paste(SpecVisPath ,'examples/RaincloudByLCMwithLimits4colums.pdf',se
 # spvs_Correaltion() function is used to generate correlation plots.
 
 # Now we are going to create a number of correaltion plots. The correlation plot can visualize global,
-# correaltions and within group correaltions. Further, different sub-groups can be specified within a 
-# groups, in our case we have the vendor as groups and the half split of each site is going to be the 
+# correaltions and within group correaltions. Further, different sub-groups can be specified within a
+# groups, in our case we have the vendor as groups and the half split of each site is going to be the
 # sub-group. The first variable is a list of dataframes, each dataframe corresponds to one group. The
 # second variable is again added to the axis lables. The third variable is the list of measures to be
 # correlated (e.g. the sub-plots of metabolites). The fourth variable indicates the which measure to be

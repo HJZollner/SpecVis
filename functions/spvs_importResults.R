@@ -30,9 +30,9 @@ spvs_importResults <- function(dir,quant){
   if(missing(quant)){
     quant <- "tCr"
   }
-  source("spvs_importOspreyResults.R")
-  source("spvs_importLCMResults.R")
-  source("spvs_importTarquinResults.R")
+  source("functions/spvs_importOspreyResults.R")
+  source("functions/spvs_importLCMResults.R")
+  source("functions/spvs_importTarquinResults.R")
 
 # 2 Import data according to file type ------------------------------------
   if(file_test('-f',dir)){

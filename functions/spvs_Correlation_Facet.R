@@ -35,9 +35,9 @@ spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,Gro
   #   HISTORY:
   #     2020-04-15: First version of the code.
   # 1 Falling back into defaults ---------------------------------------------------------- 
-  source("summarySE.R")
-  source("spvs_CombineCorrelationDataFrame.R")
-  source("spvs_shadeColormap.R")
+  source("functions/summarySE.R")
+  source("functions/spvs_CombineCorrelationDataFrame.R")
+  source("functions/spvs_shadeColormap.R")
   if(missing(Quant)){
     Quant <- "/ [tCr]"
   }
@@ -114,7 +114,7 @@ spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,Gro
   shade <- NULL  
   for (i in 1:length(unique(dfCorr$Group))){   
     shade<-  cbind(shade,length(unique(dataFrame[[i]]$`group`)))}
-  shadeColormap <- spvs_shadeColormap('Dark2',length(unique(dfCorr$Group)),c(2,2,2),0)
+  shadeColormap <- spvs_shadeColormap('Dark2',length(unique(dfCorr$Group)),c(8,10,7),0)
   # 3 Creating final plot ------------------------------------ 
   for (MeasVar in MeasureVar){ #Loop over MeasureVar list
   dfCorr <- subset(dfCorrAll, MetabName==MeasVar,select=MeasureVar1:HueVar)

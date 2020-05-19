@@ -1,0 +1,40 @@
+ $LCMODL
+ key = xxxxxxxxx
+ OWNER = 'Dept of Radiology, The Johns Hopkins University School of Medicine'
+ Title = 'S01_PRESS_35'
+ HZPPPM =1.277704e+02, DELTAT=2.000000e-04, NUNFIL=4096
+ FILBAS = '/g5/raee2/PRESS/BasisSetsLCM/GE/3T_PRESS_GE_35ms_noMM.BASIS'
+ DKNTMN =  0.15
+ DOWS = T
+ FILH2O = '/g5/raee2/PRESS/GE/ref/G1_P_S01_S01_PRESS_35_LCM_REF.RAW'
+ ATTH2O =  1.00
+ ATTMET = 1.00000
+ WCONC = 55510.0
+ NEACH = 99
+ WDLINE(6) =   0.0
+ PPMST =  4.00
+ PPMEND =  0.50
+ NSIMUL = 12
+ NCOMBI = 5
+ CHCOMB(1) = 'PCh+GPC'
+ CHCOMB(2) = 'Cr+PCr'
+ CHCOMB(3) = 'NAA+NAAG'
+ CHCOMB(4) = 'Glu+Gln'
+ CHCOMB(5) = 'Glc+Tau'
+ NOMIT= 2
+ CHOMIT(1) = 'Gly'
+ CHOMIT(2) = 'Ser'
+ NAMREL = 'Cr+PCr'
+ CONREL =  8.00
+ DOECC = F
+ LTABLE = 7
+ LCSV = 11
+ LCOORD = 9
+ LPRINT = 6
+ FILTAB = '/g5/raee2/PRESS/GE/LCMoutput/G1_P_S01_S01_PRESS_35_LCM_A.table'
+ FILCSV = '/g5/raee2/PRESS/GE/LCMoutput/G1_P_S01_S01_PRESS_35_LCM_A.csv'
+ FILCOO = '/g5/raee2/PRESS/GE/LCMoutput/G1_P_S01_S01_PRESS_35_LCM_A.coord'
+ FILPRI = '/g5/raee2/PRESS/GE/LCMoutput/G1_P_S01_S01_PRESS_35_LCM_A.print'
+ FILRAW = '/g5/raee2/PRESS/GE/metabs/G1_P_S01_S01_PRESS_35_LCM_A.RAW'
+ FILPS = '/g5/raee2/PRESS/GE/LCMoutput/G1_P_S01_S01_PRESS_35_LCM_A.PS'
+ $END
