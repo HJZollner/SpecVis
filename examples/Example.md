@@ -18,15 +18,16 @@ Dr. Martin Wilson (University of Birmingham)
 https://martin3141.github.io/spant/index.html
 
 ## 1 - Source functions and set up path
+You need to set the SpecVis directory as your working directory `setwd()`.
 ```r
-source('dependencies.R')
-source('spvs_importResults.R')
-source('spvs_Correlation.R')
-source('spvs_Correlation_Facet.R')
-source('spvs_AddStatsToDataframe.R')
-source('spvs_ConcatenateDataFrame.R')
-source('spvs_RainCloud.R')
-source('spvs_Statistics.R')
+source('functions/dependencies.R')
+source('functions/spvs_importResults.R')
+source('functions/spvs_Correlation.R')
+source('functions/spvs_Correlation_Facet.R')
+source('functions/spvs_AddStatsToDataframe.R')
+source('functions/spvs_ConcatenateDataFrame.R')
+source('functions/spvs_RainCloud.R')
+source('functions/spvs_Statistics.R')
 SpecVisPath <- '~/Documents/R/SpecVis'
 ```
 ## 2 - Load data and create dataframes
