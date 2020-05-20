@@ -137,7 +137,6 @@ if(length(GroupVarNames1) == length(GroupVarNames2)){ #Preparing data as a list 
   shade <- NULL  
   for (i in 1:length(unique(dfCorr$Group))){   
    shade<-  cbind(shade,length(unique(dataFrame[[i]]$`group`)))}
-                  
   shadeColormap <- spvs_shadeColormap('Dark2',length(unique(dfCorr$Group)),shade,0)
   formula <- y ~ x 
   
