@@ -1,0 +1,32 @@
+export PATH=$PATH:/Applications/tarquingui.app/Contents/MacOS
+data_dir="/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/LCModelFiles"
+out_dir="/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/TarquinBaseline/TarquinAnalysis_Basis_10ms_raw"
+freq_dir="/Volumes/Samsung_T5/working/ISMRM/Philips/derivativesLCM/TarquinTransmitFreq"
+echo "$data_dir"
+echo "$out_dir"
+mkdir -p $out_dir
+#!/bin/bash
+for f in 1 2 3 4 5 6 7 8 9
+do
+	for s in 1 2 3 4 5 6 7 8 9
+	do
+	var=$( sed -n 1p ${freq_dir}/P${f}_P_S0${s}_S0${s}_PRESS_35_act.txt)
+		tarquin --input ${data_dir}/metabs/P${f}_P_S0${s}_S0${s}_PRESS_35_act_LCM_A.RAW --input_w ${data_dir}/ref/P${f}_P_S0${s}_S0${s}_PRESS_35_ref_LCM_REF.RAW --format lcm  --echo 0.035 --fs 2000 --ft $var --zfill 1 --w_att 1 --water_eddy false --w_conc 55510 --basis_lcm /Volumes/Samsung_T5/working/ISMRM/BasisSetsTarquin/Philips/3T_PRESS_Philips_35ms_MM_2048_2000.BASIS --ppm_left 4.0 --ppm_right 0.5 --end_pnt 1024   --output_txt ${out_dir}/Philips_P0${f}_P_S0${s}_S0${s}_PRESS_35_A.txt --output_fit ${out_dir}/Philips_P0${f}_P_S0${s}_S0${s}_PRESS_35_A_fit.txt --output_pdf ${out_dir}/Philips_P0${f}_P_S0${s}_S0${s}_PRESS_35_A.pdf --output_csv ${out_dir}/Philips_P0${f}_P_S0${s}_S0${s}_PRESS_35_A.csv
+	done
+	for s in 10 11 12
+	do
+	var=$( sed -n 1p ${freq_dir}/P${f}_P_S${s}_S${s}_PRESS_35_act.txt)
+		tarquin --input ${data_dir}/metabs/P${f}_P_S${s}_S${s}_PRESS_35_act_LCM_A.RAW --input_w ${data_dir}/ref/P${f}_P_S${s}_S${s}_PRESS_35_ref_LCM_REF.RAW --format lcm --echo 0.035 --fs 2000 --ft $var --zfill 1 --w_att 1 --water_eddy false --w_conc 55510 --basis_lcm /Volumes/Samsung_T5/working/ISMRM/BasisSetsTarquin/Philips/3T_PRESS_Philips_35ms_MM_2048_2000.BASIS --ppm_left 4.0 --ppm_right 0.5 --end_pnt 1024 --output_txt ${out_dir}/Philips_P0${f}_P_S${s}_S${s}_PRESS_35_A.txt --output_fit ${out_dir}/Philips_P0${f}_P_S${s}_S${s}_PRESS_35_A_fit.txt --output_pdf ${out_dir}/Philips_P0${f}_P_S${s}_S${s}_PRESS_35_A.pdf --output_csv ${out_dir}/Philips_P0${f}_P_S${s}_S${s}_PRESS_35_A.csv
+	done
+done
+
+for s in 1 2 3 4 5 6 7 8 9
+do
+	var=$( sed -n 1p ${freq_dir}/P10_P_S0${s}_S0${s}_PRESS_35_act.txt)
+	tarquin --input ${data_dir}/metabs/P10_P_S0${s}_S0${s}_PRESS_35_act_LCM_A.RAW --input_w ${data_dir}/ref/P10_P_S0${s}_S0${s}_PRESS_35_ref_LCM_REF.RAW --format lcm  --echo 0.035 --fs 2000 --ft $var --zfill 1 --w_att 1 --water_eddy false --w_conc 55510 --basis_lcm /Volumes/Samsung_T5/working/ISMRM/BasisSetsTarquin/Philips/3T_PRESS_Philips_35ms_MM_2048_2000.BASIS --ppm_left 4.0 --ppm_right 0.5 --end_pnt 1024   --output_txt ${out_dir}/Philips_P10_P_S0${s}_S0${s}_PRESS_35_A.txt --output_fit ${out_dir}/Philips_P10_P_S0${s}_S0${s}_PRESS_35_A_fit.txt --output_pdf ${out_dir}/Philips_P10_P_S0${s}_S0${s}_PRESS_35_A.pdf --output_csv ${out_dir}/Philips_P10_P_S0${s}_S0${s}_PRESS_35_A.csv
+done
+for s in 10 11 12
+do
+	var=$( sed -n 1p ${freq_dir}/P10_P_S${s}_S${s}_PRESS_35_act.txt)
+	tarquin --input ${data_dir}/metabs/P10_P_S${s}_S${s}_PRESS_35_act_LCM_A.RAW --input_w ${data_dir}/ref/P10_P_S${s}_S${s}_PRESS_35_ref_LCM_REF.RAW --format lcm --echo 0.035 --fs 2000 --ft $var --zfill 1 --w_att 1 --water_eddy false --w_conc 55510 --basis_lcm /Volumes/Samsung_T5/working/ISMRM/BasisSetsTarquin/Philips/3T_PRESS_Philips_35ms_MM_2048_2000.BASIS --ppm_left 4.0 --ppm_right 0.5 --end_pnt 1024 --output_txt ${out_dir}/Philips_P10_P_S${s}_S${s}_PRESS_35_A.txt --output_fit ${out_dir}/Philips_P10_P_S${s}_S${s}_PRESS_35_A_fit.txt --output_pdf ${out_dir}/Philips_P10_P_S${s}_S${s}_PRESS_35_A.pdf --output_csv ${out_dir}/Philips_P10_P_S${s}_S${s}_PRESS_35_A.csv
+done
