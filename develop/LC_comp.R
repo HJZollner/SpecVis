@@ -94,10 +94,6 @@ dfGETar <- spvs_AddStatsToDataframe(dfGETar,'/Volumes/Samsung_T5/working/ISMRM/G
 dfGELCM <- spvs_AddStatsToDataframe(dfGELCM,'/Volumes/Samsung_T5/working/ISMRM/GE/stat.csv')
 dfGEOsp <- spvs_AddStatsToDataframe(dfGEOsp,'/Volumes/Samsung_T5/working/ISMRM/GE/stat.csv')
 
-dfPhTar <- dfPhTar[-c(103), ]  #Cut a dataset were Ins quantification failed in Tarquin
-dfPhOsp <- dfPhOsp[-c(103), ]  #Cut a dataset were Ins quantification failed in Tarquin
-dfPhLCM <- dfPhLCM[-c(103), ]  #Cut a dataset were Ins quantification failed in Tarquin
-
 lowerLimit <- c(0.75,.05,0.4,0.75)
 upperLimit <- c(2.1,0.33,1.22,2.75)
 
@@ -263,4 +259,7 @@ g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
 ggsave(file="CorrelationPh0Ph1.pdf", p4, width = 10, height = 10,device=cairo_pdf) #saves g
 
 
-
+lowerLimit <- c(.2,.75,.2,.05,.2,.4,.2,.75)
+upperLimit <- c(.6,2.1,.6,.33,.6,1.22,.6,2.75)
+p <- spvs_Correlation(list(dfLCM,dfOsp,dfTar)," / [tCr]",c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('LCModel','Osprey','Tarquin'),NULL,lowerLimit,upperLimit, 4,c(''))
+ggsave(file="CollapsedCorrelationBaseline.pdf", p4, width = 10, height = 3.33,device=cairo_pdf) #saves g
