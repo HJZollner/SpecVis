@@ -17,12 +17,15 @@
 #      
 #   HISTORY:
 #     2020-04-15: First version of the code.
-packages <- c("ggplot2", "dplyr", "lavaan", "plyr", "cowplot", "rmarkdown","patchwork",'RColorBrewer', 'moments', 
+packages <- c("ggplot2", "dplyr", "lavaan", "plyr", "cowplot", "rmarkdown","patchwork",'RColorBrewer', 'moments', 'ggnewscale',
               "readr", "caTools", "bitops","gridExtra","svglite","spant","see","tidyr","ggpmisc",'lawstat', 'onewaytests')
 
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))  
+  install.packages('spant', dependecies = TRUE)
 }
+
+
 
 library(spant)
 library(dplyr,warn.conflicts = FALSE)
