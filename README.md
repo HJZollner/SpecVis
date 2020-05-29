@@ -7,6 +7,8 @@ SpecVis is a repository of R functions to visualize quantitative MRS results fro
 SpecVis was developed in [RStudio (Version 1.2.5019)](https://rstudio.com/) on macOS Catalina (Version 10.15.3 (19D76)) and
 the needed libraries are downloaded and installed automatically.
 
+For high-resolution pdf files you need to have a functioning cairo_pdf device. You can always change the ggsave output format to any other format. 
+
 ## Installation
 
 Download the latest **SpecVis** code from its [GitHub
