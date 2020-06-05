@@ -1,5 +1,7 @@
-<img src="/Logo.png" width="250">
 # SpecVis
+
+<img src="/Logo.png" width="250">
+
 SpecVis is a repository of R functions to visualize quantitative MRS results from different linear-combination algorithms.
 # Getting started
 
