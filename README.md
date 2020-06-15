@@ -30,7 +30,8 @@ An example [markdown](https://github.com/hezoe100/SpecVis/blob/master/examples/E
 - Boxplots with individual datapoints
 - Correlation plots with collapsed-correlations, group-level correlations, and indicators for sub-groups.
 - Correlation plots with group-level facets and correlations for sub-groups.
-- Statistics script which automatically performs appropriate statistics, including descriptive statistics, tests for normality, variance analysis, and post hoc tests. So far, only paired post hoc tests are performed.
+- Bland-Altman plots with distribution ellipse with collapsed-distribution and group-distributions.
+- Statistics script which automatically performs appropriate statistics, including descriptive statistics, tests for normality, variance analysis, and post hoc tests.
 
 ## Supported file formats
 - Osprey .csv-files
@@ -47,8 +48,7 @@ An example [markdown](https://github.com/hezoe100/SpecVis/blob/master/examples/E
 ![CorrelationFacet](/examples/CorrelationFacetSmall.png)
 
 ## Planned features
-- Tests without paired post hoc tests.
-- Bland-Altmann plots
+- Violin plots with individual data points.
 
 # Contact, Feedback, Suggestions
 
