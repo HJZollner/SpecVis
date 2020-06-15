@@ -1,4 +1,4 @@
-spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLimits,title,colNum,legendTitle){
+spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLimits,title,colNum,CVlabel, legendTitle){
   # spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLimits,title,colNum,legendTitle)
   # This function creates raincloud plots the imported dataframe. You can concatenate different 
   # frames with spvs_ConcatenateDataframe.R (e.g. from different tools) beforehand. The data
@@ -14,7 +14,8 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
   #     GroupVars = name of the column with the group variables. spvs_ConcatenateDataframe uses 'Group' by default. default = 'all datasets'
   #     lowerLimits/upperLimits = list of facet upper und lower axis Limits. You need to add one value per MeasureVar and 5 % margin will be added.
   #     title = title of the figure. default = MeasureVar / Quant or '[metabolite] / Quant' for lists.
-  #     colNum = number of columns for the facet. default = 2. 
+  #     colNum = number of columns for the facet. default = 2.
+  #     CVlabel = plot CV (CVlabel = 1) or mean/SD (CVlabel = 2) as text. default = 1. 
   #     legendTitle = title of the legend. default = ''.
   #
   #
@@ -64,6 +65,9 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
   if(missing(colNum)){
     colNum = 2
   }
+  if(missing(CVlabel)){
+    CVlabel = 1
+  }
   if(missing(legendTitle)){
     legendTitle <- ""
   }
@@ -83,6 +87,7 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
       sumcatdatTemp <- summarySE(dataFrame, measurevar = metab, groupvars=GroupVars)
       sumcatdatTemp$MetaboliteNum = rep(MetaboliteNum,nrow(sumcatdatTemp))
       sumcatdatTemp$MetabName = rep(metab,nrow(sumcatdatTemp))
+      sumcatdatTemp$ypos = 1 - 0.1 * (0 : (nrow(sumcatdatTemp)-1))
       if (MetaboliteNum == length(MeasureVar)){
         sumcatdat <- rbind(sumcatdat, sumcatdatTemp)
       }
@@ -105,6 +110,18 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
   
   sumcatdat$NumericGroupVar <- rep(0.15,length(sumcatdat$Group))
   dataFrame$NumericGroupVar <- rep(0,length(sumcatdat$Group))
+  
+  #Adding labels for CV and mean/SD
+  if(CVlabel == 1){
+    sumcatdat$label <- sprintf(
+      "CV = %.1f%%\n", sumcatdat$CV * 100
+    )
+  }
+  else{
+    sumcatdat$label <- sprintf(
+      "mean/SD = %.1f/%.2f ", sumcatdat$mean, sumcatdat$sd
+    )
+  }
 
   # 3 Generating facet limits ------------------------------------     
   facetlim = dataFrame %>% 
@@ -124,6 +141,12 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
     facetlim$MeasureVar <- limits
   }
   facetlim$NumericGroupVar <- rep(0,length(facetlim$MetaboliteNum))
+  upLim = facetlim
+  upLim = upLim %>%
+    slice(-seq(0.5 * n()))
+  upLim <- upLim[nrow(upLim):1,]
+  upLim <- upLim %>% slice(rep(1:n(), each = length(unique(Group))))
+  sumcatdat$ypos = sumcatdat$ypos * upLim$MeasureVar
   
   # 4 Creating final plot ------------------------------------  
   if(is.list(dataFrame)){ #Facet plot as a list was passed
@@ -136,6 +159,7 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
       geom_boxplot(aes_string(x = 'NumericGroupVar', y = 'MeasureVar',fill = GroupVars[1]),outlier.shape = NA, alpha = .5, width = .1,size=.2, colour = 'black')+
       geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1),size = 1.5, shape = 18) +
       geom_errorbar(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1), width = .02)+
+      geom_text(size= 4,data = sumcatdat,mapping = aes_string(x = 0.5, y = 'ypos', label = 'label',colour = GroupVars[1]),hjust=1) +
       theme_cowplot()+
       scale_colour_brewer(palette = "Dark2")+
       scale_fill_brewer(palette = "Dark2")+
@@ -151,6 +175,7 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
     geom_boxplot(aes_string(x = 'NumericGroupVar', y = 'MeasureVar',fill = GroupVars[1]),outlier.shape = NA, alpha = .5, width = .1,size=.2, colour = 'black')+
     geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1),size = 1.5, shape = 18) +
     geom_errorbar(data = sumcatdat, aes_string(y = 'mean', ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1), width = .02)+
+    geom_text(size= 4,data = sumcatdat,mapping = aes_string(x = 0.5, y = 'ypos', label = 'label',colour = GroupVars[1]),hjust=1) +
     theme_cowplot()+
     scale_colour_brewer(palette = "Dark2")+
     scale_fill_brewer(palette = "Dark2")+

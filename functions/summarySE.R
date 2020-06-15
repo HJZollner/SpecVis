@@ -42,7 +42,8 @@ summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = FALSE,
   
  datac$meanMsd <- datac$mean - datac$sd  # Calculate ymin
  datac$meanPsd <- datac$mean + datac$sd  # Calculate ymax
-
+ datac$BAMsd <- datac$mean - 1.95*datac$sd  # Calculate ymin
+ datac$BAPsd <- datac$mean + 1.95*datac$sd  # Calculate ymax  
  
  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
  datac$CV <- datac$sd / datac$mean
