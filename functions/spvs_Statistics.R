@@ -33,7 +33,7 @@ spvs_Statistics <- function(dataFrame,MeasureVar,paired){
   
   source('functions/summarySE.r')
   if(missing(paired)){
-    MeasureVar <- 0
+    paired <- 0
   }
   
   # 1 Descriptive stats ---------------------------------------------------------- 
@@ -223,7 +223,7 @@ VarAna = data.frame(VarsName,method,stat,p,differ)
 
 # 6 Post hoc test for means test ---------------------------------------------------------- 
 if (paired == 1){
-  if (all(NormShWi$normal[NormShWi$VarsName == meas] == 1) == TRUE){
+  if (any(VarAna$differ == 1) == TRUE){
   VarsName <- NULL
   p <- NULL
   differ <- NULL
@@ -274,7 +274,7 @@ if (paired == 1){
   else
   {PostHoc <- 'No significant difference in the means'}}
 else{
-  if (all(NormShWi$normal[NormShWi$VarsName == meas] == 1) == TRUE){
+  if (any(VarAna$differ == 1) == TRUE){
     VarsName <- NULL
     p <- NULL
     differ <- NULL
@@ -288,14 +288,14 @@ else{
       if (all(NormShWi$normal[NormShWi$VarsName == meas] == 1) == TRUE | descriptive$N[[1]]>50){
         if (VarAna$differ[VarAna$VarsName == meas] == 1){
           if (NormVar$VarianceDiff[NormVar$VarsName == meas] == 0){
-            postHoc <- t.test(dfPostHoc$measure, dfPostHoc$Group, paired = FALSE,
+            postHoc <- pairwise.t.test(dfPostHoc$measure, dfPostHoc$Group, paired = FALSE,
                                        p.adjust.method = "bonferroni")
             method <- rbind(method,rep('Ttest',length(uniqueGroups)-1))
             rownames(postHoc$p.value) <- paste (meas, rownames(postHoc$p.value))
             p <- rbind(p,postHoc$p.value)
             adjust <- rbind(adjust,rep(postHoc$p.adjust.method,length(uniqueGroups)-1))}
           else {
-            postHoc <- t.test(dfPostHoc$measure, dfPostHoc$Group, paired = FALSE,
+            postHoc <- pairwise.t.test(dfPostHoc$measure, dfPostHoc$Group, paired = FALSE,
                                        p.adjust.method = "bonferroni", var.equal = FALSE)
             method <- rbind(method,rep('UnVarTtest',length(uniqueGroups)-1))
             rownames(postHoc$p.value) <- paste (meas, rownames(postHoc$p.value))

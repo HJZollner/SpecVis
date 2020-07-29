@@ -1,6 +1,6 @@
-spvs_Boxplot<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLimits,title,colNum,legendTitle){
-  # spvs_Boxplot <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLimits,title,colNum,legendTitle)
-  # This function creates boxplots with individual data pointsfrom the imported dataframe. You can concatenate different 
+spvs_Violin<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLimits,title,colNum,legendTitle){
+  # spvs_Violin <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLimits,title,colNum,legendTitle)
+  # This function creates violinplots with individual data pointsfrom the imported dataframe. You can concatenate different 
   # frames with spvs_ConcatenateDataframe.R (e.g. from different tools) beforehand. The data
   # will autaomatically be facceted in case a list of measurments is passed.
   #
@@ -73,12 +73,23 @@ spvs_Boxplot<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLi
     Group <- NULL
     MetaboliteNumL <- NULL
     MetabName <- NULL
+    sumcatdat <- NULL
     MetaboliteNum <- length(MeasureVar);
-    for (metab in MeasureVar){ #Loop over MeasureVar list and create summary 
+    for (metab in MeasureVar){
       MeasureVarL <- cbind(MeasureVarL, dataFrame[names(dataFrame) == metab][[1]])
       Group <- rbind(Group,dataFrame$Group)
       MetaboliteNumL <- rbind(MetaboliteNumL,rep(MetaboliteNum,nrow(dataFrame)))
       MetabName <- rbind(MetabName,rep(metab,nrow(dataFrame)))
+      sumcatdatTemp <- summarySE(dataFrame, measurevar = metab, groupvars=GroupVars)
+      sumcatdatTemp$MetaboliteNum = rep(MetaboliteNum,nrow(sumcatdatTemp))
+      sumcatdatTemp$MetabName = rep(metab,nrow(sumcatdatTemp))
+      sumcatdatTemp$ypos = 1 - 0.1 * (0 : (nrow(sumcatdatTemp)-1))
+      if (MetaboliteNum == length(MeasureVar)){
+        sumcatdat <- rbind(sumcatdat, sumcatdatTemp)
+      }
+      else{ 
+        sumcatdat <- rbind(sumcatdat, sumcatdatTemp)
+      }
       MetaboliteNum <- MetaboliteNum - 1
     }
     MeasureVarIni <- MeasureVar
@@ -90,7 +101,10 @@ spvs_Boxplot<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLi
   }
   else{ #single MeasureVar passed
     MeasureVarIni <- MeasureVar
+    sumcatdat <- summarySE(dataFrame, measurevar = MeasureVar, groupvars=GroupVars)
   }
+  
+  sumcatdat$NumericGroupVar <- rep(0.03,length(sumcatdat$Group))
   
   dataFrame$NumericGroupVar <- rep(0,length(dataFrame$Group))
   
@@ -112,15 +126,19 @@ spvs_Boxplot<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLi
     facetlim$MeasureVar <- limits
   }
   facetlim$NumericGroupVar <- rep(0,length(facetlim$MetaboliteNum))
-  
+  dataFrame$NumericGroupVarShift1 <- dataFrame$NumericGroupVar + 0.012
+  dataFrame$NumericGroupVarShift2 <- dataFrame$NumericGroupVar - 0.012
   # 4 Creating final plot ------------------------------------  
   if(is.list(MeasureVarIni)){ #Facet plot as a list was passed
     p <- ggplot(data = dataFrame, aes_string(x = 'NumericGroupVar', y = 'MeasureVar')) +
       guides(colour=guide_legend(legendTitle))+guides(fill=guide_legend(legendTitle))+
       facet_wrap(~reorder(MetabName, -MetaboliteNum), scales = "free_y",ncol = colNum)+
       geom_blank(data=facetlim, aes_string(x = 'NumericGroupVar', y = 'MeasureVar'))+
-      geom_point(aes_string(x = 'NumericGroupVar', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .005, dodge.width = .025), size = 0.75, shape = 20)+
-      geom_boxplot(aes_string(x = 'NumericGroupVar', y = 'MeasureVar', fill = GroupVars[1]),outlier.shape = NA, alpha = .5,position = position_dodge( .025), width = .0125,size=.2, colour = 'black')+
+      geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .02, dodge.width = .3), size = 0.5, shape = 20)+
+      geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]), trim = FALSE, colour = NA, scale = 'width',position = position_dodge(0.3))+
+      geom_boxplot(aes_string(x = 'NumericGroupVarShift1', y = 'MeasureVar', fill = GroupVars[1]), alpha = 0.01,position = position_dodge(.3),width = .03,size=.3, colour = 'black')+
+      geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
+      geom_errorbar(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1]),position = position_dodge(width = 0.3), width = .02, colour = 'black')+
       theme_cowplot()+
       scale_colour_brewer(palette = "Dark2")+
       scale_fill_brewer(palette = "Dark2")+
@@ -131,12 +149,15 @@ spvs_Boxplot<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLi
     p <- ggplot(data = dataFrame, aes_string(x = 'NumericGroupVar', y = 'MeasureVar')) +
       guides(colour=guide_legend(legendTitle))+guides(fill=guide_legend(legendTitle))+
       geom_blank(data=facetlim, aes_string(x = 'NumericGroupVar', y = 'MeasureVar'))+
-      geom_point(aes_string(x = 'NumericGroupVar', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .005, dodge.width = .05), size = 0.75, shape = 20)+
-      geom_boxplot(aes_string(x = 'NumericGroupVar', y = 'MeasureVar', fill = GroupVars[1]),outlier.shape = NA, alpha = .5, width = .05,size=.2, colour = 'black')+
+      geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .02, dodge.width = .3), size = 0.5, shape = 20)+
+      geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]), trim = FALSE, colour = NA, scale = 'width',position = position_dodge(0.3))+
+      geom_boxplot(aes_string(x = 'NumericGroupVarShift1', y = 'MeasureVar', fill = GroupVars[1]), alpha = 0.01,position = position_dodge(.3),width = .03,size=.3, colour = 'black')+
+      geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
+      geom_errorbar(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1]),position = position_dodge(width = 0.3), width = .02, colour = 'black')+
       theme_cowplot()+
       scale_colour_brewer(palette = "Dark2")+
       scale_fill_brewer(palette = "Dark2")+
       ggtitle(paste(MeasureVar, Quant))+ylab(paste(MeasureVar, Quant))+xlab('')+  
       theme(plot.title = element_text(hjust = 0.5),aspect.ratio = 1,axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank())
-    }
+  }
 }# end of function
