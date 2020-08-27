@@ -259,7 +259,7 @@ pC4
 
 ### 5 - Bland Altmann plots
 
-Now we want to create Bland Altmann plots of the comparison of the different algorithms.
+Now we want to create Bland Altmann plots with the `spvs_BlandAltman()` function.
 
 ```r
 lowerLimit <- c(1,.1,0.5,1,-0.5,-0.1,-0.5,-1)
