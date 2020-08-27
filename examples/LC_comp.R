@@ -271,6 +271,7 @@ p3 <- spvs_BlandAltman(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," /
 pBA1 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
 spvs_Print(pBA1,paste(SpecVisPath ,'examples/BlandAltmann',sep='/'),c(10,10),'pdf') #saves g
+spvs_Print(pBA1,paste(SpecVisPath ,'examples/BlandAltmann',sep='/'),c(10,10),'tiff') #saves g
 
 # 6 - Facet correlation plots --------------------------------------------
 # We can also create a facetted correaltion plot, which addtionally shows correaltions for the sub-groups
