@@ -44,6 +44,8 @@ An example [markdown](https://github.com/hezoe100/SpecVis/blob/master/examples/E
 ![Raincloud](/examples/RaincloudByLCMwithLimits4colums.png)
 ### Correlation plot
 ![Correlation](/examples/CorrelationByVendorWithSubgroups.png)
+### Bland Altmann plot
+![BlandAltmann](/examples/BlandAltmann.png)
 ### Correlation facet plot
 ![CorrelationFacet](/examples/CorrelationFacetSmall.png)
 
