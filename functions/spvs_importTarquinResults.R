@@ -47,8 +47,10 @@ spvs_importTarquinResults <- function(dir,quant) {
   crlbs <- spvs_createDataFrame(results$crlbs)
   
   #Normalize to tCr
+  tempAmp <- amps$TCr
   if (quant == 'tCr'){
-    amps <- amps / amps$TCr
+    amps <- amps / tempAmp
+    crlbs <- crlbs / tempAmp
   }
   
   # 3 Create dataframe ------------------------------------------------------

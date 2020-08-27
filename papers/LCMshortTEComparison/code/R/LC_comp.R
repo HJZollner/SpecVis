@@ -21,7 +21,7 @@
 #     2020-05-11: First version of the code.
 SpecVisPath <- '~/Documents/GitHub/SpecVis'
 # 1 Load workspace -----------------------------------
-load(paste(SpecVisPath, 'papers/LCMshortTEComparison/ResultsToPlot.RData', sep = '/'))
+load(paste(SpecVisPath, 'papers/LCMshortTEComparison/data/ResultsToPlot.RData', sep = '/'))
 source('dependencies.R')
 source('spvs_importResults.R')
 source('spvs_Correlation.R')
