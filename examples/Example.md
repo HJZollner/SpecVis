@@ -257,7 +257,10 @@ pC4
 ```
 ![pC4](/examples/CorrelationAge.png)
 
-## 5 - Facet correlation plots
+### 5 - Bland Altmann plots
+![BlandAltmann](/examples/BlandAltmann.png)
+
+## 6 - Facet correlation plots
 We can also create a facetted correlation plot, which addtionally shows correlations for the sub-groups and gives an easier overview by facetting the plot.
 ```r
 lowerLimit <- c(0.75,.05,0.4,0.75)
@@ -288,7 +291,7 @@ pC5
 Let us zoom in on the tNAA facets.
 ![pC5z](/examples/CorrelationFacetSmall.png)
 
-# 6 - Statistics
+# 7 - Statistics
 Now we run a statistics script, which calculates proper statisitcs. In the current implementation paired tests are conducted.
 ```r
 stats <- spvs_Statistics(dfData,list('tNAA','tCho','Ins','Glx'))
