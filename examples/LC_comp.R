@@ -20,7 +20,27 @@
 
 # 1 - Source needed scripts and set up path -----------------------------------
 # You need to set the SpecVis directory as your working directory (setwd())
-SpecVisPath <- '~/Documents/GitHub/SpecVis'
+# We'll now track the current path to source the needed packages.
+thisPath <- function() {
+        cmdArgs <- commandArgs(trailingOnly = FALSE)
+        if (length(grep("^-f$", cmdArgs)) > 0) {
+                # R console option
+                normalizePath(dirname(cmdArgs[grep("^-f", cmdArgs) + 1]))[1]
+        } else if (length(grep("^--file=", cmdArgs)) > 0) {
+                # Rscript/R console option
+                scriptPath <- normalizePath(dirname(sub("^--file=", "", cmdArgs[grep("^--file=", cmdArgs)])))[1]
+        } else if (Sys.getenv("RSTUDIO") == "1") {
+                # RStudio
+                dirname(rstudioapi::getSourceEditorContext()$path)
+        } else if (is.null(attr(stub, "srcref")) == FALSE) {
+                # 'source'd via R console
+                dirname(normalizePath(attr(attr(stub, "srcref"), "srcfile")$filename))
+        } else {
+                stop("Cannot find file path")
+        }
+}
+SpecVisPath <- thisPath()
+SpecVisPath <- gsub("/examples","",SpecVisPath[[1]])
 source('functions/dependencies.R')
 source('functions/spvs_importResults.R')
 source('functions/spvs_Correlation.R')
@@ -29,6 +49,8 @@ source('functions/spvs_AddStatsToDataframe.R')
 source('functions/spvs_ConcatenateDataFrame.R')
 source('functions/spvs_RainCloud.R')
 source('functions/spvs_Statistics.R')
+source('functions/spvs_Print.R')
+source('functions/spvs_BlandAltman.R')
 
 
 
@@ -119,14 +141,12 @@ dfData <- dplyr::bind_rows(dfGE,dfPh,dfSi)
 # Create a collapsed overview for tNAA, tCho, Ins, and Glx of the whole dataset
 pR1 <- spvs_RainCloud(dfData, '/ [tCr]',list('tNAA','tCho','Ins','Glx'))
 pR1
-ggsave(file=paste(SpecVisPath ,'examples/RaincloudCollapsed.pdf',sep='/'),
-       pR1, width = 10, height = 10,device=cairo_pdf) #saves g
+spvs_Print(pR1,paste(SpecVisPath ,'examples/RaincloudCollapsed',sep='/'),c(10,10),'pdf') #saves g
 
 # Add groups to the plot
 pR2 <- spvs_RainCloud(dfData, '/ [tCr]',list('tNAA','tCho','Ins','Glx'),c('Group'))
 pR2
-ggsave(file=paste(SpecVisPath ,'examples/RaincloudByLCM.pdf',sep='/'),
-       pR2, width = 10, height = 10,device=cairo_pdf) #saves g
+spvs_Print(pR2,paste(SpecVisPath ,'examples/RaincloudByLCM',sep='/'),c(10,10),'pdf') #saves g
 
 
 # Add reproducible upper and lower limits to the plot
@@ -134,14 +154,12 @@ lowerLimit <- c(0.75,.05,0.4,0.75)
 upperLimit <- c(2.1,0.33,1.22,2.75)
 pR3 <- spvs_RainCloud(dfData, '/ [tCr]',list('tNAA','tCho','Ins','Glx'),c('Group'),lowerLimit,upperLimit)
 pR3
-ggsave(file=paste(SpecVisPath ,'examples/RaincloudByLCMwithLimits.pdf',sep='/'),
-       pR3, width = 10, height = 10,device=cairo_pdf) #saves g
+spvs_Print(pR3,paste(SpecVisPath ,'examples/RaincloudByLCMwithLimits',sep='/'),c(10,10),'pdf') #saves g
 
 #Add a specific title and change the number of columns
 pR4 <- spvs_RainCloud(dfData, '/ [tCr]',list('tNAA','tCho','Ins','Glx'),c('Group'),lowerLimit,upperLimit,c('Distribution Analysis'),4)
 pR4
-ggsave(file=paste(SpecVisPath ,'examples/RaincloudByLCMwithLimits4colums.pdf',sep='/'),
-       pR4, width = 20, height = 5,device=cairo_pdf) #saves g
+spvs_Print(pR4,paste(SpecVisPath ,'examples/RaincloudByLCMwithLimits4colums',sep='/'),c(20,5),'pdf') #saves g
 
 
 # 4 - Normal correlation plots --------------------------------------------
@@ -170,8 +188,7 @@ p3 <- spvs_Correlation(list(dfLCM,dfTar)," / [tCr]",c("tNAA","tCho","Ins","Glx")
                        c('',''),NULL,lowerLimit,upperLimit, 4,c(''))
 pC1 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
-ggsave(file=paste(SpecVisPath ,'examples/CorrelationCollapsed.pdf',sep='/'),
-       pC1, width = 10, height = 10,device=cairo_pdf) #saves g
+spvs_Print(pC1,paste(SpecVisPath ,'examples/CorrelationCollapsed',sep='/'),c(10,10),'pdf') #saves g
 
 # Now we want to distinguish the vendors. Therefore, we add a list of dataframes.
 # Here the number of dataframes matches the number of names to indicate x- and y axis
@@ -187,8 +204,7 @@ p3 <- spvs_Correlation(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," /
                        c('GE','Philips','Siemens','GE','Philips','Siemens'),NULL,lowerLimit,upperLimit, 4,c(''))
 pC2 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
-ggsave(file=paste(SpecVisPath ,'examples/CorrelationByVendor.pdf',sep='/'),
-       pC2, width = 10, height = 10,device=cairo_pdf) #saves g
+spvs_Print(pC2,paste(SpecVisPath ,'examples/CorrelationByVendor',sep='/'),c(10,10),'pdf') #saves g
 
 # Now we want to distinguish the sub-groups of each vendor. Again the number of sub group names
 # matches the length of dataframes.
@@ -206,8 +222,7 @@ p3 <- spvs_Correlation(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," /
                        c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
 pC3 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
-ggsave(file=paste(SpecVisPath ,'examples/CorrelationByVendorWithSubgroups.pdf',sep='/'),
-       pC3, width = 10, height = 10,device=cairo_pdf) #saves g
+spvs_Print(pC3,paste(SpecVisPath ,'examples/CorrelationByVendorWithSubgroups',sep='/'),c(10,10),'pdf') #saves g
 
 
 
@@ -233,10 +248,31 @@ p3 <- spvs_Correlation(list(dfGETar,dfPhTar,dfSiTar)," / [tCr]",
                        c('GE','Philips','Siemens'),c('group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
 pC4 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
-ggsave(file=paste(SpecVisPath ,'examples/CorrelationAge.pdf',sep='/'), pC4, width = 10, height = 10,device=cairo_pdf) #saves g
+spvs_Print(pC4,paste(SpecVisPath ,'examples/CorrelationAge',sep='/'),c(10,10),'pdf') #saves g
 
 
-# 5 - Facet correlation plots --------------------------------------------
+# 5 - Bland Altmann plots --------------------------------------------
+# Now we want to create Bland Altmann plots of the comparison of the different algorithms.
+lowerLimit <- c(1,.1,0.5,1,-0.5,-0.1,-0.5,-1)
+upperLimit <- c(2.1,0.33,1.22,2.75,0.5,0.1,0.5,1)
+
+p <- spvs_BlandAltman(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),
+                      c('Osprey','Osprey','Osprey','LCModel','LCModel','LCModel'),
+                      c('GE','Philips','Siemens','GE','Philips','Siemens'),
+                      c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4)
+p2 <- spvs_BlandAltman(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGETar,dfPhTar,dfSiTar)," / [tCr]",c("tNAA","tCho","Ins","Glx"),
+                       c('Osprey','Osprey','Osprey','Tarquin','Tarquin','Tarquin'),
+                       c('GE','Philips','Siemens','GE','Philips','Siemens'),
+                       c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
+p3 <- spvs_BlandAltman(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),
+                       c('Tarquin','Tarquin','Tarquin','LCModel','LCModel','LCModel'),
+                       c('GE','Philips','Siemens','GE','Philips','Siemens'),
+                       c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
+pBA1 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
+g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
+spvs_Print(pBA1,paste(SpecVisPath ,'examples/BlandAltmann',sep='/'),c(10,10),'pdf') #saves g
+
+# 6 - Facet correlation plots --------------------------------------------
 # We can also create a facetted correaltion plot, which addtionally shows correaltions for the sub-groups
 # and gives an easier overview by facetting the plot.
 
@@ -259,13 +295,13 @@ p3 <- spvs_Correlation_Facet(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLC
                              lowerLimit,upperLimit, 4,c(''))
 pC5 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
-ggsave(file=paste(SpecVisPath ,'examples/CorrelationFacet.pdf',sep='/'), pC5, width = 30, height = 10,device=cairo_pdf) #saves g
+spvs_Print(pC5,paste(SpecVisPath ,'examples/CorrelationFacet',sep='/'),c(30,10),'pdf') #saves g
 
-# 6 - Statistics --------------------------------------------
-# Now we run a statistics script, which calculates proper statisitcs. In the current implementation paired
+# 7 - Statistics --------------------------------------------
+# Now we run a statistics script, which calculates proper statisitcs. In the current call paired
 # tests are conducted.
 
-stats <- spvs_Statistics(dfData,list('tNAA','tCho','Ins','Glx'))
+stats <- spvs_Statistics(dfData,list('tNAA','tCho','Ins','Glx'),1)
 sink(paste(SpecVisPath ,'examples/Statistics.txt',sep='/'))
 print(stats)
 sink()

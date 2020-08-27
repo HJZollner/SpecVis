@@ -11,7 +11,7 @@
 ##   https://www.rdocumentation.org/packages/Rmisc/versions/1.5/topics/summarySE
 
 # summarySE function
-summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = FALSE,
+summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = TRUE,
                       conf.interval = .95, .drop = TRUE) {
 
   # New version of length which can handle NA's: if na.rm==T, don't count them

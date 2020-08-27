@@ -109,7 +109,7 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
   }
   
   sumcatdat$NumericGroupVar <- rep(0.15,length(sumcatdat$Group))
-  dataFrame$NumericGroupVar <- rep(0,length(sumcatdat$Group))
+  dataFrame$NumericGroupVar <- rep(0,length(dataFrame$Group))
   
   #Adding labels for CV and mean/SD
   if(CVlabel == 1){
