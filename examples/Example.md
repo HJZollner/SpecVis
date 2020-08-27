@@ -258,6 +258,30 @@ pC4
 ![pC4](/examples/CorrelationAge.png)
 
 ### 5 - Bland Altmann plots
+
+Now we want to create Bland Altmann plots of the comparison of the different algorithms.
+
+```r
+lowerLimit <- c(1,.1,0.5,1,-0.5,-0.1,-0.5,-1)
+upperLimit <- c(2.1,0.33,1.22,2.75,0.5,0.1,0.5,1)
+
+p <- spvs_BlandAltman(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),
+                      c('Osprey','Osprey','Osprey','LCModel','LCModel','LCModel'),
+                      c('GE','Philips','Siemens','GE','Philips','Siemens'),
+                      c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4)
+p2 <- spvs_BlandAltman(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGETar,dfPhTar,dfSiTar)," / [tCr]",c("tNAA","tCho","Ins","Glx"),
+                       c('Osprey','Osprey','Osprey','Tarquin','Tarquin','Tarquin'),
+                       c('GE','Philips','Siemens','GE','Philips','Siemens'),
+                       c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
+p3 <- spvs_BlandAltman(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),
+                       c('Tarquin','Tarquin','Tarquin','LCModel','LCModel','LCModel'),
+                       c('GE','Philips','Siemens','GE','Philips','Siemens'),
+                       c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
+pBA1 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
+g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
+spvs_Print(pBA1,paste(SpecVisPath ,'examples/BlandAltmann',sep='/'),c(10,10),'pdf') #saves g
+pBA1
+```
 ![BlandAltmann](/examples/BlandAltmann.png)
 
 ## 6 - Facet correlation plots
