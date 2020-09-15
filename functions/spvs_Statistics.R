@@ -304,12 +304,11 @@ else{
           }
         }}
       else{
-        postHoc <- wilcox.test(dfPostHoc$measure, dfPostHoc$Group, paired = FALSE,
+        postHoc <- wilcox.test(dfPostHoc$measure~dfPostHoc$Group, paired = FALSE,
                                         p.adjust.method = "bonferroni")
         method <- rbind(method,rep('Wilcoxon',length(uniqueGroups)-1))
-        rownames(postHoc$p.value) <- paste (meas, rownames(postHoc$p.value))
-        p <- rbind(p,postHoc$p.value)
-        adjust <- rbind(adjust,rep(postHoc$p.adjust.method,length(uniqueGroups)-1))
+        p <- rbind(p,postHoc$p.value*length(uniqueGroups)*length(MeasureVar))
+        adjust <- rbind(adjust,rep('bonferroni',length(uniqueGroups)-1))
       }
     }
     sig <- p
