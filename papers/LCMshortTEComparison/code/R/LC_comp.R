@@ -22,14 +22,14 @@
 SpecVisPath <- '~/Documents/GitHub/SpecVis'
 # 1 Load workspace -----------------------------------
 load(paste(SpecVisPath, 'papers/LCMshortTEComparison/data/ResultsToPlot.RData', sep = '/'))
-source('dependencies.R')
-source('spvs_importResults.R')
-source('spvs_Correlation.R')
-source('spvs_Correlation_Facet.R')
-source('spvs_AddStatsToDataframe.R')
-source('spvs_ConcatenateDataFrame.R')
-source('spvs_RainCloud.R')
-source('spvs_Statistics.R')
+source('functions/dependencies.R')
+source('functions/spvs_importResults.R')
+source('functions/spvs_Correlation.R')
+source('functions/spvs_Correlation_Facet.R')
+source('functions/spvs_AddStatsToDataframe.R')
+source('functions/spvs_ConcatenateDataFrame.R')
+source('functions/spvs_RainCloud.R')
+source('functions/spvs_Statistics.R')
 
 
 # 2 Figure 2 - Raincloud plots by vendors and tools -----------------------
@@ -52,9 +52,9 @@ ggsave(file="~/Documents/GitHub/SpecVis/papers/LCMshortTEComparison/Figure3.pdf"
 
 
 # Figure 3 - Correlations between LCMs ------------------------------------
-p <- spvs_Correlation(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Osprey','Osprey','Osprey','LCModel','LCModel','LCModel'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4)
-p2 <- spvs_Correlation(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGETar,dfPhTar,dfSiTar)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Osprey','Osprey','Osprey','Tarquin','Tarquin','Tarquin'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
-p3 <- spvs_Correlation(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Tarquin','Tarquin','Tarquin','LCModel','LCModel','LCModel'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
+p <- spvs_Correlation(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Osprey','Osprey','Osprey','LCModel','LCModel','LCModel'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit,48, 4)
+p2 <- spvs_Correlation(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGETar,dfPhTar,dfSiTar)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Osprey','Osprey','Osprey','Tarquin','Tarquin','Tarquin'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit,48, 4,c(''))
+p3 <- spvs_Correlation(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Tarquin','Tarquin','Tarquin','LCModel','LCModel','LCModel'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit,48, 4,c(''))
 p4 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
 ggsave(file="~/Documents/GitHub/SpecVis/papers/LCMshortTEComparison/Figure4.pdf", p4, width = 10, height = 10,device=cairo_pdf) #saves g
@@ -64,9 +64,9 @@ ggsave(file="~/Documents/GitHub/SpecVis/papers/LCMshortTEComparison/Figure4.pdf"
 lowerLimit <- c(.2,.75,.2,.05,.2,.4,.2,.75)
 upperLimit <- c(.6,2.1,.6,.33,.6,1.22,.6,2.75)
 
-p <- spvs_Correlation(list(dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('GE','Philips','Siemens'),c('group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
-p2 <- spvs_Correlation(list(dfGEOsp,dfPhOsp,dfSiOsp)," / [tCr]",c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('GE','Philips','Siemens'),c('group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
-p3 <- spvs_Correlation(list(dfGETar,dfPhTar,dfSiTar)," / [tCr]",c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('GE','Philips','Siemens'),c('group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
+p <- spvs_Correlation(list(dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('GE','Philips','Siemens'),c('group name','group name','group name'),lowerLimit,upperLimit,36, 4,c(''))
+p2 <- spvs_Correlation(list(dfGEOsp,dfPhOsp,dfSiOsp)," / [tCr]",c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('GE','Philips','Siemens'),c('group name','group name','group name'),lowerLimit,upperLimit,36, 4,c(''))
+p3 <- spvs_Correlation(list(dfGETar,dfPhTar,dfSiTar)," / [tCr]",c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('bNAA','tNAA','bCho','tCho','bIns','Ins','bGlx','Glx'),c('GE','Philips','Siemens'),c('group name','group name','group name'),lowerLimit,upperLimit,36, 4,c(''))
 p4 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
 ggsave(file="~/Documents/GitHub/SpecVis/papers/LCMshortTEComparison/Figure5.pdf", p4, width = 10, height = 10,device=cairo_pdf) #saves g
@@ -75,9 +75,9 @@ ggsave(file="~/Documents/GitHub/SpecVis/papers/LCMshortTEComparison/Figure5.pdf"
 # S 1 - Correlations between LCMs facet -----------------------------------
 lowerLimit <- c(0.75,.05,0.4,0.75)
 upperLimit <- c(2.1,0.33,1.22,2.75)
-p <- spvs_Correlation_Facet(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Osprey','Osprey','Osprey','LCModel','LCModel','LCModel'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4)
-p2 <- spvs_Correlation_Facet(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGETar,dfPhTar,dfSiTar)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Osprey','Osprey','Osprey','Tarquin','Tarquin','Tarquin'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
-p3 <- spvs_Correlation_Facet(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Tarquin','Tarquin','Tarquin','LCModel','LCModel','LCModel'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit, 4,c(''))
+p <- spvs_Correlation_Facet(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Osprey','Osprey','Osprey','LCModel','LCModel','LCModel'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit,48, 4)
+p2 <- spvs_Correlation_Facet(list(dfGEOsp,dfPhOsp,dfSiOsp,dfGETar,dfPhTar,dfSiTar)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Osprey','Osprey','Osprey','Tarquin','Tarquin','Tarquin'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit,48, 4,c(''))
+p3 <- spvs_Correlation_Facet(list(dfGETar,dfPhTar,dfSiTar,dfGELCM,dfPhLCM,dfSiLCM)," / [tCr]",c("tNAA","tCho","Ins","Glx"),c('Tarquin','Tarquin','Tarquin','LCModel','LCModel','LCModel'),c('GE','Philips','Siemens','GE','Philips','Siemens'),c('group name','group name','group name','group name','group name','group name'),lowerLimit,upperLimit,48, 4,c(''))
 p4 <- grid.arrange(p, p2, p3, ncol=1, nrow =3)
 g <- arrangeGrob(p, p2, p3, ncol=1) #generates g
 ggsave(file="~/Documents/GitHub/SpecVis/papers/LCMshortTEComparison/S1.pdf", p4, width = 30, height = 10,device=cairo_pdf) #saves g

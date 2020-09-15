@@ -1,10 +1,10 @@
-spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarNames2,HueVar,lowerLimits,upperLimits,colNum,title,legendTitle){
-  # spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarNames2,HueVar,lowerLimits,upperLimits,colNum,title,legendTitle)
+spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarNames2,HueVar,lowerLimits,upperLimits,multiComp,colNum,title,legendTitle){
+  # spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarNames2,HueVar,lowerLimits,upperLimits,multiComp,colNum,title,legendTitle)
   # Creates a correaltion plot for the list of MeasureVars. Different colors for groups and correaltions, as well as hue
   # for differentiation can be added. 
   #
   #   USAGE:
-  #     p <- spvs_Correlation_Facet(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarNames2,HueVar,lowerLimits,upperLimits,colNum,title,legendTitle)
+  #     p <- spvs_Correlation_Facet(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarNames2,HueVar,lowerLimits,upperLimits,multiComp,colNum,title,legendTitle)
   #
   #   INPUTS:
   #     dataFrame = list of data frames with metabolite estiamtes (e.g. c(dfOspreyGE,dfOspreySiemens,dfLCModelGE,dfLCModelSiemens))
@@ -14,6 +14,7 @@ spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,Gro
   #     GroupVarNames2 = list of groups of each data frame, which will create teh different facets (e.g. different patient groups or vendors c('GE','Siemens','GE','Siemens'))
   #     HueVar = list of column names for the HueVar (e.g. different sites c('group name', 'group name','group name', 'group name')).
   #     lowerLimits/upperLimits = list of facet upper und lower axis Limits. You need to add one value per MeasureVar and 5 % margin will be added.
+  #     multiComp = number of comparisons used for the bonferoni correction
   #     colNum = number of columns for the facet. default = 2.     
   #     title = title of the figure. default = MeasureVar / Quant or '[metabolite] / Quant' for lists.
   #     legendTitle = title of the legend. default = ''.
@@ -69,6 +70,9 @@ spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,Gro
   if (missing(upperLimits)){
     upperLimits <- NULL
   }
+  if (missing(multiComp)){
+    multiComp <- 1
+  }  
   if (missing(colNum)){
     colNum <- 2
   }
@@ -127,11 +131,11 @@ spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,Gro
       geom_point(aes_string(color = "Group"),size = 2, shape = 20)+
       geom_abline(slope = 1,intercept = 0,linetype="dashed",alpha = 0.5, col="black")+
       stat_fit_glance(method = 'lm', method.args = list(formula = formula),
-                      aes(color = Group,label=ifelse(..p.value..< 0.001,sprintf('R^2~"="~%.2f~"***"',
+                      aes(color = Group,label=ifelse(..p.value..< (0.001/multiComp),sprintf('R^2~"="~%.2f~"***"',
                                                                   stat(r.squared), stat(p.value)) , 
-                                       ifelse(..p.value..>=0.001 & ..p.value..<0.01, sprintf('R^2~"="~%.2f~"**"',
+                                       ifelse(..p.value..>=(0.001/multiComp) & ..p.value..<(0.01/multiComp), sprintf('R^2~"="~%.2f~"**"',
                                                                                              stat(r.squared), stat(p.value)) ,
-                                              ifelse(..p.value..>=0.01 & ..p.value..<0.05,sprintf('R^2~"="~%.2f~"*"',
+                                              ifelse(..p.value..>=(0.01/multiComp) & ..p.value..<(0.05/multiComp),sprintf('R^2~"="~%.2f~"*"',
                                                                                                   stat(r.squared), stat(p.value)) ,
                                                      sprintf('R^2~"="~%.2f~~p~"="~%.2g',stat(r.squared), stat(p.value)))))),
                       label.x = 0.95,
