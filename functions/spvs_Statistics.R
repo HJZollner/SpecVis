@@ -101,7 +101,7 @@ descriptive<-  descriptive %>%
   NormVar = data.frame(VarsName,method,stat,p,VarianceDiff)
   
   # 4 Variance post hoc test ---------------------------------------------------------- 
-  if (all(NormVar$VarianceDiff[NormVar$VarsName == meas] == 1) == FALSE ){
+  if (all(NormVar$VarianceDiff[NormVar$VarsName == meas] == 1) == TRUE ){
   LevenePostHoc <- NULL
   method <- NULL
   stat <- NULL

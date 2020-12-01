@@ -42,6 +42,8 @@ summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = TRUE,
   
  datac$meanMsd <- datac$mean - datac$sd  # Calculate ymin
  datac$meanPsd <- datac$mean + datac$sd  # Calculate ymax
+ datac$meanMsdS <- datac$mean - .03*max(datac$sd)  # Calculate ymin
+ datac$meanPsdS <- datac$mean + .03*max(datac$sd)  # Calculate ymax
  datac$BAMsd <- datac$mean - 1.95*datac$sd  # Calculate ymin
  datac$BAPsd <- datac$mean + 1.95*datac$sd  # Calculate ymax  
  

@@ -134,11 +134,12 @@ spvs_Violin<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLim
       guides(colour=guide_legend(legendTitle))+guides(fill=guide_legend(legendTitle))+
       facet_wrap(~reorder(MetabName, -MetaboliteNum), scales = "free_y",ncol = colNum)+
       geom_blank(data=facetlim, aes_string(x = 'NumericGroupVar', y = 'MeasureVar'))+
-      geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .02, dodge.width = .3), size = 0.5, shape = 20)+
-      geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]), trim = FALSE, colour = NA, scale = 'width',position = position_dodge(0.3))+
-      geom_boxplot(aes_string(x = 'NumericGroupVarShift1', y = 'MeasureVar', fill = GroupVars[1]), alpha = 0.01,position = position_dodge(.3),width = .03,size=.3, colour = 'black')+
-      geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
-      geom_errorbar(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1]),position = position_dodge(width = 0.3), width = .02, colour = 'black')+
+      geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]), trim = FALSE, colour = NA, scale = 'width',position = position_dodge(0.35))+
+      geom_boxplot(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', fill = GroupVars[1]), alpha = 0.5,position = position_dodge(.35),width = .03,size=.3, colour = 'black',outlier.shape = NA)+
+      geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = 0.005, dodge.width = .35),alpha = 0.75, size = 0.0001, shape = 20)+
+      #geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
+      geom_linerange(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1]),position = position_dodge(width = 0.35), size = .25, colour = 'black')+
+      geom_linerange(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsdS', ymax = 'meanPsdS', group = GroupVars[1]),position = position_dodge(width = 0.35), size = .25, colour = 'white')+
       theme_cowplot()+
       scale_colour_brewer(palette = "Dark2")+
       scale_fill_brewer(palette = "Dark2")+
@@ -149,10 +150,10 @@ spvs_Violin<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLim
     p <- ggplot(data = dataFrame, aes_string(x = 'NumericGroupVar', y = 'MeasureVar')) +
       guides(colour=guide_legend(legendTitle))+guides(fill=guide_legend(legendTitle))+
       geom_blank(data=facetlim, aes_string(x = 'NumericGroupVar', y = 'MeasureVar'))+
-      geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .02, dodge.width = .3), size = 0.5, shape = 20)+
+      #geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .01, dodge.width = .3), size = 0.5, shape = 20)+
       geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]), trim = FALSE, colour = NA, scale = 'width',position = position_dodge(0.3))+
       geom_boxplot(aes_string(x = 'NumericGroupVarShift1', y = 'MeasureVar', fill = GroupVars[1]), alpha = 0.01,position = position_dodge(.3),width = .03,size=.3, colour = 'black')+
-      geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
+      #geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
       geom_errorbar(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1]),position = position_dodge(width = 0.3), width = .02, colour = 'black')+
       theme_cowplot()+
       scale_colour_brewer(palette = "Dark2")+
@@ -160,4 +161,5 @@ spvs_Violin<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLim
       ggtitle(paste(MeasureVar, Quant))+ylab(paste(MeasureVar, Quant))+xlab('')+  
       theme(plot.title = element_text(hjust = 0.5),aspect.ratio = 1,axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank())
   }
+  out <- list(p,sumcatdat)
 }# end of function

@@ -146,7 +146,7 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
     slice(-seq(0.5 * n()))
   upLim <- upLim[nrow(upLim):1,]
   upLim <- upLim %>% slice(rep(1:n(), each = length(unique(Group))))
-  sumcatdat$ypos = sumcatdat$ypos * rev(upLim$MeasureVar)
+  sumcatdat$ypos = sumcatdat$ypos * upLim$MeasureVar
   
   # 4 Creating final plot ------------------------------------  
   if(is.list(dataFrame)){ #Facet plot as a list was passed
