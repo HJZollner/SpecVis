@@ -99,6 +99,21 @@ pRainp <- grid.arrange(pGEp, pPhp, pSip,pAllp, ncol=1, nrow =4)
 g <- arrangeGrob(pGEp, pPhp, pSip,pAllp, ncol=1) #generates g
 ggsave(file="~/Documents/GitHub/SpecVis/papers/LCMshortTEComparison/Figure6.pdf", pRainp, width = 10, height = 10,device=cairo_pdf) #saves g
 
+# S 3 - Raincloud plot Cr water --------------------------------------------
+lowerLimit <- c(8)
+upperLimit <- c(12)
+
+pGEp <- spvs_RainCloud(dfGEWater, '/ [tCr]',list('tCr'),c('Group'),lowerLimit,upperLimit,c(""),1)
+pGEp <- pGEp + scale_color_manual(values = ToolColorMap)+scale_fill_manual(values = ToolColorMap)
+pPhp <- spvs_RainCloud(dfPh, '/ [tCr]',list('tCr'),c('Group'),lowerLimit,upperLimit,c(""),1)
+pPhp <- pPhp + scale_color_manual(values = ToolColorMap)+scale_fill_manual(values = ToolColorMap)
+pSip <- spvs_RainCloud(dfSi, '/ [tCr]',list('tCr'),c('Group'),lowerLimit,upperLimit,c(""),1)
+pSip <- pSip + scale_color_manual(values = ToolColorMap)+scale_fill_manual(values = ToolColorMap)
+pRainp <- grid.arrange(pGEp, pPhp, pSip,pAllp, ncol=1, nrow =3)
+g <- arrangeGrob(pGEp, pPhp, pSip, ncol=1) #generates g
+ggsave(file="~/Documents/GitHub/SpecVis/papers/LCMshortTEComparison/Figure7.pdf", pRainp, width = 10, height = 10,device=cairo_pdf) #saves g
+
+
 
 # Statistics --------------------------------------------------------------
 stData <- spvs_Statistics(dfData,list('tNAA','tCho','Ins','Glx'))

@@ -1,0 +1,52 @@
+$`Descriptive Statistics`
+           Group   N       mean     median          sd      skew        BAMsd      BAPsd           se        CV
+1  LowSD LCModel 222 0.06390827 0.03919527 0.076280630 3.1473347 -0.084838956 0.21265550 0.0051196207 1.1935956
+2   LowSD Osprey 222 0.06959882 0.04342857 0.087040025 3.8488814 -0.100129231 0.23932686 0.0058417440 1.2505963
+3  LowSD Tarquin 222 0.06206925 0.03438803 0.090655450 4.6475654 -0.114708874 0.23884738 0.0060843954 1.4605532
+4  MedSD LCModel 222 0.02353304 0.01864681 0.015932084 3.2892409 -0.007534520 0.05460061 0.0010692914 0.6770091
+5   MedSD Osprey 222 0.03521993 0.03068199 0.016270943 2.9956321  0.003491594 0.06694827 0.0010920342 0.4619811
+6  MedSD Tarquin 222 0.02856004 0.02648930 0.009623672 2.3118753  0.009793883 0.04732620 0.0006458986 0.3369628
+7 HighSD LCModel 222 0.02007426 0.01951806 0.004110518 1.4470600  0.012058746 0.02808977 0.0002758799 0.2047656
+8  HighSD Osprey 222 0.02139692 0.02017712 0.006291699 0.4236263  0.009128106 0.03366573 0.0004222712 0.2940470
+9 HighSD Tarquin 222 0.01611249 0.01521776 0.006951571 0.4165150  0.002556927 0.02966805 0.0004665589 0.4314399
+
+$`Test for Normal Distribution`
+  VarsName      method      stat            p normal
+1    LowSD ShapiroWilk 0.9448672 8.460357e-24      0
+2    LowSD ShapiroWilk 0.9448672 1.827439e-24      0
+3    LowSD ShapiroWilk 0.9448672 4.652471e-25      0
+4    MedSD ShapiroWilk 0.9448672 4.381393e-23      0
+5    MedSD ShapiroWilk 0.9448672 3.876634e-20      0
+6    MedSD ShapiroWilk 0.9448672 2.950615e-17      0
+7   HighSD ShapiroWilk 0.9448672 3.195204e-11      0
+8   HighSD ShapiroWilk 0.9448672 2.359753e-04      0
+9   HighSD ShapiroWilk 0.9448672 1.843165e-07      0
+
+$`Test for Normal Distribution of Variances`
+  VarsName  method      stat            p VarianceDiff
+1    LowSD Fligner  1.294983 5.233569e-01            0
+2    MedSD Fligner 20.677382 3.235665e-05            1
+3   HighSD Fligner 80.831897 2.802700e-18            1
+
+$`Post hoc test heterogeneous variances`
+                VarsName  method        adj      stat         padj sig
+1   MedSD LCModel Osprey Fligner Bonferroni 17.728035 1.529058e-04 ***
+2   MedSD Osprey Tarquin Fligner Bonferroni  9.786870 1.054574e-02   *
+3  MedSD Tarquin LCModel Fligner Bonferroni  3.541207 3.591713e-01   0
+4  HighSD LCModel Osprey Fligner Bonferroni 39.298798 2.181991e-09 ***
+5  HighSD Osprey Tarquin Fligner Bonferroni  6.301075 7.239885e-02   0
+6 HighSD Tarquin LCModel Fligner Bonferroni 84.161441 2.735866e-19 ***
+
+$`Variance Analysis`
+  VarsName method       stat            p differ
+1    LowSD  ANOVA  0.4748462 6.221920e-01      0
+2    MedSD  Welch 29.4281611 1.127193e-12      1
+3   HighSD  Welch 38.4060344 4.906946e-16      1
+
+$`Posthoc test Variance Analysis`
+                   method multi_comp_cor      LCModel       Osprey sig.LCModel sig.Osprey
+MedSD Osprey   UnVarTtest     bonferroni 1.398179e-16           NA         ***       <NA>
+MedSD Tarquin  UnVarTtest     bonferroni 6.723683e-04 3.345997e-06         ***        ***
+HighSD Osprey  UnVarTtest     bonferroni 5.604291e-02           NA           0       <NA>
+HighSD Tarquin UnVarTtest     bonferroni 1.248386e-11 2.214506e-19         ***        ***
+
