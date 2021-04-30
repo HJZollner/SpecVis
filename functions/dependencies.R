@@ -18,7 +18,7 @@
 #   HISTORY:
 #     2020-04-15: First version of the code.
 packages <- c("ggplot2", "dplyr", "lavaan", "plyr", "cowplot", "rmarkdown","patchwork",'RColorBrewer', 'moments', 'ggnewscale',
-              "readr", "caTools", "bitops","gridExtra","svglite","spant","see","tidyr","ggpmisc",'lawstat', 'onewaytests')
+              "readr", "caTools", "bitops","gridExtra","svglite","spant","see","tidyr","ggpmisc",'lawstat', 'onewaytests','ggExtra','ggthemes')
 
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))  
@@ -46,3 +46,7 @@ library(patchwork)
 library(lawstat)
 library(onewaytests)
 library(moments)
+
+# This is for the tufte box plots
+library(ggExtra)
+library(ggthemes)

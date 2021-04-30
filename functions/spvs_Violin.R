@@ -104,8 +104,8 @@ spvs_Violin<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLim
     sumcatdat <- summarySE(dataFrame, measurevar = MeasureVar, groupvars=GroupVars)
   }
   
-  sumcatdat$NumericGroupVar <- rep(0.03,length(sumcatdat$Group))
-  
+  sumcatdat$NumericGroupVar <- rep(-.012,length(sumcatdat$Group))
+  #sumcatdat$NumericGroupVar <- as.numeric(rownames(sumcatdat)) * 0.012
   dataFrame$NumericGroupVar <- rep(0,length(dataFrame$Group))
   
   # 3 Generating facet limits ------------------------------------     
@@ -122,7 +122,7 @@ spvs_Violin<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLim
   if (!is.null(upperLimits)){ #import facet limits if given
     upperLimits <- upperLimits + (upperLimits-lowerLimits)*0.05
     lowerLimits <- lowerLimits - (upperLimits-lowerLimits)*0.05
-    limits <- c(rev(lowerLimits),rev(upperLimits))
+    limits <- c((lowerLimits),(upperLimits))
     facetlim$MeasureVar <- limits
   }
   facetlim$NumericGroupVar <- rep(0,length(facetlim$MetaboliteNum))
@@ -130,16 +130,16 @@ spvs_Violin<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLim
   dataFrame$NumericGroupVarShift2 <- dataFrame$NumericGroupVar - 0.012
   # 4 Creating final plot ------------------------------------  
   if(is.list(MeasureVarIni)){ #Facet plot as a list was passed
-    p <- ggplot(data = dataFrame, aes_string(x = 'NumericGroupVar', y = 'MeasureVar')) +
+   p <- ggplot(data = dataFrame, aes_string(x = 'NumericGroupVar', y = 'MeasureVar')) +
       guides(colour=guide_legend(legendTitle))+guides(fill=guide_legend(legendTitle))+
       facet_wrap(~reorder(MetabName, -MetaboliteNum), scales = "free_y",ncol = colNum)+
       geom_blank(data=facetlim, aes_string(x = 'NumericGroupVar', y = 'MeasureVar'))+
-      geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]), trim = FALSE, colour = NA, scale = 'width',position = position_dodge(0.35))+
-      geom_boxplot(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', fill = GroupVars[1]), alpha = 0.5,position = position_dodge(.35),width = .03,size=.3, colour = 'black',outlier.shape = NA)+
-      geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = 0.005, dodge.width = .35),alpha = 0.75, size = 0.0001, shape = 20)+
-      #geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
-      geom_linerange(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1]),position = position_dodge(width = 0.35), size = .25, colour = 'black')+
-      geom_linerange(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsdS', ymax = 'meanPsdS', group = GroupVars[1]),position = position_dodge(width = 0.35), size = .25, colour = 'white')+
+      geom_flat_violin(data = dataFrame,aes_string(colour = GroupVars[1]), trim = FALSE, fill = NA, scale = 'count',position = position_dodge(0.35))+
+      geom_tufteboxplot(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', fill = GroupVars[1], colour = GroupVars[1]), alpha = 1,position = position_dodge(.35), shape = 15)+
+     #geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = 0.005, dodge.width = .35),alpha = 0.75, size = 0.0001, shape = 20)+
+      #geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.35),size = 1, shape = 1) +
+     # geom_linerange(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1]),position = position_dodge(width = 0.35), size = .25, colour = 'black')+
+     # geom_linerange(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsdS', ymax = 'meanPsdS', group = GroupVars[1]),position = position_dodge(width = 0.35), size = .25, colour = 'black')+
       theme_cowplot()+
       scale_colour_brewer(palette = "Dark2")+
       scale_fill_brewer(palette = "Dark2")+
@@ -150,10 +150,11 @@ spvs_Violin<- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,upperLim
     p <- ggplot(data = dataFrame, aes_string(x = 'NumericGroupVar', y = 'MeasureVar')) +
       guides(colour=guide_legend(legendTitle))+guides(fill=guide_legend(legendTitle))+
       geom_blank(data=facetlim, aes_string(x = 'NumericGroupVar', y = 'MeasureVar'))+
-      #geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .01, dodge.width = .3), size = 0.5, shape = 20)+
+      geom_point(aes_string(x = 'NumericGroupVarShift2', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .01, dodge.width = .3), size = 0.5, shape = 20)+
       geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]), trim = FALSE, colour = NA, scale = 'width',position = position_dodge(0.3))+
-      geom_boxplot(aes_string(x = 'NumericGroupVarShift1', y = 'MeasureVar', fill = GroupVars[1]), alpha = 0.01,position = position_dodge(.3),width = .03,size=.3, colour = 'black')+
-      #geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
+      geom_boxplot(aes_string(x = 'NumericGroupVarShift1', y = 'MeasureVar', fill = GroupVars[1]), alpha = 0.01,position = position_dodge(.3),width = .03,size=.3, colour = 'black',outlier.shape = NA)+
+      geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1]),position = position_dodge(width = 0.3),size = 1.5, shape = 18, colour = 'black') +
+      geom_dotplot(binaxis = "y", stackdir = "center", binpositions="all")+
       geom_errorbar(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1]),position = position_dodge(width = 0.3), width = .02, colour = 'black')+
       theme_cowplot()+
       scale_colour_brewer(palette = "Dark2")+

@@ -121,8 +121,13 @@ spvs_Correlation_Facet <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,Gro
   shadeColormap <- spvs_shadeColormap('Dark2',length(unique(dfCorr$Group)),shade,0)
   # 3 Creating final plot ------------------------------------ 
   for (MeasVar in MeasureVar){ #Loop over MeasureVar list
+    if (!is.null(HueVar)){  #No hue is applied
   dfCorr <- subset(dfCorrAll, MetabName==MeasVar,select=MeasureVar1:HueVar)
-  facetlim <- subset(facetlimAll, MetabName==MeasVar,select=MetabName:MetaboliteNum)
+  facetlim <- subset(facetlimAll, MetabName==MeasVar,select=MetabName:MetaboliteNum)}
+    else{
+      dfCorr <- subset(dfCorrAll, MetabName==MeasVar,select=MeasureVar1:MetaboliteNum)
+      facetlim <- subset(facetlimAll, MetabName==MeasVar,select=MetabName:MetaboliteNum)  
+    }
   
     pTemp<-  ggplot(dfCorr, aes_string(x = "MeasureVar1", y = "MeasureVar2")) +
       geom_blank(data=facetlim)+
