@@ -1,0 +1,62 @@
+$`Descriptive Statistics`
+                    Group  N       mean     median         sd      skew   meanMsdS   meanPsdS       BAMsd
+1         GABAtoCr B-NoMM 61 0.12935230 0.12337458 0.05364907 0.8241236 0.12735083 0.13135377  0.02473661
+2    GABAtoCr C-GABAFixed 61 0.07911219 0.06540690 0.06423867 1.4204227 0.07711072 0.08111366 -0.04615322
+3 GABAtoCr D-soft1to1GABA 61 0.09352267 0.08109417 0.06671565 1.3287851 0.09152120 0.09552414 -0.03657284
+4   GABAtoCr E-FixedGauss 61 0.08516006 0.07422642 0.06210977 1.3433267 0.08315859 0.08716153 -0.03595398
+5    GABAtoCr F-FreeGauss 61 0.08386819 0.06712669 0.06543564 1.2283209 0.08186672 0.08586966 -0.04373131
+6    GABAtoCr G-MM09Fixed 61 0.08826717 0.06874846 0.06450681 1.0413581 0.08626570 0.09026864 -0.03752110
+7 GABAtoCr H-soft3to2MM09 61 0.08819386 0.07917836 0.06319656 1.0366997 0.08619239 0.09019533 -0.03503944
+      BAPsd          se        CV
+1 0.2339680 0.006869059 0.4147516
+2 0.2043776 0.008224919 0.8119946
+3 0.2236182 0.008542063 0.7133633
+4 0.2062741 0.007952341 0.7293298
+5 0.2114677 0.008378176 0.7802201
+6 0.2140554 0.008259250 0.7308131
+7 0.2114272 0.008091491 0.7165642
+
+$`Test for Normal Distribution`
+  VarsName      method      stat            p normal
+1 GABAtoCr ShapiroWilk 0.9212314 6.894615e-03      0
+2 GABAtoCr ShapiroWilk 0.9212314 5.140048e-06      0
+3 GABAtoCr ShapiroWilk 0.9212314 2.390336e-05      0
+4 GABAtoCr ShapiroWilk 0.9212314 2.006135e-06      0
+5 GABAtoCr ShapiroWilk 0.9212314 9.018091e-06      0
+6 GABAtoCr ShapiroWilk 0.9212314 1.156037e-04      0
+7 GABAtoCr ShapiroWilk 0.9212314 7.718011e-04      0
+
+$`Test for Normal Distribution of Variances`
+  VarsName  method     stat         p VarianceDiff
+1 GABAtoCr Fligner 1.382582 0.9669094            0
+
+$`Post hoc test heterogeneous variances`
+[1] "No significant difference in the variance"
+
+$`Variance Analysis`
+  VarsName method     stat            p differ
+1 GABAtoCr  ANOVA 4.367971 0.0002707957      1
+
+$`Posthoc test Variance Analysis`
+                             method multi_comp_cor       B.NoMM C.GABAFixed D.soft1to1GABA E.FixedGauss
+GABAtoCr C-GABAFixed    pairedTtest     bonferroni 4.253688e-15          NA             NA           NA
+GABAtoCr D-soft1to1GABA pairedTtest     bonferroni 1.371446e-09  0.01574463             NA           NA
+GABAtoCr E-FixedGauss   pairedTtest     bonferroni 1.933443e-13  1.00000000      0.5053771           NA
+GABAtoCr F-FreeGauss    pairedTtest     bonferroni 1.376875e-12  1.00000000      0.2595670            1
+GABAtoCr G-MM09Fixed    pairedTtest     bonferroni 5.117078e-11  1.00000000      1.0000000            1
+GABAtoCr H-soft3to2MM09 pairedTtest     bonferroni 3.341449e-13  0.56027586      1.0000000            1
+                        F.FreeGauss G.MM09Fixed sig.B.NoMM sig.C.GABAFixed sig.D.soft1to1GABA
+GABAtoCr C-GABAFixed             NA          NA        ***            <NA>               <NA>
+GABAtoCr D-soft1to1GABA          NA          NA        ***               *               <NA>
+GABAtoCr E-FixedGauss            NA          NA        ***               0                  0
+GABAtoCr F-FreeGauss             NA          NA        ***               0                  0
+GABAtoCr G-MM09Fixed              1          NA        ***               0                  0
+GABAtoCr H-soft3to2MM09           1           1        ***               0                  0
+                        sig.E.FixedGauss sig.F.FreeGauss sig.G.MM09Fixed
+GABAtoCr C-GABAFixed                <NA>            <NA>            <NA>
+GABAtoCr D-soft1to1GABA             <NA>            <NA>            <NA>
+GABAtoCr E-FixedGauss               <NA>            <NA>            <NA>
+GABAtoCr F-FreeGauss                   0            <NA>            <NA>
+GABAtoCr G-MM09Fixed                   0               0            <NA>
+GABAtoCr H-soft3to2MM09                0               0               0
+

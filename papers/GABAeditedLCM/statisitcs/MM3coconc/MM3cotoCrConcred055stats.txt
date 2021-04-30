@@ -1,0 +1,49 @@
+$`Descriptive Statistics`
+                    Group  N      mean    median         sd        skew  meanMsdS  meanPsdS      BAMsd     BAPsd
+1         GABAtoCr B-NoMM 61 0.2199969 0.2164260 0.06188931  0.33496754 0.2181403 0.2218536 0.09931278 0.3406811
+2    GABAtoCr C-GABAFixed 61 0.3275817 0.3172041 0.04105419  0.73505018 0.3257251 0.3294384 0.24752607 0.4076374
+3 GABAtoCr D-soft1to1GABA 61 0.1899378 0.1932095 0.02583105 -0.27969055 0.1880812 0.1917945 0.13956729 0.2403084
+4   GABAtoCr E-FixedGauss 61 0.2327382 0.2339017 0.03915787  0.09262308 0.2308815 0.2345948 0.15638032 0.3090960
+5    GABAtoCr F-FreeGauss 61 0.2258104 0.2356566 0.03812319 -0.26437047 0.2239537 0.2276671 0.15147015 0.3001506
+           se        CV
+1 0.007924114 0.2813190
+2 0.005256450 0.1253250
+3 0.003307327 0.1359974
+4 0.005013651 0.1682486
+5 0.004881175 0.1688284
+
+$`Test for Normal Distribution`
+  VarsName      method      stat          p normal
+1 GABAtoCr ShapiroWilk 0.9742688 0.75468506      1
+2 GABAtoCr ShapiroWilk 0.9742688 0.00525309      0
+3 GABAtoCr ShapiroWilk 0.9742688 0.04503149      0
+4 GABAtoCr ShapiroWilk 0.9742688 0.54860730      1
+5 GABAtoCr ShapiroWilk 0.9742688 0.22587639      1
+
+$`Test for Normal Distribution of Variances`
+  VarsName  method     stat            p VarianceDiff
+1 GABAtoCr Fligner 30.61189 3.673313e-06            1
+
+$`Post hoc test heterogeneous variances`
+                        VarsName  method        adj      stat         padj sig
+1    GABAtoCr C-GABAFixed B-NoMM Fligner Bonferroni  8.502931 1.418299e-02   *
+2 GABAtoCr D-soft1to1GABA B-NoMM Fligner Bonferroni 23.710554 4.478674e-06 ***
+3   GABAtoCr E-FixedGauss B-NoMM Fligner Bonferroni  9.356447 8.888098e-03  **
+4    GABAtoCr F-FreeGauss B-NoMM Fligner Bonferroni 10.102874 5.921530e-03  **
+
+$`Variance Analysis`
+  VarsName method     stat            p differ
+1 GABAtoCr  Welch 121.7013 1.221761e-45      1
+
+$`Posthoc test Variance Analysis`
+                                  method multi_comp_cor       B.NoMM  C.GABAFixed D.soft1to1GABA E.FixedGauss
+GABAtoCr C-GABAFixed    UnVarPairedTtest     bonferroni 1.309409e-19           NA             NA           NA
+GABAtoCr D-soft1to1GABA UnVarPairedTtest     bonferroni 1.423424e-02 7.021051e-40             NA           NA
+GABAtoCr E-FixedGauss   UnVarPairedTtest     bonferroni 1.000000e+00 2.679758e-28   1.356086e-16           NA
+GABAtoCr F-FreeGauss    UnVarPairedTtest     bonferroni 1.000000e+00 3.539477e-29   4.111097e-21    0.5293931
+                        sig.B.NoMM sig.C.GABAFixed sig.D.soft1to1GABA sig.E.FixedGauss
+GABAtoCr C-GABAFixed           ***            <NA>               <NA>             <NA>
+GABAtoCr D-soft1to1GABA          *             ***               <NA>             <NA>
+GABAtoCr E-FixedGauss            0             ***                ***             <NA>
+GABAtoCr F-FreeGauss             0             ***                ***                0
+

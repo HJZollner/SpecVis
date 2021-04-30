@@ -1,0 +1,42 @@
+$`Descriptive Statistics`
+                    Group  N       mean     median         sd     skew   meanMsdS   meanPsdS       BAMsd
+1         GABAtoCr B-NoMM 61 0.03861456 0.02815453 0.03744109 1.309929 0.03736105 0.03986806 -0.03439558
+2    GABAtoCr C-GABAFixed 61 0.03345484 0.01952152 0.04158443 1.787487 0.03220134 0.03470835 -0.04763480
+3 GABAtoCr D-soft1to1GABA 61 0.03186578 0.02138429 0.03528313 1.413063 0.03061227 0.03311928 -0.03693633
+4   GABAtoCr E-FixedGauss 61 0.03470174 0.02634915 0.03633992 1.479783 0.03344824 0.03595524 -0.03616111
+5    GABAtoCr F-FreeGauss 61 0.03274795 0.02593014 0.03299998 1.103720 0.03149445 0.03400145 -0.03160201
+6    GABAtoCr G-MM09Fixed 61 0.03858479 0.02581833 0.04178341 1.616177 0.03733128 0.03983829 -0.04289286
+7 GABAtoCr H-soft3to2MM09 61 0.03621123 0.02568132 0.03659652 1.192117 0.03495773 0.03746473 -0.03515198
+       BAPsd          se        CV
+1 0.11162469 0.004793841 0.9696108
+2 0.11454449 0.005324341 1.2430018
+3 0.10066788 0.004517542 1.1072421
+4 0.10556459 0.004652850 1.0472075
+5 0.09709791 0.004225215 1.0076961
+6 0.12006244 0.005349817 1.0828986
+7 0.10757444 0.004685704 1.0106400
+
+$`Test for Normal Distribution`
+  VarsName      method     stat            p normal
+1 GABAtoCr ShapiroWilk 0.871164 5.115990e-06      0
+2 GABAtoCr ShapiroWilk 0.871164 4.349866e-08      0
+3 GABAtoCr ShapiroWilk 0.871164 4.776504e-07      0
+4 GABAtoCr ShapiroWilk 0.871164 1.136989e-06      0
+5 GABAtoCr ShapiroWilk 0.871164 9.464976e-06      0
+6 GABAtoCr ShapiroWilk 0.871164 3.100646e-07      0
+7 GABAtoCr ShapiroWilk 0.871164 1.179327e-05      0
+
+$`Test for Normal Distribution of Variances`
+  VarsName  method     stat        p VarianceDiff
+1 GABAtoCr Fligner 1.678685 0.946755            0
+
+$`Post hoc test heterogeneous variances`
+[1] "No significant difference in the variance"
+
+$`Variance Analysis`
+  VarsName method      stat        p differ
+1 GABAtoCr  ANOVA 0.3212362 0.925832      0
+
+$`Posthoc test Variance Analysis`
+[1] "No significant difference in the means"
+

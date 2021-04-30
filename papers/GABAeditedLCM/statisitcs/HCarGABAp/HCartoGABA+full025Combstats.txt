@@ -1,0 +1,110 @@
+$`Descriptive Statistics`
+                       Group  N      mean    median        sd      skew  meanMsdS  meanPsdS      BAMsd
+1         HCartoGABAp B-NoMM 61 18.624908 16.582106 13.177011 0.5516742 18.229598 19.020219  -7.070262
+2    HCartoGABAp C-GABAFixed 61  9.653615  7.040352 10.310873 1.1654013  9.258305 10.048925 -10.452588
+3 HCartoGABAp D-soft1to1GABA 61 10.860313  7.334032 11.281521 1.1689399 10.465003 11.255623 -11.138653
+4   HCartoGABAp E-FixedGauss 61  9.635635  7.913053  9.117071 1.0341666  9.240324 10.030945  -8.142655
+5    HCartoGABAp F-FreeGauss 61  9.258153  8.333901  8.672196 0.7969855  8.862842  9.653463  -7.652630
+6    HCartoGABAp G-MM09Fixed 61 11.157730  8.706340 11.137461 1.5037399 10.762419 11.553040 -10.560320
+7 HCartoGABAp H-soft3to2MM09 61  9.714482  7.843707  9.292669 1.0463854  9.319172 10.109792  -8.406222
+     BAPsd       se        CV
+1 44.32008 1.687143 0.7074940
+2 29.75982 1.320172 1.0680842
+3 32.85928 1.444451 1.0387841
+4 27.41392 1.167321 0.9461828
+5 26.16894 1.110361 0.9367091
+6 32.87578 1.426006 0.9981835
+7 27.83519 1.189804 0.9565789
+
+$`Test for Normal Distribution`
+     VarsName      method      stat            p normal
+1 HCartoGABAp ShapiroWilk 0.8893449 1.776981e-02      0
+2 HCartoGABAp ShapiroWilk 0.8893449 4.122866e-06      0
+3 HCartoGABAp ShapiroWilk 0.8893449 3.223853e-06      0
+4 HCartoGABAp ShapiroWilk 0.8893449 5.547342e-05      0
+5 HCartoGABAp ShapiroWilk 0.8893449 7.036615e-05      0
+6 HCartoGABAp ShapiroWilk 0.8893449 7.941469e-07      0
+7 HCartoGABAp ShapiroWilk 0.8893449 4.815411e-05      0
+
+$`Test for Normal Distribution of Variances`
+     VarsName  method    stat          p VarianceDiff
+1 HCartoGABAp Fligner 14.6707 0.02297853            1
+
+$`Post hoc test heterogeneous variances`
+                           VarsName  method        adj      stat       padj sig
+1    HCartoGABAp C-GABAFixed B-NoMM Fligner Bonferroni  5.562867 0.11007208   0
+2 HCartoGABAp D-soft1to1GABA B-NoMM Fligner Bonferroni  3.322923 0.40992160   0
+3   HCartoGABAp E-FixedGauss B-NoMM Fligner Bonferroni  9.591663 0.01172777   *
+4    HCartoGABAp F-FreeGauss B-NoMM Fligner Bonferroni 10.496459 0.00717621  **
+5    HCartoGABAp G-MM09Fixed B-NoMM Fligner Bonferroni  7.103712 0.04615469   *
+6 HCartoGABAp H-soft3to2MM09 B-NoMM Fligner Bonferroni  9.349513 0.01338268   *
+
+$`Variance Analysis`
+     VarsName method     stat            p differ
+1 HCartoGABAp  Welch 4.257994 0.0004808221      1
+
+$`Posthoc test Variance Analysis`
+                                     method multi_comp_cor       B.NoMM C.GABAFixed D.soft1to1GABA
+HCartoGABAp C-GABAFixed    UnVarPairedTtest     bonferroni 1.153544e-08          NA             NA
+HCartoGABAp D-soft1to1GABA UnVarPairedTtest     bonferroni 1.349930e-05           1             NA
+HCartoGABAp E-FixedGauss   UnVarPairedTtest     bonferroni 5.984425e-07           1              1
+HCartoGABAp F-FreeGauss    UnVarPairedTtest     bonferroni 3.147148e-07           1              1
+HCartoGABAp G-MM09Fixed    UnVarPairedTtest     bonferroni 1.539225e-05           1              1
+HCartoGABAp H-soft3to2MM09 UnVarPairedTtest     bonferroni 4.732232e-08           1              1
+                           E.FixedGauss F.FreeGauss G.MM09Fixed sig.B.NoMM sig.C.GABAFixed
+HCartoGABAp C-GABAFixed              NA          NA          NA        ***            <NA>
+HCartoGABAp D-soft1to1GABA           NA          NA          NA        ***               0
+HCartoGABAp E-FixedGauss             NA          NA          NA        ***               0
+HCartoGABAp F-FreeGauss               1          NA          NA        ***               0
+HCartoGABAp G-MM09Fixed               1           1          NA        ***               0
+HCartoGABAp H-soft3to2MM09            1           1           1        ***               0
+                           sig.D.soft1to1GABA sig.E.FixedGauss sig.F.FreeGauss sig.G.MM09Fixed
+HCartoGABAp C-GABAFixed                  <NA>             <NA>            <NA>            <NA>
+HCartoGABAp D-soft1to1GABA               <NA>             <NA>            <NA>            <NA>
+HCartoGABAp E-FixedGauss                    0             <NA>            <NA>            <NA>
+HCartoGABAp F-FreeGauss                     0                0            <NA>            <NA>
+HCartoGABAp G-MM09Fixed                     0                0               0            <NA>
+HCartoGABAp H-soft3to2MM09                  0                0               0               0
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dataFrame[, meas] and dataFrame[, "Group"]
+Fligner-Killeen:med chi-squared = 19.279, df = 4, p-value = 0.0006926
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 9.8529, df = 1, p-value = 0.001696
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 12.255, df = 1, p-value = 0.0004641
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 15.976, df = 1, p-value = 6.414e-05
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 12.535, df = 1, p-value = 0.0003994
+
+
+  Welch's Heteroscedastic F Test (alpha = 0.05) 
+------------------------------------------------------------- 
+  data : measure and Group 
+
+  statistic  : 79.14926 
+  num df     : 4 
+  denom df   : 147.7934 
+  p.value    : 9.273788e-36 
+
+  Result     : Difference is statistically significant. 
+------------------------------------------------------------- 

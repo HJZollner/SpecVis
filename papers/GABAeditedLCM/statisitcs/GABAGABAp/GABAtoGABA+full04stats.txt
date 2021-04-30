@@ -1,0 +1,74 @@
+$`Descriptive Statistics`
+                       Group  N     mean   median       sd       skew meanMsdS meanPsdS    BAMsd    BAPsd
+1         GABAtoGABAp B-NoMM 61 51.33915 50.66910 5.549989  0.3152980 51.11210 51.56620 40.51667 62.16163
+2    GABAtoGABAp C-GABAFixed 61 51.33915 50.66910 5.549989  0.3152980 51.11210 51.56620 40.51667 62.16163
+3 GABAtoGABAp D-soft1to1GABA 61 51.33915 50.66910 5.549989  0.3152980 51.11210 51.56620 40.51667 62.16163
+4   GABAtoGABAp E-FixedGauss 61 38.04613 38.91166 7.322232 -0.2073329 37.81908 38.27318 23.76778 52.32449
+5    GABAtoGABAp F-FreeGauss 61 38.09981 38.15462 7.568292  0.2595727 37.87276 38.32686 23.34164 52.85798
+6    GABAtoGABAp G-MM09Fixed 61 45.05027 44.87311 5.978106  0.1309174 44.82322 45.27732 33.39297 56.70758
+7 GABAtoGABAp H-soft3to2MM09 61 39.99502 40.79989 6.576515 -0.1474533 39.76797 40.22207 27.17082 52.81922
+         se        CV
+1 0.7106033 0.1081044
+2 0.7106033 0.1081044
+3 0.7106033 0.1081044
+4 0.9375158 0.1924567
+5 0.9690205 0.1986438
+6 0.7654180 0.1326986
+7 0.8420365 0.1644333
+
+$`Test for Normal Distribution`
+     VarsName      method      stat          p normal
+1 GABAtoGABAp ShapiroWilk 0.9819426 0.09474528      1
+2 GABAtoGABAp ShapiroWilk 0.9819426 0.09474528      1
+3 GABAtoGABAp ShapiroWilk 0.9819426 0.09474528      1
+4 GABAtoGABAp ShapiroWilk 0.9819426 0.80804452      1
+5 GABAtoGABAp ShapiroWilk 0.9819426 0.88204156      1
+6 GABAtoGABAp ShapiroWilk 0.9819426 0.52378604      1
+7 GABAtoGABAp ShapiroWilk 0.9819426 0.50462278      1
+
+$`Test for Normal Distribution of Variances`
+     VarsName  method     stat         p VarianceDiff
+1 GABAtoGABAp Fligner 16.41048 0.0117124            1
+
+$`Post hoc test heterogeneous variances`
+                           VarsName  method        adj         stat       padj sig
+1    GABAtoGABAp C-GABAFixed B-NoMM Fligner Bonferroni 4.170903e-14 5.99999902   0
+2 GABAtoGABAp D-soft1to1GABA B-NoMM Fligner Bonferroni 4.170903e-14 5.99999902   0
+3   GABAtoGABAp E-FixedGauss B-NoMM Fligner Bonferroni 4.572554e+00 0.19492856   0
+4    GABAtoGABAp F-FreeGauss B-NoMM Fligner Bonferroni 6.888956e+00 0.05203795   0
+5    GABAtoGABAp G-MM09Fixed B-NoMM Fligner Bonferroni 1.593004e+00 1.24138490   0
+6 GABAtoGABAp H-soft3to2MM09 B-NoMM Fligner Bonferroni 3.940409e+00 0.28283585   0
+
+$`Variance Analysis`
+     VarsName method     stat            p differ
+1 GABAtoGABAp  Welch 58.72665 2.130131e-40      1
+
+$`Posthoc test Variance Analysis`
+                                     method multi_comp_cor       B.NoMM  C.GABAFixed D.soft1to1GABA
+GABAtoGABAp C-GABAFixed    UnVarPairedTtest     bonferroni          NaN           NA             NA
+GABAtoGABAp D-soft1to1GABA UnVarPairedTtest     bonferroni          NaN          NaN             NA
+GABAtoGABAp E-FixedGauss   UnVarPairedTtest     bonferroni 3.347417e-21 3.347417e-21   3.347417e-21
+GABAtoGABAp F-FreeGauss    UnVarPairedTtest     bonferroni 1.854092e-27 1.854092e-27   1.854092e-27
+GABAtoGABAp G-MM09Fixed    UnVarPairedTtest     bonferroni 2.774609e-09 2.774609e-09   2.774609e-09
+GABAtoGABAp H-soft3to2MM09 UnVarPairedTtest     bonferroni 5.664081e-19 5.664081e-19   5.664081e-19
+                           E.FixedGauss  F.FreeGauss G.MM09Fixed sig.B.NoMM sig.C.GABAFixed
+GABAtoGABAp C-GABAFixed              NA           NA          NA        NaN            <NA>
+GABAtoGABAp D-soft1to1GABA           NA           NA          NA        NaN             NaN
+GABAtoGABAp E-FixedGauss             NA           NA          NA        ***             ***
+GABAtoGABAp F-FreeGauss    1.000000e+00           NA          NA        ***             ***
+GABAtoGABAp G-MM09Fixed    3.168291e-07 9.523004e-08          NA        ***             ***
+GABAtoGABAp H-soft3to2MM09 4.825359e-01 5.090427e-01 8.19766e-06        ***             ***
+                           sig.D.soft1to1GABA sig.E.FixedGauss sig.F.FreeGauss sig.G.MM09Fixed
+GABAtoGABAp C-GABAFixed                  <NA>             <NA>            <NA>            <NA>
+GABAtoGABAp D-soft1to1GABA               <NA>             <NA>            <NA>            <NA>
+GABAtoGABAp E-FixedGauss                  ***             <NA>            <NA>            <NA>
+GABAtoGABAp F-FreeGauss                   ***                0            <NA>            <NA>
+GABAtoGABAp G-MM09Fixed                   ***              ***             ***            <NA>
+GABAtoGABAp H-soft3to2MM09                ***                0               0             ***
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dataFrame[, meas] and dataFrame[, "Group"]
+Fligner-Killeen:med chi-squared = 4.6964, df = 6, p-value = 0.5833
+
