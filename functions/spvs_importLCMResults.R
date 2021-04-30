@@ -34,10 +34,11 @@ spvs_importLCMResults <- function(dir,quant) {
   # 2 Import files ---------------------------------------------------------
   # Create a list with all .coord files in the directory 
   files <- list.files(path = dir,pattern = ".coord$",full.names = TRUE)
+  source("functions/spvs_read_lcm_coord.R")
   # Loop over files  
   results <- NULL
   for (file in files) { #start file loop
-    subject <- read_lcm_coord(file)
+    subject <- spvs_read_lcm_coord(file)
     results$amps <- rbind(results$amps, subject$res_tab$amps)
     results$crlbs <- rbind(results$crlbs, subject$res_tab$crlbs)
     results$diags <- rbind(results$diags, subject$res_tab$diags)
@@ -46,8 +47,10 @@ spvs_importLCMResults <- function(dir,quant) {
   # 3 Create dataframe ------------------------------------------------------
   # Create a dataframe from the imported list and rename it to defined defaults to allow dataframe subsetting
   source('functions/spvs_createDataFrame.R')
-  amps <- spvs_createDataFrame(results$amps)
-  crlbs <- spvs_createDataFrame(results$crlbs)
+  # amps <- spvs_createDataFrame(results$amps)
+  # crlbs <- spvs_createDataFrame(results$crlbs)
+  amps <- as.data.frame(results$amps)
+  crlbs <- as.data.frame(results$crlbs)
   
   if('-CrCH2' %in% colnames(amps)){
     amps <- plyr::rename(amps, c('-CrCH2' = 'CrCH2'))
