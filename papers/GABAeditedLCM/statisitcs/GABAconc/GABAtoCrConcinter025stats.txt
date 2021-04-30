@@ -1,0 +1,45 @@
+$`Descriptive Statistics`
+                    Group  N      mean    median         sd      skew  meanMsdS  meanPsdS     BAMsd
+1         GABAtoCr B-NoMM 61 0.2039798 0.1975361 0.04366884 0.7328216 0.2026697 0.2052899 0.1188255
+2    GABAtoCr C-GABAFixed 61 0.3294676 0.3236893 0.04112674 0.6395564 0.3281576 0.3307777 0.2492705
+3 GABAtoCr D-soft1to1GABA 61 0.3227960 0.3229448 0.03129517 0.6654524 0.3214860 0.3241061 0.2617705
+4   GABAtoCr E-FixedGauss 61 0.3324448 0.3275101 0.03952241 1.1363571 0.3311347 0.3337548 0.2553761
+5    GABAtoCr F-FreeGauss 61 0.3312774 0.3254215 0.04002635 0.3811560 0.3299674 0.3325875 0.2532260
+      BAPsd          se         CV
+1 0.2891340 0.005591222 0.21408417
+2 0.4096648 0.005265739 0.12482786
+3 0.3838216 0.004006935 0.09695028
+4 0.4095135 0.005060327 0.11888415
+5 0.4093288 0.005124848 0.12082425
+
+$`Test for Normal Distribution`
+  VarsName      method      stat           p normal
+1 GABAtoCr ShapiroWilk 0.9735806 0.017867986      0
+2 GABAtoCr ShapiroWilk 0.9735806 0.042864450      0
+3 GABAtoCr ShapiroWilk 0.9735806 0.024423974      0
+4 GABAtoCr ShapiroWilk 0.9735806 0.002304723      0
+5 GABAtoCr ShapiroWilk 0.9735806 0.209129403      1
+
+$`Test for Normal Distribution of Variances`
+  VarsName  method     stat         p VarianceDiff
+1 GABAtoCr Fligner 7.151366 0.1281022            0
+
+$`Post hoc test heterogeneous variances`
+[1] "No significant difference in the variance"
+
+$`Variance Analysis`
+  VarsName method     stat           p differ
+1 GABAtoCr  ANOVA 123.6947 3.20727e-62      1
+
+$`Posthoc test Variance Analysis`
+                             method multi_comp_cor       B.NoMM C.GABAFixed D.soft1to1GABA E.FixedGauss
+GABAtoCr C-GABAFixed    pairedTtest     bonferroni 1.769157e-41          NA             NA           NA
+GABAtoCr D-soft1to1GABA pairedTtest     bonferroni 1.663498e-33   0.5610531             NA           NA
+GABAtoCr E-FixedGauss   pairedTtest     bonferroni 1.443336e-30   1.0000000      0.0613348           NA
+GABAtoCr F-FreeGauss    pairedTtest     bonferroni 4.816731e-31   1.0000000      0.2115848            1
+                        sig.B.NoMM sig.C.GABAFixed sig.D.soft1to1GABA sig.E.FixedGauss
+GABAtoCr C-GABAFixed           ***            <NA>               <NA>             <NA>
+GABAtoCr D-soft1to1GABA        ***               0               <NA>             <NA>
+GABAtoCr E-FixedGauss          ***               0                  0             <NA>
+GABAtoCr F-FreeGauss           ***               0                  0                0
+

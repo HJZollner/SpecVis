@@ -1,0 +1,68 @@
+$`Descriptive Statistics`
+                       Group  N     mean   median       sd       skew meanMsdS meanPsdS     BAMsd    BAPsd
+1         GABAtoGABAp B-NoMM 61 41.51877 38.51064 13.67670  0.8406072 40.99466 42.04288 14.849194 68.18834
+2    GABAtoGABAp C-GABAFixed 61 41.51877 38.51064 13.67670  0.8406072 40.99466 42.04288 14.849194 68.18834
+3 GABAtoGABAp D-soft1to1GABA 61 41.51877 38.51064 13.67670  0.8406072 40.99466 42.04288 14.849194 68.18834
+4   GABAtoGABAp E-FixedGauss 61 30.52887 26.36567 16.82260  1.5003933 30.00476 31.05298 -2.275198 63.33294
+5    GABAtoGABAp F-FreeGauss 61 30.21589 26.87465 17.47040  0.8264277 29.69178 30.74000 -3.851383 64.28316
+6    GABAtoGABAp G-MM09Fixed 61 28.73934 29.23954 10.85271 -0.2411621 28.21523 29.26345  7.576552 49.90213
+7 GABAtoGABAp H-soft3to2MM09 61 27.33284 23.05080 15.32451  1.5207583 26.80873 27.85695 -2.549960 57.21564
+        se        CV
+1 1.751123 0.3294102
+2 1.751123 0.3294102
+3 1.751123 0.3294102
+4 2.153913 0.5510390
+5 2.236855 0.5781857
+6 1.389547 0.3776256
+7 1.962103 0.5606630
+
+$`Test for Normal Distribution`
+     VarsName      method      stat            p normal
+1 GABAtoGABAp ShapiroWilk 0.8636301 1.357467e-02      0
+2 GABAtoGABAp ShapiroWilk 0.8636301 1.357467e-02      0
+3 GABAtoGABAp ShapiroWilk 0.8636301 1.357467e-02      0
+4 GABAtoGABAp ShapiroWilk 0.8636301 7.792865e-05      0
+5 GABAtoGABAp ShapiroWilk 0.8636301 2.440480e-03      0
+6 GABAtoGABAp ShapiroWilk 0.8636301 7.082144e-01      1
+7 GABAtoGABAp ShapiroWilk 0.8636301 6.790399e-06      0
+
+$`Test for Normal Distribution of Variances`
+     VarsName  method     stat         p VarianceDiff
+1 GABAtoGABAp Fligner 4.696394 0.5832997            0
+
+$`Post hoc test heterogeneous variances`
+[1] "No significant difference in the variance"
+
+$`Variance Analysis`
+     VarsName method     stat            p differ
+1 GABAtoGABAp  ANOVA 12.62545 4.143308e-13      1
+
+$`Posthoc test Variance Analysis`
+                                method multi_comp_cor       B.NoMM  C.GABAFixed D.soft1to1GABA E.FixedGauss
+GABAtoGABAp C-GABAFixed    pairedTtest     bonferroni          NaN           NA             NA           NA
+GABAtoGABAp D-soft1to1GABA pairedTtest     bonferroni          NaN          NaN             NA           NA
+GABAtoGABAp E-FixedGauss   pairedTtest     bonferroni 2.817183e-14 2.817183e-14   2.817183e-14           NA
+GABAtoGABAp F-FreeGauss    pairedTtest     bonferroni 1.951855e-13 1.951855e-13   1.951855e-13   1.00000000
+GABAtoGABAp G-MM09Fixed    pairedTtest     bonferroni 1.691757e-15 1.691757e-15   1.691757e-15   1.00000000
+GABAtoGABAp H-soft3to2MM09 pairedTtest     bonferroni 1.401259e-19 1.401259e-19   1.401259e-19   0.02199304
+                           F.FreeGauss G.MM09Fixed sig.B.NoMM sig.C.GABAFixed sig.D.soft1to1GABA
+GABAtoGABAp C-GABAFixed             NA          NA        NaN            <NA>               <NA>
+GABAtoGABAp D-soft1to1GABA          NA          NA        NaN             NaN               <NA>
+GABAtoGABAp E-FixedGauss            NA          NA        ***             ***                ***
+GABAtoGABAp F-FreeGauss             NA          NA        ***             ***                ***
+GABAtoGABAp G-MM09Fixed      1.0000000          NA        ***             ***                ***
+GABAtoGABAp H-soft3to2MM09   0.1038612           1        ***             ***                ***
+                           sig.E.FixedGauss sig.F.FreeGauss sig.G.MM09Fixed
+GABAtoGABAp C-GABAFixed                <NA>            <NA>            <NA>
+GABAtoGABAp D-soft1to1GABA             <NA>            <NA>            <NA>
+GABAtoGABAp E-FixedGauss               <NA>            <NA>            <NA>
+GABAtoGABAp F-FreeGauss                   0            <NA>            <NA>
+GABAtoGABAp G-MM09Fixed                   0               0            <NA>
+GABAtoGABAp H-soft3to2MM09                *               0               0
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dataFrame[, meas] and dataFrame[, "Group"]
+Fligner-Killeen:med chi-squared = 5.9046, df = 4, p-value = 0.2064
+

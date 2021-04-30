@@ -1,0 +1,87 @@
+$`Descriptive Statistics`
+                       Group  N     mean   median        sd      skew meanMsdS meanPsdS    BAMsd    BAPsd
+1         GABAtoGABAp B-NoMM 61 46.43586 46.08350  8.107034 0.3017511 46.13511 46.73662 30.62715 62.24458
+2    GABAtoGABAp C-GABAFixed 61 46.43586 46.08350  8.107034 0.3017511 46.13511 46.73662 30.62715 62.24458
+3 GABAtoGABAp D-soft1to1GABA 61 46.43586 46.08350  8.107034 0.3017511 46.13511 46.73662 30.62715 62.24458
+4   GABAtoGABAp E-FixedGauss 61 34.69049 33.98472  9.362149 0.2588579 34.38973 34.99124 16.43430 52.94668
+5    GABAtoGABAp F-FreeGauss 61 34.64049 32.63723 10.025190 0.3164355 34.33973 34.94125 15.09137 54.18961
+        se        CV
+1 1.037999 0.1745856
+2 1.037999 0.1745856
+3 1.037999 0.1745856
+4 1.198700 0.2698765
+5 1.283594 0.2894067
+
+$`Test for Normal Distribution`
+     VarsName      method      stat          p normal
+1 GABAtoGABAp ShapiroWilk 0.9669796 0.35369732      1
+2 GABAtoGABAp ShapiroWilk 0.9669796 0.35369732      1
+3 GABAtoGABAp ShapiroWilk 0.9669796 0.35369732      1
+4 GABAtoGABAp ShapiroWilk 0.9669796 0.52277901      1
+5 GABAtoGABAp ShapiroWilk 0.9669796 0.09841605      1
+
+$`Test for Normal Distribution of Variances`
+     VarsName  method     stat         p VarianceDiff
+1 GABAtoGABAp Fligner 3.584354 0.4651686            0
+
+$`Post hoc test heterogeneous variances`
+[1] "No significant difference in the variance"
+
+$`Variance Analysis`
+     VarsName method     stat            p differ
+1 GABAtoGABAp  ANOVA 32.89851 9.473623e-23      1
+
+$`Posthoc test Variance Analysis`
+                                method multi_comp_cor       B.NoMM  C.GABAFixed D.soft1to1GABA E.FixedGauss
+GABAtoGABAp C-GABAFixed    pairedTtest     bonferroni          NaN           NA             NA           NA
+GABAtoGABAp D-soft1to1GABA pairedTtest     bonferroni          NaN          NaN             NA           NA
+GABAtoGABAp E-FixedGauss   pairedTtest     bonferroni 5.424966e-17 5.424966e-17   5.424966e-17           NA
+GABAtoGABAp F-FreeGauss    pairedTtest     bonferroni 6.607033e-17 6.607033e-17   6.607033e-17            1
+                           sig.B.NoMM sig.C.GABAFixed sig.D.soft1to1GABA sig.E.FixedGauss
+GABAtoGABAp C-GABAFixed           NaN            <NA>               <NA>             <NA>
+GABAtoGABAp D-soft1to1GABA        NaN             NaN               <NA>             <NA>
+GABAtoGABAp E-FixedGauss          ***             ***                ***             <NA>
+GABAtoGABAp F-FreeGauss           ***             ***                ***                0
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dataFrame[, meas] and dataFrame[, "Group"]
+Fligner-Killeen:med chi-squared = 23.754, df = 4, p-value = 8.947e-05
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 4.1709e-14, df = 1, p-value = 1
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 4.1709e-14, df = 1, p-value = 1
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 9.2955, df = 1, p-value = 0.002297
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 8.9178, df = 1, p-value = 0.002824
+
+
+  Welch's Heteroscedastic F Test (alpha = 0.05) 
+------------------------------------------------------------- 
+  data : measure and Group 
+
+  statistic  : 21.94664 
+  num df     : 4 
+  denom df   : 148.6627 
+  p.value    : 2.991439e-14 
+
+  Result     : Difference is statistically significant. 
+------------------------------------------------------------- 

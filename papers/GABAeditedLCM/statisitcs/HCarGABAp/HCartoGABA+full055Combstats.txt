@@ -1,0 +1,68 @@
+$`Descriptive Statistics`
+                       Group  N     mean   median       sd      skew meanMsdS meanPsdS     BAMsd    BAPsd
+1         HCartoGABAp B-NoMM 61 33.86873 32.82456 10.93510 0.4891179 33.43870 34.29877 12.545288 55.19218
+2    HCartoGABAp C-GABAFixed 61 18.74567 15.82524 13.80320 1.0697424 18.31564 19.17570 -8.170569 45.66191
+3 HCartoGABAp D-soft1to1GABA 61 21.76480 17.93186 14.33445 1.0581866 21.33477 22.19484 -6.187369 49.71697
+4   HCartoGABAp E-FixedGauss 61 18.36051 15.49883 12.91442 1.2952992 17.93048 18.79055 -6.822604 43.54363
+5    HCartoGABAp F-FreeGauss 61 18.32636 14.36521 13.88433 1.1986695 17.89632 18.75639 -8.748087 45.40080
+6    HCartoGABAp G-MM09Fixed 61 20.26958 17.33079 14.07793 0.9704457 19.83954 20.69961 -7.182382 47.72153
+7 HCartoGABAp H-soft3to2MM09 61 19.09615 16.16114 13.56382 1.0083919 18.66611 19.52618 -7.353309 45.54560
+        se        CV
+1 1.400096 0.3228671
+2 1.767319 0.7363407
+3 1.835338 0.6586068
+4 1.653522 0.7033801
+5 1.777706 0.7576154
+6 1.802494 0.6945349
+7 1.736670 0.7102911
+
+$`Test for Normal Distribution`
+     VarsName      method      stat            p normal
+1 HCartoGABAp ShapiroWilk 0.9161451 6.492975e-02      1
+2 HCartoGABAp ShapiroWilk 0.9161451 6.503284e-05      0
+3 HCartoGABAp ShapiroWilk 0.9161451 1.333204e-04      0
+4 HCartoGABAp ShapiroWilk 0.9161451 2.605640e-06      0
+5 HCartoGABAp ShapiroWilk 0.9161451 6.513397e-06      0
+6 HCartoGABAp ShapiroWilk 0.9161451 1.439582e-04      0
+7 HCartoGABAp ShapiroWilk 0.9161451 4.810833e-04      0
+
+$`Test for Normal Distribution of Variances`
+     VarsName  method     stat         p VarianceDiff
+1 HCartoGABAp Fligner 3.085236 0.7980753            0
+
+$`Post hoc test heterogeneous variances`
+[1] "No significant difference in the variance"
+
+$`Variance Analysis`
+     VarsName method     stat            p differ
+1 HCartoGABAp  ANOVA 10.63349 5.239929e-11      1
+
+$`Posthoc test Variance Analysis`
+                                method multi_comp_cor       B.NoMM C.GABAFixed D.soft1to1GABA E.FixedGauss
+HCartoGABAp C-GABAFixed    pairedTtest     bonferroni 1.984596e-19          NA             NA           NA
+HCartoGABAp D-soft1to1GABA pairedTtest     bonferroni 2.285730e-14  0.02580541             NA           NA
+HCartoGABAp E-FixedGauss   pairedTtest     bonferroni 9.191562e-20  1.00000000    0.004971442           NA
+HCartoGABAp F-FreeGauss    pairedTtest     bonferroni 1.170679e-18  1.00000000    0.001973797            1
+HCartoGABAp G-MM09Fixed    pairedTtest     bonferroni 3.753421e-17  1.00000000    1.000000000            1
+HCartoGABAp H-soft3to2MM09 pairedTtest     bonferroni 1.521611e-21  1.00000000    0.128062081            1
+                           F.FreeGauss G.MM09Fixed sig.B.NoMM sig.C.GABAFixed sig.D.soft1to1GABA
+HCartoGABAp C-GABAFixed             NA          NA        ***            <NA>               <NA>
+HCartoGABAp D-soft1to1GABA          NA          NA        ***               *               <NA>
+HCartoGABAp E-FixedGauss            NA          NA        ***               0                 **
+HCartoGABAp F-FreeGauss             NA          NA        ***               0                 **
+HCartoGABAp G-MM09Fixed              1          NA        ***               0                  0
+HCartoGABAp H-soft3to2MM09           1           1        ***               0                  0
+                           sig.E.FixedGauss sig.F.FreeGauss sig.G.MM09Fixed
+HCartoGABAp C-GABAFixed                <NA>            <NA>            <NA>
+HCartoGABAp D-soft1to1GABA             <NA>            <NA>            <NA>
+HCartoGABAp E-FixedGauss               <NA>            <NA>            <NA>
+HCartoGABAp F-FreeGauss                   0            <NA>            <NA>
+HCartoGABAp G-MM09Fixed                   0               0            <NA>
+HCartoGABAp H-soft3to2MM09                0               0               0
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dataFrame[, meas] and dataFrame[, "Group"]
+Fligner-Killeen:med chi-squared = 4.1386, df = 6, p-value = 0.6579
+

@@ -1,0 +1,91 @@
+$`Descriptive Statistics`
+                       Group  N      mean    median       sd       skew  meanMsdS  meanPsdS     BAMsd
+1         HCartoGABAp B-NoMM 61 28.529726 29.220860 7.208138 -0.1696055 28.313482 28.745971 14.473857
+2    HCartoGABAp C-GABAFixed 61  9.223188 10.146332 6.780088  0.1075045  9.006944  9.439432 -3.997984
+3 HCartoGABAp D-soft1to1GABA 61  5.036775  2.001347 6.112707  0.9815039  4.820531  5.253020 -6.883003
+4   HCartoGABAp E-FixedGauss 61  2.802319  0.000000 6.031515  2.6744859  2.586074  3.018563 -8.959136
+5    HCartoGABAp F-FreeGauss 61  3.231502  0.000000 6.320949  2.3487333  3.015258  3.447746 -9.094348
+     BAPsd        se        CV
+1 42.58560 0.9229075 0.2526536
+2 22.44436 0.8681013 0.7351133
+3 16.95655 0.7826519 1.2136151
+4 14.56377 0.7722564 2.1523304
+5 15.55735 0.8093146 1.9560406
+
+$`Test for Normal Distribution`
+     VarsName      method      stat            p normal
+1 HCartoGABAp ShapiroWilk 0.5860435 1.328512e-01      1
+2 HCartoGABAp ShapiroWilk 0.5860435 3.701979e-03      0
+3 HCartoGABAp ShapiroWilk 0.5860435 1.834897e-07      0
+4 HCartoGABAp ShapiroWilk 0.5860435 1.551982e-12      0
+5 HCartoGABAp ShapiroWilk 0.5860435 7.586988e-12      0
+
+$`Test for Normal Distribution of Variances`
+     VarsName  method    stat            p VarianceDiff
+1 HCartoGABAp Fligner 39.2519 6.179754e-08            1
+
+$`Post hoc test heterogeneous variances`
+                           VarsName  method        adj       stat         padj sig
+1    HCartoGABAp C-GABAFixed B-NoMM Fligner Bonferroni  0.2163275 2.567410e+00   0
+2 HCartoGABAp D-soft1to1GABA B-NoMM Fligner Bonferroni  2.2101245 5.484304e-01   0
+3   HCartoGABAp E-FixedGauss B-NoMM Fligner Bonferroni 20.8824689 1.953374e-05 ***
+4    HCartoGABAp F-FreeGauss B-NoMM Fligner Bonferroni 15.8427958 2.753123e-04 ***
+
+$`Variance Analysis`
+     VarsName method     stat            p differ
+1 HCartoGABAp  Welch 145.0382 1.818605e-50      1
+
+$`Posthoc test Variance Analysis`
+                                     method multi_comp_cor       B.NoMM  C.GABAFixed D.soft1to1GABA
+HCartoGABAp C-GABAFixed    UnVarPairedTtest     bonferroni 2.024125e-41           NA             NA
+HCartoGABAp D-soft1to1GABA UnVarPairedTtest     bonferroni 1.641894e-43 2.100892e-10             NA
+HCartoGABAp E-FixedGauss   UnVarPairedTtest     bonferroni 3.461247e-36 1.126854e-08     0.02689700
+HCartoGABAp F-FreeGauss    UnVarPairedTtest     bonferroni 6.080189e-37 1.236513e-08     0.08218454
+                           E.FixedGauss sig.B.NoMM sig.C.GABAFixed sig.D.soft1to1GABA sig.E.FixedGauss
+HCartoGABAp C-GABAFixed              NA        ***            <NA>               <NA>             <NA>
+HCartoGABAp D-soft1to1GABA           NA        ***             ***               <NA>             <NA>
+HCartoGABAp E-FixedGauss             NA        ***             ***                  *             <NA>
+HCartoGABAp F-FreeGauss               1        ***             ***                  0                0
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dataFrame[, meas] and dataFrame[, "Group"]
+Fligner-Killeen:med chi-squared = 54.274, df = 4, p-value = 4.611e-11
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 0.00066693, df = 1, p-value = 0.9794
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 0.18258, df = 1, p-value = 0.6692
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 25.597, df = 1, p-value = 4.206e-07
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 26.663, df = 1, p-value = 2.422e-07
+
+
+  Welch's Heteroscedastic F Test (alpha = 0.05) 
+------------------------------------------------------------- 
+  data : measure and Group 
+
+  statistic  : 210.7406 
+  num df     : 4 
+  denom df   : 149.1739 
+  p.value    : 2.708252e-60 
+
+  Result     : Difference is statistically significant. 
+------------------------------------------------------------- 

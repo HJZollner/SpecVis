@@ -1,0 +1,103 @@
+$`Descriptive Statistics`
+                       Group  N      mean    median       sd       skew  meanMsdS  meanPsdS     BAMsd
+1         HCartoGABAp B-NoMM 61 32.194040 31.939799 7.082868 -0.1509135 31.981554 32.406526 18.382448
+2    HCartoGABAp C-GABAFixed 61  9.561283  8.190655 6.907264  0.2828786  9.348797  9.773769 -3.907883
+3 HCartoGABAp D-soft1to1GABA 61  5.305783  1.894998 6.560067  0.9121138  5.093297  5.518269 -7.486348
+4   HCartoGABAp E-FixedGauss 61  2.545562  0.000000 6.228716  3.0661156  2.333076  2.758048 -9.600434
+5    HCartoGABAp F-FreeGauss 61  2.203840  0.000000 4.917502  3.3810741  1.991354  2.416326 -7.385288
+     BAPsd        se        CV
+1 46.00563 0.9068683 0.2200056
+2 23.03045 0.8843846 0.7224203
+3 18.09791 0.8399305 1.2363995
+4 14.69156 0.7975054 2.4468919
+5 11.79297 0.6296216 2.2313334
+
+$`Test for Normal Distribution`
+     VarsName      method      stat            p normal
+1 HCartoGABAp ShapiroWilk 0.5172524 4.992639e-01      1
+2 HCartoGABAp ShapiroWilk 0.5172524 7.022438e-03      0
+3 HCartoGABAp ShapiroWilk 0.5172524 6.910534e-08      0
+4 HCartoGABAp ShapiroWilk 0.5172524 1.355903e-13      0
+5 HCartoGABAp ShapiroWilk 0.5172524 7.317265e-13      0
+
+$`Test for Normal Distribution of Variances`
+     VarsName  method     stat           p VarianceDiff
+1 HCartoGABAp Fligner 54.27412 4.61109e-11            1
+
+$`Post hoc test heterogeneous variances`
+                           VarsName  method        adj         stat         padj sig
+1    HCartoGABAp C-GABAFixed B-NoMM Fligner Bonferroni 6.669311e-04 3.917588e+00   0
+2 HCartoGABAp D-soft1to1GABA B-NoMM Fligner Bonferroni 1.825835e-01 2.676649e+00   0
+3   HCartoGABAp E-FixedGauss B-NoMM Fligner Bonferroni 2.559740e+01 1.682423e-06 ***
+4    HCartoGABAp F-FreeGauss B-NoMM Fligner Bonferroni 2.666319e+01 9.687679e-07 ***
+
+$`Variance Analysis`
+     VarsName method     stat            p differ
+1 HCartoGABAp  Welch 210.7406 2.708252e-60      1
+
+$`Posthoc test Variance Analysis`
+                                     method multi_comp_cor       B.NoMM  C.GABAFixed D.soft1to1GABA
+HCartoGABAp C-GABAFixed    UnVarPairedTtest     bonferroni 1.340069e-46           NA             NA
+HCartoGABAp D-soft1to1GABA UnVarPairedTtest     bonferroni 2.832900e-41 1.547831e-06             NA
+HCartoGABAp E-FixedGauss   UnVarPairedTtest     bonferroni 3.130813e-35 6.424178e-08   0.0119221490
+HCartoGABAp F-FreeGauss    UnVarPairedTtest     bonferroni 4.435985e-38 7.663515e-10   0.0005487622
+                           E.FixedGauss sig.B.NoMM sig.C.GABAFixed sig.D.soft1to1GABA sig.E.FixedGauss
+HCartoGABAp C-GABAFixed              NA        ***            <NA>               <NA>             <NA>
+HCartoGABAp D-soft1to1GABA           NA        ***             ***               <NA>             <NA>
+HCartoGABAp E-FixedGauss             NA        ***             ***                  *             <NA>
+HCartoGABAp F-FreeGauss               1        ***             ***                ***                0
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dataFrame[, meas] and dataFrame[, "Group"]
+Fligner-Killeen:med chi-squared = 185.56, df = 6, p-value < 2.2e-16
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 5.1217, df = 1, p-value = 0.02363
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 78.775, df = 1, p-value < 2.2e-16
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 78.775, df = 1, p-value < 2.2e-16
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 78.775, df = 1, p-value < 2.2e-16
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 78.775, df = 1, p-value < 2.2e-16
+
+
+	Fligner-Killeen test of homogeneity of variances
+
+data:  dfVarAn[, "measure"] and dfVarAn[, "Group"]
+Fligner-Killeen:med chi-squared = 78.775, df = 1, p-value < 2.2e-16
+
+
+  Welch's Heteroscedastic F Test (alpha = 0.05) 
+------------------------------------------------------------- 
+  data : measure and Group 
+
+  statistic  : 44.5364 
+  num df     : 6 
+  denom df   : 169.5135 
+  p.value    : 2.062248e-32 
+
+  Result     : Difference is statistically significant. 
+------------------------------------------------------------- 
