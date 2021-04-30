@@ -103,11 +103,11 @@ spvs_BlandAltman <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarN
     group_by(Group,MetaboliteNum) %>%
     summarize(sds = sd(difference))
   meanVal$MetaboliteNum <- meanValNum$MetaboliteNum
-  meanVal$sds <- meanValNum$sds
+  meanVal$sds <- rev(meanValNum$sds)
   meanValNum <- dfCorr %>%
     group_by(Group,MetaboliteNum) %>%
     summarize(means = mean(average))
-  meanVal$AvMean <- meanValNum$means
+  meanVal$AvMean <- rev(meanValNum$means)
   
   meanValCol <- dfCorr %>%
     group_by(MetabName) %>%
@@ -116,11 +116,11 @@ spvs_BlandAltman <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarN
     group_by(MetaboliteNum) %>%
     summarize(sds = sd(difference))
   meanValCol$MetaboliteNum <- meanValNumCol$MetaboliteNum
-  meanValCol$sds <- meanValNumCol$sds
+  meanValCol$sds <- rev(meanValNumCol$sds)
   meanValNumCol <- dfCorr %>%
     group_by(MetaboliteNum) %>%
     summarize(means = mean(average))
-  meanValCol$AvMean <- meanValNumCol$means
+  meanValCol$AvMean <- rev(meanValNumCol$means)
   
   # 2 Generating facet limits ------------------------------------  
   if(length(GroupVarNames1) == length(GroupVarNames2)){ #Preparing data as a list of data frames is passed
@@ -263,8 +263,8 @@ spvs_BlandAltman <- function(dataFrame,Quant,MeasureVar,GroupVarNames1,GroupVarN
   
   p <- p + theme_cowplot()+
     theme(aspect.ratio = 1,strip.background = element_blank(),plot.title = element_text(hjust = 0.5),legend.position = 'top')+
-    scale_colour_brewer(palette = "Dark2")+
-    scale_fill_brewer(palette = "Dark2")+
+    scale_colour_brewer(palette = "RdYlBu")+
+    scale_fill_brewer(palette = "RdYlBu")+
     ggtitle(title)+ylab(paste('diff(',corrNames[2],'vs',corrNames[1],')') )+xlab(paste('mean(',corrNames[2],'vs',corrNames[1],')'))+
     scale_y_continuous(breaks = scales::extended_breaks(n = 5))+
     scale_x_continuous(breaks = scales::extended_breaks(n = 5))
