@@ -17,10 +17,14 @@ spvs_read_lcm_coord <- function (coord_f)
     }
   }
   FWHM <- as.double(strsplit(trimws(line_reader[signals + 
-                                                  8]), "  *")[[1]][3])
-  SNR <- as.double(strsplit(trimws(line_reader[signals + 8]), 
+                                                  6]), "  *")[[1]][3])
+  SNR <- as.double(strsplit(trimws(line_reader[signals + 6]), 
                             "  *")[[1]][7])
-  diags <- data.frame(FWHM = FWHM, SNR = SNR)
+  ph1 <- as.double(strsplit(trimws(line_reader[signals + 8]), 
+                             "  *")[[1]][4])
+  ph0 <- as.double(strsplit(trimws(line_reader[signals + 8]), 
+                            "  *")[[1]][2])
+  diags <- data.frame(FWHM = FWHM, SNR = SNR, ph0 = ph0, ph1 = ph1)
   metab_table <- utils::read.fwf(coord_f, widths = c(9, 5, 
                                                      8, -1, 40), skip = 4, n = signals, header = FALSE, col.names = c("amp", 
                                                                                                                       "SD", "TCr_ratio", "Metab"), row.names = "Metab")
@@ -36,8 +40,8 @@ spvs_read_lcm_coord <- function (coord_f)
   crlbs <- as.matrix(crlbs)
   crlbs <- as.numeric(as.character(crlbs))
   max_crlbs <- crlbs == 999
-  crlbs <- amps * crlbs/100
-  crlbs[max_crlbs] = Inf
+  # crlbs <- amps * crlbs/100
+  # crlbs[max_crlbs] = Inf
   amps <- as.data.frame(amps)
   row.names(amps) <- colnames(metab_table)
   amps <- t(amps)
