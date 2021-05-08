@@ -1,4 +1,5 @@
 # SpecVis
+![GitHub Release Date](https://img.shields.io/github/release-date/HJZollner/SpecVis)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/HJZollner/SpecVis)](https://github.com/HJZollner/SpecVis/releases)
 [![GitHub Release Date](https://img.shields.io/github/release-date/HJZollner/SpecVis)](https://github.com/HJZollner/SpecVis/releases)
 [![GitHub last commit](https://img.shields.io/github/last-commit/HJZollner/SpecVis)](https://github.com/HJZollner/SpecVis/commits/develop)
