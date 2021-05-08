@@ -1,7 +1,5 @@
 # SpecVis
-![GitHub Release Date](https://img.shields.io/github/release-date/HJZollner/SpecVis)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/HJZollner/SpecVis)](https://github.com/HJZollner/SpecVis/releases)
-[![GitHub Release Date](https://img.shields.io/github/release-date/HJZollner/SpecVis)](https://github.com/HJZollner/SpecVis/releases)
 [![GitHub last commit](https://img.shields.io/github/last-commit/HJZollner/SpecVis)](https://github.com/HJZollner/SpecVis/commits/develop)
 [![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fhjzollner.github.io)](https://hjzollner.github.io)
 [![License](https://img.shields.io/github/license/HJZollner/SpecVis)](https://github.com/HJZollner/SpecVis/blob/develop/LICENSE.md)
