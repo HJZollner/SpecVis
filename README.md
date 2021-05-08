@@ -55,7 +55,7 @@ An example [markdown](https://github.com/hezoe100/SpecVis/blob/master/examples/E
 ![CorrelationFacet](/examples/CorrelationFacetSmall.png)
 
 ## Planned features
-- Violin plots with individual data points.
+- Integration of spectra visualization
 
 # Contact, Feedback, Suggestions
 
