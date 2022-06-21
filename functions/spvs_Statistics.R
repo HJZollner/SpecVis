@@ -110,44 +110,53 @@ descriptive<-  descriptive %>%
   VarsName <- NULL
     for (meas in MeasureVar){ 
       if (NormVar$VarianceDiff[NormVar$VarsName == meas] == 1){
-        for(i in 2:choose(length(uniqueGroups),1)){
-          measureF <- dataFrame[names(dataFrame) == meas][[1]]
-          measure <-  measureF[dataFrame$Group == uniqueGroups[[i]]]
-          measureC <- data.frame(measure)
-          GroupF <- dataFrame[names(dataFrame) == 'Group'][[1]]
-          Group <- GroupF[dataFrame$Group == uniqueGroups[[i]]]
-          GroupC <- data.frame(Group)
-          if(i != choose(length(uniqueGroups),1)){
-          measure <-  measureF[dataFrame$Group == uniqueGroups[[1]]]}
-          else{
-            measure <-  measureF[dataFrame$Group == uniqueGroups[[1]]]  
+        for(j in 1:choose(length(uniqueGroups),1)){
+          for(i in 1:choose(length(uniqueGroups),1)){
+            measureF <- dataFrame[names(dataFrame) == meas][[1]]
+            measure <-  measureF[dataFrame$Group == uniqueGroups[[i]]]
+            measureC <- data.frame(measure)
+            GroupF <- dataFrame[names(dataFrame) == 'Group'][[1]]
+            Group <- GroupF[dataFrame$Group == uniqueGroups[[i]]]
+            GroupC <- data.frame(Group)
+            if(i != choose(length(uniqueGroups),1)){
+            measure <-  measureF[dataFrame$Group == uniqueGroups[[1]]]}
+            else{
+              measure <-  measureF[dataFrame$Group == uniqueGroups[[1]]]  
+            }
+            measure <- data.frame(measure)
+            if(i != choose(length(uniqueGroups),1)){
+            Group <- GroupF[dataFrame$Group == uniqueGroups[[j]]]}
+            else{
+              Group <- GroupF[dataFrame$Group == uniqueGroups[[j]]]  
+            }
+            Group <- data.frame(Group)
+            measureC <- rbind(measureC,measure)
+            GroupC <- rbind(GroupC,Group)
+            dfVarAn = data.frame(measureC,GroupC)
+            colnames(dfVarAn) = list('measure','Group')
+            
+            if (i != j){
+              Fligner <- fligner.test( dfVarAn[,'measure'], dfVarAn[,'Group'])
+              DiffVar <- print(Fligner)
+              stat <- rbind(stat,DiffVar$statistic[[1]])
+              p <- rbind(p,DiffVar$p.value)}
+            else{
+              stat <- rbind(stat,0)
+              p <- rbind(p,1)
+            }
+              
+            if(i != choose(length(uniqueGroups),1)){
+            VarsName <- rbind(VarsName,paste(meas[[1]], uniqueGroups[[i]], uniqueGroups[[j]]))}
+            else{
+            VarsName <- rbind(VarsName,paste(meas[[1]], uniqueGroups[[i]], uniqueGroups[[j]]))  
+            }
+            method <- rbind(method,'Fligner')
+            adj <- rbind(adj,'Bonferroni')
           }
-          measure <- data.frame(measure)
-          if(i != choose(length(uniqueGroups),1)){
-          Group <- GroupF[dataFrame$Group == uniqueGroups[[1]]]}
-          else{
-            Group <- GroupF[dataFrame$Group == uniqueGroups[[1]]]  
-          }
-          Group <- data.frame(Group)
-          measureC <- rbind(measureC,measure)
-          GroupC <- rbind(GroupC,Group)
-          dfVarAn = data.frame(measureC,GroupC)
-          colnames(dfVarAn) = list('measure','Group')
-          Fligner <- fligner.test( dfVarAn[,'measure'], dfVarAn[,'Group'])
-          DiffVar <- print(Fligner)
-          stat <- rbind(stat,DiffVar$statistic[[1]])
-          p <- rbind(p,DiffVar$p.value)
-          if(i != choose(length(uniqueGroups),1)){
-          VarsName <- rbind(VarsName,paste(meas[[1]], uniqueGroups[[i]], uniqueGroups[[1]]))}
-          else{
-          VarsName <- rbind(VarsName,paste(meas[[1]], uniqueGroups[[i]], uniqueGroups[[1]]))  
-          }
-          method <- rbind(method,'Fligner')
-          adj <- rbind(adj,'Bonferroni')
         }
     }
     }
-  padj <- p * nrow(p)
+  padj <- p * (nrow(p) - length(uniqueGroups))
   sig <- padj
   sig[padj>0.05] = 0
   sig[padj<0.05] = '*'
@@ -255,7 +264,7 @@ if (paired == 1){
     }
     else{
       postHoc <- pairwise.wilcox.test(dfPostHoc$measure, dfPostHoc$Group, paired = TRUE,
-                                 p.adjust.method = "bonferroni")
+                                 p.adjust.method = "bonferroni",exact = FALSE)
       method <- rbind(method,rep('PairedWilcoxon',length(uniqueGroups)-1))
       rownames(postHoc$p.value) <- paste (meas, rownames(postHoc$p.value))
       p <- rbind(p,postHoc$p.value)

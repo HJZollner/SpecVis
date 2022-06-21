@@ -28,13 +28,15 @@ summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = TRUE,
 
   datac <- plyr::ddply(data, groupvars, .drop=.drop,
                    .fun = function(xx, col) {
-                       c(N      = length2(xx[[col]], na.rm=na.rm),
+                       round(c(N      = length2(xx[[col]], na.rm=na.rm),
                          mean   = mean(xx[[col]], na.rm=na.rm),
                          median = median(xx[[col]], na.rm=na.rm),
                          sd      = sd(xx[[col]], na.rm=na.rm),
                          min      = min(xx[[col]], na.rm=na.rm),
                          max      = max(xx[[col]], na.rm=na.rm),
-                         skew     = skewness(xx[[col]], na.rm=na.rm)
+                         skew     = skewness(xx[[col]], na.rm=na.rm),
+                         quarL = quantile(xx[[col]], na.rm=na.rm, probs = 0.25),
+                         quarU = quantile(xx[[col]],, na.rm=na.rm, probs = 0.75)),2
                        )
                    },
                    measurevar
@@ -46,9 +48,12 @@ summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = TRUE,
  datac$meanPsdS <- datac$mean + .03*max(datac$sd)  # Calculate ymax
  datac$BAMsd <- datac$mean - 1.95*datac$sd  # Calculate ymin
  datac$BAPsd <- datac$mean + 1.95*datac$sd  # Calculate ymax  
+ datac$MAX <- min(datac$min)
+ datac$MAX <- max(datac$max)
  
  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
  datac$CV <- datac$sd / datac$mean
+ datac$IQR = datac$quarU - datac$quarL
  
   # Confidence interval multiplier for standard error
   # Calculate t-statistic for confidence interval:
