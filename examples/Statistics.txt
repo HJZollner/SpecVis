@@ -1,17 +1,30 @@
 $`Descriptive Statistics`
-          Group  N      mean    median         sd        skew          se         CV
-1  tNAA LCModel 35 1.4788926 1.4915889 0.17275995  0.87434668 0.029201761 0.11681710
-2   tNAA Osprey 35 1.5475494 1.5465182 0.14647368  0.96876399 0.024758571 0.09464879
-3  tNAA Tarquin 35 1.4922791 1.4958005 0.16847081  0.51755138 0.028476764 0.11289497
-4  tCho LCModel 35 0.1803956 0.1785564 0.02001130  0.45413725 0.003382527 0.11093006
-5   tCho Osprey 35 0.1843655 0.1804427 0.01804520  0.47870891 0.003050196 0.09787736
-6  tCho Tarquin 35 0.1913266 0.1923406 0.03549241  0.03489895 0.005999313 0.18550698
-7   Ins LCModel 35 0.8352432 0.8271063 0.08042637  0.35144506 0.013594538 0.09629097
-8    Ins Osprey 35 0.8700612 0.8826057 0.10519155 -0.22411160 0.017780617 0.12090132
-9   Ins Tarquin 35 0.6104961 0.5966697 0.08161796  0.49355980 0.013795954 0.13369120
-10  Glx LCModel 35 1.6307792 1.6263345 0.21268794  0.26151544 0.035950824 0.13042105
-11   Glx Osprey 35 1.4133724 1.3679951 0.18594697  0.65180311 0.031430774 0.13156261
-12  Glx Tarquin 35 2.0113409 2.0542739 0.25815497 -0.29299931 0.043636154 0.12834968
+          Group  N      mean    median         sd        skew quarL.25% quarU.75%  meanMsdS
+1  tNAA LCModel 35 1.4788926 1.4915889 0.17275995  0.87434668 1.3753401 1.5807149 1.4737098
+2   tNAA Osprey 35 1.5475494 1.5465182 0.14647368  0.96876399 1.4470193 1.6383883 1.5423666
+3  tNAA Tarquin 35 1.4922791 1.4958005 0.16847081  0.51755138 1.3838778 1.5939589 1.4870963
+4  tCho LCModel 35 0.1803956 0.1785564 0.02001130  0.45413725 0.1671848 0.1891083 0.1793308
+5   tCho Osprey 35 0.1843655 0.1804427 0.01804520  0.47870891 0.1717488 0.1949681 0.1833007
+6  tCho Tarquin 35 0.1913266 0.1923406 0.03549241  0.03489895 0.1689234 0.2127195 0.1902618
+7   Ins LCModel 35 0.8352432 0.8271063 0.08042637  0.35144506 0.7830739 0.8790411 0.8320874
+8    Ins Osprey 35 0.8700612 0.8826057 0.10519155 -0.22411160 0.8071585 0.9262809 0.8669055
+9   Ins Tarquin 35 0.6104961 0.5966697 0.08161796  0.49355980 0.5439187 0.6586205 0.6073404
+10  Glx LCModel 35 1.6307792 1.6263345 0.21268794  0.26151544 1.4926733 1.7398653 1.6230345
+11   Glx Osprey 35 1.4133724 1.3679951 0.18594697  0.65180311 1.2811673 1.5205325 1.4056278
+12  Glx Tarquin 35 2.0113409 2.0542739 0.25815497 -0.29299931 1.8478150 2.1939361 2.0035963
+    meanPsdS     BAMsd     BAPsd          se         CV        IQR
+1  1.4840754 1.1420107 1.8157745 0.029201761 0.11681710 0.20537483
+2  1.5527322 1.2619257 1.8331731 0.024758571 0.09464879 0.19136908
+3  1.4974619 1.1637611 1.8207972 0.028476764 0.11289497 0.21008110
+4  0.1814604 0.1413736 0.2194176 0.003382527 0.11093006 0.02192352
+5  0.1854302 0.1491773 0.2195536 0.003050196 0.09787736 0.02321929
+6  0.1923913 0.1221164 0.2605368 0.005999313 0.18550698 0.04379612
+7  0.8383989 0.6784117 0.9920746 0.013594538 0.09629097 0.09596722
+8  0.8732170 0.6649377 1.0751847 0.017780617 0.12090132 0.11912238
+9  0.6136519 0.4513411 0.7696512 0.013795954 0.13369120 0.11470176
+10 1.6385238 1.2160377 2.0455207 0.035950824 0.13042105 0.24719207
+11 1.4211171 1.0507758 1.7759690 0.031430774 0.13156261 0.23936524
+12 2.0190856 1.5079387 2.5147431 0.043636154 0.12834968 0.34612105
 
 $`Test for Normal Distribution`
    VarsName      method      stat          p normal
@@ -36,10 +49,7 @@ $`Test for Normal Distribution of Variances`
 4      Glx Fligner  3.6065148 0.164761318            0
 
 $`Post hoc test heterogeneous variances`
-              VarsName  method        adj      stat       padj sig
-1  tCho LCModel Osprey Fligner Bomferroni 0.1343162 2.14199461   0
-2  tCho Osprey Tarquin Fligner Bomferroni 7.8459178 0.01528068   *
-3 tCho Tarquin LCModel Fligner Bomferroni 6.1670544 0.03904534   *
+[1] "No significant difference in the variance"
 
 $`Variance Analysis`
   VarsName        method      stat            p differ
@@ -49,11 +59,11 @@ $`Variance Analysis`
 4      Glx         ANOVA 65.678493 4.672482e-19      1
 
 $`Posthoc test Variance Analysis`
-                  method multi_comp_cor      LCModel       Osprey sig.LCModel sig.Osprey
-tNAA Osprey     Wilcoxon     bonferroni 1.652545e-03           NA          **       <NA>
-tNAA Tarquin pairedTtest     bonferroni 1.000000e+00 1.605886e-01           0          0
-Ins Osprey   pairedTtest     bonferroni 1.879861e-01           NA           0       <NA>
-Ins Tarquin     Wilcoxon     bonferroni 5.659449e-18 1.766059e-18         ***        ***
-Glx Osprey   pairedTtest     bonferroni 1.355763e-08           NA         ***       <NA>
-Glx Tarquin  pairedTtest     bonferroni 3.544509e-14 1.191189e-18         ***        ***
+                     method multi_comp_cor      LCModel       Osprey sig.LCModel sig.Osprey
+tNAA Osprey  PairedWilcoxon     bonferroni 2.731873e-03           NA          **       <NA>
+tNAA Tarquin    pairedTtest     bonferroni 1.000000e+00 1.628573e-01           0          0
+Ins Osprey      pairedTtest     bonferroni 1.879861e-01           NA           0       <NA>
+Ins Tarquin  PairedWilcoxon     bonferroni 5.659449e-18 1.766059e-18         ***        ***
+Glx Osprey      pairedTtest     bonferroni 1.355763e-08           NA         ***       <NA>
+Glx Tarquin     pairedTtest     bonferroni 3.544509e-14 1.191189e-18         ***        ***
 

@@ -18,7 +18,7 @@
 #   HISTORY:
 #     2020-04-15: First version of the code.
 packages <- c("ggplot2", "dplyr", "lavaan", "plyr", "cowplot", "rmarkdown","patchwork",'RColorBrewer', 'moments', 'ggnewscale',
-              "readr", "caTools", "bitops","gridExtra","svglite","spant","see","tidyr","ggpmisc",'lawstat', 'onewaytests','ggExtra','ggthemes','weights')
+              "readr", "caTools", "bitops","gridExtra","svglite","spant","see","tidyr","ggpmisc",'lawstat', 'onewaytests','ggExtra','ggthemes','weights','R.matlab')
 
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(packages, rownames(installed.packages())))  
@@ -51,3 +51,6 @@ library(weights)
 # This is for the tufte box plots
 library(ggExtra)
 library(ggthemes)
+
+# This is for spectra plots
+library(R.matlab)

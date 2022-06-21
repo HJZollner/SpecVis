@@ -127,8 +127,8 @@ if(length(GroupVarNames1) == length(GroupVarNames2)){ #Preparing data as a list 
   facetlim$MetabName <- MetabName}
   
   if (!is.null(upperLimits)){
-    upperLimits <- upperLimits + ((upperLimits-lowerLimits)*0.05)
-    lowerLimits <- lowerLimits - ((upperLimits-lowerLimits)*0.05)
+  #  upperLimits <- upperLimits + ((upperLimits-lowerLimits)*0.05)
+  #  lowerLimits <- lowerLimits - ((upperLimits-lowerLimits)*0.05)
     limits <- c(rev(lowerLimits),rev(upperLimits))
     if(length(GroupVarNames1) == length(GroupVarNames2)){ 
     facetlim$MeasureVar1 <- limits
@@ -153,17 +153,28 @@ if(length(GroupVarNames1) == length(GroupVarNames2)){ #Preparing data as a list 
   
     if(facetlim$MeasureVar1[[1]] == facetlim$MeasureVar2[[1]]){ #Add line to devide plot
       p <- p + geom_abline(slope = 1,intercept = 0,linetype="dashed",alpha = 0.5, col="black")}
+  
+  p <- p + stat_fit_glance(method = 'cor.test', method.args = list(formula = ~ x + y),
+                           aes(label=ifelse(..p.value..< (0.001/multiComp),sprintf('r~"="~%.2f~"***"',
+                                                                                   stat(estimate)) , 
+                                            ifelse(..p.value..>=(0.001/multiComp) & ..p.value..<(0.01/multiComp), sprintf('r~"="~%.2f~"**"',
+                                                                                                                          stat(estimate)) ,
+                                                   ifelse(..p.value..>=(0.01/multiComp) & ..p.value..<(0.05/multiComp),sprintf('r~"="~%.2f~"*"',
+                                                                                                                               stat(estimate)) ,
+                                                          sprintf('r~"="~%.2f~~p~"="~%.2g',stat(estimate), stat(p.value)))))),
+                           label.x = 0.5,
+                           label.y = 'bottom', size = 4,parse = TRUE)+
     
-    p <- p + stat_fit_glance(method = 'lm', method.args = list(formula = formula),
-                    aes(label=ifelse(..p.value..< (0.001/multiComp),sprintf('R^2~"="~%.2f~"***"',
-                                                                stat(r.squared), stat(p.value)) , 
-                                     ifelse(..p.value..>=(0.001/multiComp) & ..p.value..<(0.01/multiComp), sprintf('R^2~"="~%.2f~"**"',
-                                                                                           stat(r.squared), stat(p.value)) ,
-                                            ifelse(..p.value..>=(0.01/multiComp) & ..p.value..<(0.05/multiComp),sprintf('R^2~"="~%.2f~"*"',
-                                                                                                stat(r.squared), stat(p.value)) ,
-                                                   sprintf('R^2~"="~%.2f~~p~"="~%.2g',stat(r.squared), stat(p.value)))))),
-                    label.x = 0.95,
-                    label.y = 'bottom', size = 4,parse = TRUE)+
+  #  p <- p + stat_fit_glance(method = 'lm', method.args = list(formula = formula),
+  #                  aes(label=ifelse(..p.value..< (0.001/multiComp),sprintf('R^2~"="~%.2f~"***"',
+  #                                                              stat(r.squared), stat(p.value)) , 
+  #                                   ifelse(..p.value..>=(0.001/multiComp) & ..p.value..<(0.01/multiComp), sprintf('R^2~"="~%.2f~"**"',
+  #                                                                                         stat(r.squared), stat(p.value)) ,
+  #                                          ifelse(..p.value..>=(0.01/multiComp) & ..p.value..<(0.05/multiComp),sprintf('R^2~"="~%.2f~"*"',
+  #                                                                                              stat(r.squared), stat(p.value)) ,
+  #                                                 sprintf('R^2~"="~%.2f~~p~"="~%.2g',stat(r.squared), stat(p.value)))))),
+  #                  label.x = 0.5,
+  #                  label.y = 'bottom', size = 4,parse = TRUE)+
     theme_cowplot()+
     theme(aspect.ratio = 1,strip.background = element_blank(),plot.title = element_text(hjust = 0.5),legend.position = 'top')+
     scale_colour_brewer(palette = "Dark2")+
@@ -189,16 +200,26 @@ if(length(GroupVarNames1) == length(GroupVarNames2)){ #Preparing data as a list 
           new_scale_color() +
           geom_smooth(color="black",method = "lm", formula = formula,size=1, fullrange = FALSE)+
           geom_smooth(aes_string(color = "Group"),method = "lm", formula = formula,se = F,size=0.75)+
-          stat_fit_glance(method = 'lm', method.args = list(formula = formula),
+          stat_fit_glance(method = 'cor.test', method.args = list(formula = ~ x + y),
                           aes(color = Group, label=ifelse(..p.value..< (0.001/multiComp),sprintf('R^2~"="~%.2f~"***"',
-                                                                                     stat(r.squared), stat(p.value)) , 
+                                                                                                 stat(estimate)) , 
                                                           ifelse(..p.value..>=(0.001/multiComp) & ..p.value..<(0.01/multiComp), sprintf('R^2~"="~%.2f~"**"',
-                                                                                                                stat(r.squared), stat(p.value)) ,
+                                                                                                                                        stat(estimate)) ,
                                                                  ifelse(..p.value..>=(0.01/multiComp) & ..p.value..<(0.05/multiComp),sprintf('R^2~"="~%.2f~"*"',
-                                                                                                                     stat(r.squared), stat(p.value)) ,
-                                                                        sprintf('R^2~"="~%.2f~~p~"="~%.2g',stat(r.squared), stat(p.value)))))),
+                                                                                                                                             stat(estimate)) ,
+                                                                        sprintf('R^2~"="~%.2f~~p~"="~%.2g',stat(estimate), stat(p.value)))))),
                           label.x = 0.05,
                           label.y = 'top', size = 3,parse = TRUE)+
+        #  stat_fit_glance(method = 'lm', method.args = list(formula = formula),
+        #                  aes(color = Group, label=ifelse(..p.value..< (0.001/multiComp),sprintf('R^2~"="~%.2f~"***"',
+        #                                                                             stat(r.squared)) , 
+        #                                                  ifelse(..p.value..>=(0.001/multiComp) & ..p.value..<(0.01/multiComp), sprintf('R^2~"="~%.2f~"**"',
+        #                                                                                                        stat(r.squared)) ,
+        #                                                         ifelse(..p.value..>=(0.01/multiComp) & ..p.value..<(0.05/multiComp),sprintf('R^2~"="~%.2f~"*"',
+        #                                                                                                             stat(r.squared)) ,
+        #                                                                sprintf('R^2~"="~%.2f~~p~"="~%.2g',stat(r.squared), stat(p.value)))))),
+        #                  label.x = 0.05,
+        #                  label.y = 'top', size = 3,parse = TRUE)+
           scale_colour_brewer(palette = "Dark2")
       }
     }  # end of function

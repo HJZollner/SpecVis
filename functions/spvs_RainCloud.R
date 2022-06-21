@@ -87,7 +87,7 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
       sumcatdatTemp <- summarySE(dataFrame, measurevar = metab, groupvars=GroupVars)
       sumcatdatTemp$MetaboliteNum = rep(MetaboliteNum,nrow(sumcatdatTemp))
       sumcatdatTemp$MetabName = rep(metab,nrow(sumcatdatTemp))
-      sumcatdatTemp$ypos = 1 - 0.1 * (0 : (nrow(sumcatdatTemp)-1))
+      sumcatdatTemp$ypos = 1 - 0.05 * (0 : (nrow(sumcatdatTemp)-1))
       if (MetaboliteNum == length(MeasureVar)){
         sumcatdat <- rbind(sumcatdat, sumcatdatTemp)
       }
@@ -109,7 +109,9 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
   }
   
   sumcatdat$NumericGroupVar <- rep(0.15,length(sumcatdat$Group))
+  sumcatdat$NumericGroupVar2 <- rep(-.15,length(sumcatdat$Group))
   dataFrame$NumericGroupVar <- rep(0,length(dataFrame$Group))
+  dataFrame$NumericGroupVar2 <- rep(-.15,length(dataFrame$Group))
   
   #Adding labels for CV and mean/SD
   if(CVlabel == 1){
@@ -119,7 +121,7 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
   }
   else{
     sumcatdat$label <- sprintf(
-      "mean/SD = %.2f/%.2f ", sumcatdat$mean, sumcatdat$sd
+      "mean/SD = %.3f/%.3f ", sumcatdat$mean, sumcatdat$sd
     )
   }
 
@@ -134,19 +136,24 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
     gather(range, MeasureVar1, -MetaboliteNum) 
   facetlim$MetaboliteNum <- facetlimN$MetaboliteNum
   
-  if (!is.null(upperLimits)){ #import facet limits if given
-    upperLimits <- upperLimits + (upperLimits-lowerLimits)*0.05
-    lowerLimits <- lowerLimits - (upperLimits-lowerLimits)*0.05
-    limits <- c(rev(lowerLimits),rev(upperLimits))
-    facetlim$MeasureVar <- limits
-  }
+#  if (!is.null(upperLimits)){ #import facet limits if given
+#    upperLimits <- upperLimits + (upperLimits-lowerLimits)*0.05
+#    lowerLimits <- lowerLimits - (upperLimits-lowerLimits)*0.05
+#    limits <- c(rev(lowerLimits),rev(upperLimits))
+#    facetlim$MeasureVar <- limits
+ # }
+  
+     limits <- c(rev(lowerLimits),rev(upperLimits))
+     facetlim$MeasureVar <- limits
+  
   facetlim$NumericGroupVar <- rep(0,length(facetlim$MetaboliteNum))
   upLim = facetlim
   upLim = upLim %>%
     slice(-seq(0.5 * n()))
   upLim <- upLim[nrow(upLim):1,]
   upLim <- upLim %>% slice(rep(1:n(), each = length(unique(Group))))
-  sumcatdat$ypos = rev(sumcatdat$ypos * upLim$MeasureVar)
+  #sumcatdat$ypos = (sumcatdat$ypos * upLim$MeasureVar)
+  sumcatdat$ypos = (sumcatdat$ypos * sumcatdat$MAX)
   
   # 4 Creating final plot ------------------------------------  
   if(is.list(dataFrame)){ #Facet plot as a list was passed
@@ -154,12 +161,13 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
       guides(colour=guide_legend(legendTitle))+guides(fill=guide_legend(legendTitle))+
       facet_wrap(~reorder(MetabName, -MetaboliteNum), scales = "free_y", ncol = colNum)+
       geom_blank(data=facetlim, aes_string(x = 'NumericGroupVar', y = 'MeasureVar'))+
-      geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]),position = position_nudge(x = .1), adjust = 2, trim = FALSE, alpha = .3, colour = NA, scale = 'count')+
-      geom_point(aes_string(x = 'NumericGroupVar', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .05, dodge.width = .1), size = 0.5, shape = 20)+
-      geom_boxplot(aes_string(x = 'NumericGroupVar', y = 'MeasureVar',fill = GroupVars[1]),outlier.shape = NA, alpha = .5, width = .1,size=.2, colour = 'black')+
-      geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1),size = 1.5, shape = 18) +
+      geom_flat_violin(data = dataFrame,aes_string(fill = GroupVars[1]),position = position_nudge(x = .1), adjust = 1, trim = TRUE, alpha = .3, colour = NA, scale = 'count',width = 0.25)+
+      geom_point(aes_string(y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .015, dodge.width = .1), size = 0.5, shape = 20)+
+      geom_tufteboxplot(aes_string(x = 'NumericGroupVar2',y = 'MeasureVar',fill = GroupVars[1], colour = GroupVars[1]),shape = '-',outlier.shape = 20, alpha = 1, width = .15,size=.5)+
+      geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar2', y = 'median', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.15),size = 2, shape = 18) +
+      geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1),size = 1.5, shape = 16) +
       geom_errorbar(data = sumcatdat, aes_string(y = 'mean',ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1), width = .02)+
-      geom_text(size= 4,data = sumcatdat,mapping = aes_string(x = 0.5, y = 'ypos', label = 'label',colour = GroupVars[1]),hjust=1) +
+      geom_text(size= 4,data = sumcatdat,mapping = aes_string(x = 0.5, y = 'ypos', label = 'label',colour = GroupVars[1]),vjust=1,hjust=1) +
       theme_cowplot()+
       scale_colour_brewer(palette = "Dark2")+
       scale_fill_brewer(palette = "Dark2")+
@@ -170,12 +178,12 @@ spvs_RainCloud <- function(dataFrame,Quant,MeasureVar,GroupVars,lowerLimits,uppe
   p <- ggplot(data = dataFrame, aes_string(x = 'NumericGroupVar', y = 'MeasureVar')) +
     guides(colour=guide_legend(legendTitle))+guides(fill=guide_legend(legendTitle))+
     geom_blank(data=facetlim, aes_string(x = 'NumericGroupVar', y = 'MeasureVar'))+
-    geom_flat_violin(aes_string(fill = GroupVars[1]),position = position_nudge(x = .1), adjust = 2, trim = FALSE, alpha = .3, colour = NA, scale = 'count')+
-    geom_point(aes_string(x = 'NumericGroupVar', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .05, dodge.width = .1), size = 0.5, shape = 20)+
+    geom_flat_violin(aes_string(fill = GroupVars[1]),position = position_nudge(x = .1), adjust = 1, trim = TRUE, alpha = .3, colour = NA, scale = 'count')+
+    geom_point(aes_string(x = 'NumericGroupVar', y = 'MeasureVar', colour = GroupVars[1]),position = position_jitterdodge(jitter.width = .025, dodge.width = .1), size = 0.5, shape = 20)+
     geom_boxplot(aes_string(x = 'NumericGroupVar', y = 'MeasureVar',fill = GroupVars[1]),outlier.shape = NA, alpha = .5, width = .1,size=.2, colour = 'black')+
     geom_point(data = sumcatdat, aes_string(x = 'NumericGroupVar', y = 'mean', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1),size = 1.5, shape = 18) +
     geom_errorbar(data = sumcatdat, aes_string(y = 'mean', ymin = 'meanMsd', ymax = 'meanPsd', group = GroupVars[1], colour = GroupVars[1]),position = position_dodge(width = 0.1), width = .02)+
-    geom_text(size= 4,data = sumcatdat,mapping = aes_string(x = 0.5, y = 'ypos', label = 'label',colour = GroupVars[1]),hjust=1) +
+    geom_text(size= 4,data = sumcatdat,mapping = aes_string(x = 0.5, y = 'ypos', label = 'label',colour = GroupVars[1]),vjust=1,hjust=1) +
     theme_cowplot()+
     scale_colour_brewer(palette = "Dark2")+
     scale_fill_brewer(palette = "Dark2")+

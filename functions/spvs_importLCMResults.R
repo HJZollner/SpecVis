@@ -42,6 +42,7 @@ spvs_importLCMResults <- function(dir,quant) {
     results$amps <- rbind(results$amps, subject$res_tab$amps)
     results$crlbs <- rbind(results$crlbs, subject$res_tab$crlbs)
     results$diags <- rbind(results$diags, subject$res_tab$diags)
+    results$subject <- rbind(results$subject,basename(file))
   } #end file loop
 
   # 3 Create dataframe ------------------------------------------------------
@@ -82,5 +83,5 @@ spvs_importLCMResults <- function(dir,quant) {
   }
 
   # 4 Create output ---------------------------------------------------------
-  return(list(amps,crlbs,results$diags))
+  return(list(amps,crlbs,results$diags,results$subject))
 } # end of function
