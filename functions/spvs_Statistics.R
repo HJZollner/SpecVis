@@ -62,19 +62,27 @@ descriptive<-  descriptive %>%
 
     data <- dataFrame[names(dataFrame) == meas][[1]]
     for (groups in uniqueGroups){
-    Normal <- shapiro.test(data[dataFrame$Group == groups])
-    stat <- rbind(W,Normal$statistic[[1]])
-    p <- rbind(p,Normal$p.value)
-    VarsName <- rbind(VarsName,meas[[1]])
-    method <- rbind(method,'ShapiroWilk')
-    if (Normal$p.value < 0.05){
-      normal <- rbind(normal,0)
-    }
-    else{
-      normal <- rbind(normal,1)
-    }
+      if (length((data[dataFrame$Group == groups]))-sum(is.na(data[dataFrame$Group == groups]))>2){
+        Normal <- shapiro.test(data[dataFrame$Group == groups])
+        W <- rbind(W,Normal$statistic[[1]])
+        p <- rbind(p,Normal$p.value)
+        VarsName <- rbind(VarsName,meas[[1]])
+        method <- rbind(method,'ShapiroWilk')
+        if (Normal$p.value < 0.05){
+          normal <- rbind(normal,0)
+        }
+        else{
+          normal <- rbind(normal,1)
+        }}else
+        {
+          W <- rbind(W,NaN)
+          p <- rbind(p,NaN)
+          VarsName <- rbind(VarsName,meas[[1]])
+          method <- rbind(method,'NaN')
+          normal <- rbind(normal,'NaN')
+        }
   }}
-  NormShWi = data.frame(VarsName,method,stat,p,normal)
+  NormShWi = data.frame(VarsName,method,W,p,normal)
   
   # 3 Variance test ---------------------------------------------------------- 
   stat <- NULL
@@ -119,9 +127,9 @@ descriptive<-  descriptive %>%
             Group <- GroupF[dataFrame$Group == uniqueGroups[[i]]]
             GroupC <- data.frame(Group)
             if(i != choose(length(uniqueGroups),1)){
-            measure <-  measureF[dataFrame$Group == uniqueGroups[[1]]]}
+            measure <-  measureF[dataFrame$Group == uniqueGroups[[j]]]}
             else{
-              measure <-  measureF[dataFrame$Group == uniqueGroups[[1]]]  
+              measure <-  measureF[dataFrame$Group == uniqueGroups[[j]]]  
             }
             measure <- data.frame(measure)
             if(i != choose(length(uniqueGroups),1)){
@@ -234,11 +242,11 @@ VarAna = data.frame(VarsName,method,stat,p,differ)
 if (paired == 1){
   if (any(VarAna$differ == 1) == TRUE){
   VarsName <- NULL
-  p <- NULL
+  p <- data.frame(NULL)
   differ <- NULL
   VarsName <- NULL
-  method <- NULL
-  adjust <- NULL
+  method <- data.frame(NULL)
+  adjust <- data.frame(NULL)
   for (meas in MeasureVar){
     measure <- dataFrame[names(dataFrame) == meas][[1]]
     Group <- dataFrame[names(dataFrame) == 'Group'][[1]]
@@ -286,11 +294,11 @@ if (paired == 1){
 else{
   if (any(VarAna$differ == 1) == TRUE){
     VarsName <- NULL
-    p <- NULL
+    p <- data.frame(NULL)
     differ <- NULL
     VarsName <- NULL
-    method <- NULL
-    adjust <- NULL
+    method <- data.frame(NULL)
+    adjust <- data.frame(NULL)
     for (meas in MeasureVar){
       measure <- dataFrame[names(dataFrame) == meas][[1]]
       Group <- dataFrame[names(dataFrame) == 'Group'][[1]]
@@ -301,26 +309,46 @@ else{
             postHoc <- pairwise.t.test(dfPostHoc$measure, dfPostHoc$Group, paired = FALSE,
                                        p.adjust.method = "bonferroni")
             method <- rbind(method,rep('Ttest',length(uniqueGroups)-1))
+            row.names(method)[[length(row.names(method))]] <- meas[[1]]
             rownames(postHoc$p.value) <- paste (meas, rownames(postHoc$p.value))
-            p <- rbind(p,postHoc$p.value)
-            adjust <- rbind(adjust,rep(postHoc$p.adjust.method,length(uniqueGroups)-1))}
+            colnames(postHoc$p.value) <- colnames(p)
+              p <- rbind(p,postHoc$p.value[[1,1]])
+            row.names(p)[[length(row.names(p))]] <- meas[[1]]
+            adjust <- rbind(adjust,rep(postHoc$p.adjust.method,length(uniqueGroups)-1))
+            row.names(adjust)[[length(row.names(adjust))]] <- meas[[1]]}
           else {
             postHoc <- pairwise.t.test(dfPostHoc$measure, dfPostHoc$Group, paired = FALSE,
                                        p.adjust.method = "bonferroni", var.equal = FALSE)
             method <- rbind(method,rep('UnVarTtest',length(uniqueGroups)-1))
             rownames(postHoc$p.value) <- paste (meas, rownames(postHoc$p.value))
-            p <- rbind(p,postHoc$p.value)
+            colnames(postHoc$p.value) <- colnames(p)
+            p <- rbind(p,postHoc$p.value[[1,1]])
             row.names(p)[[length(row.names(p))]] <- meas[[1]]
             adjust <- rbind(adjust,rep(postHoc$p.adjust.method,length(uniqueGroups)-1))
+            row.names(adjust)[[length(row.names(adjust))]] <- meas[[1]]
           }
+        }else{
+          method <- rbind(method,NaN)
+          p <- rbind(p,NaN)
+          adjust <- rbind(adjust,NaN)
+         colnames(p)[[1]] <- 'A.con'
+         row.names(p)[[length(row.names(p))]] <- meas[[1]]
+         row.names(method)[[length(row.names(method))]] <- meas[[1]]
+         row.names(adjust)[[length(row.names(adjust))]] <- meas[[1]]
         }}
+      
+        
       else{
         postHoc <- wilcox.test(dfPostHoc$measure~dfPostHoc$Group, paired = FALSE,
                                         p.adjust.method = "bonferroni")
         method <- rbind(method,rep('Wilcoxon',length(uniqueGroups)-1))
+        row.names(method)[[length(row.names(method))]] <- meas[[1]]
         p <- rbind(p,postHoc$p.value*length(uniqueGroups)*length(MeasureVar))
+        p <- data.frame(p)
         row.names(p)[[length(row.names(p))]] <- meas[[1]]
+        colnames(p)[[1]] <- uniqueGroups[[1]]
         adjust <- rbind(adjust,rep('bonferroni',length(uniqueGroups)-1))
+        row.names(adjust)[[length(row.names(adjust))]] <- meas[[1]]
       }
     }
     sig <- p

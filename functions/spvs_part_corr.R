@@ -69,8 +69,9 @@ spvs_part_corr <- function(dataFrame,MeasureVar,CorrVar,filename,covar, weightin
         cors <- wtd.partial.cor(corrvar,measure,covariate,weight = weighting_factors)
       }}
     # lms_summary <- summary(lms)
+    row.names(cors)[[1]] <- meas[[1]]
     sink(filename,append = TRUE)
-    cat(meas, '\n')
+    cat( '\n')
     sink()  # returns output to the console
     sink(filename,append = TRUE)
     print(cors)
@@ -113,8 +114,9 @@ spvs_part_corr <- function(dataFrame,MeasureVar,CorrVar,filename,covar, weightin
               weighting_factors <- dataFrameRed[names(dataFrameRed) == weighting[[mm]]][[1]]
               cors <- wtd.partial.cor(corrvar,measure,covariate,weight = weighting_factors)
             }}
+          row.names(cors)[[1]] <- paste(name[[1]], meas[[1]])
           sink(filename,append = TRUE)
-          cat(meas,'\n')
+          cat('\n')
           sink()  # returns output to the console
           sink(filename,append = TRUE)
           print(cors)
