@@ -45,6 +45,7 @@ spvs_part_corr <- function(dataFrame,MeasureVar,CorrVar,filename,covar, weightin
   
   # 1 partial correlations () calculations ----------------------------------------------------------  
   p <- NULL
+  r <- NULL
   for (mm in 1:length(MeasureVar)){
     meas <- MeasureVar[[mm]]
     measure <- dataFrame[names(dataFrame) == meas][[1]]
@@ -77,6 +78,7 @@ spvs_part_corr <- function(dataFrame,MeasureVar,CorrVar,filename,covar, weightin
     print(cors)
     sink()  # returns output to the console
     p <- rbind(p, cors[[4]])
+    r <- rbind(r, cors[[1]])
   }
   
   
@@ -122,9 +124,10 @@ spvs_part_corr <- function(dataFrame,MeasureVar,CorrVar,filename,covar, weightin
           print(cors)
           sink()  # returns output to the console
           p <- rbind(p, cors[[4]])
+          r <- rbind(r, cors[[1]])
       }
         }
       }
     }
-  p
+ list(p,r)
 }

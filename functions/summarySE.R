@@ -36,7 +36,7 @@ summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = TRUE,
                          max      = max(xx[[col]], na.rm=na.rm),
                          skew     = skewness(xx[[col]], na.rm=na.rm),
                          quarL = quantile(xx[[col]], na.rm=na.rm, probs = 0.25),
-                         quarU = quantile(xx[[col]],, na.rm=na.rm, probs = 0.75)),2
+                         quarU = quantile(xx[[col]],na.rm=na.rm, probs = 0.75)),5
                        )
                    },
                    measurevar
@@ -48,7 +48,7 @@ summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = TRUE,
  datac$meanPsdS <- datac$mean + .03*max(datac$sd)  # Calculate ymax
  datac$BAMsd <- datac$mean - 1.95*datac$sd  # Calculate ymin
  datac$BAPsd <- datac$mean + 1.95*datac$sd  # Calculate ymax  
- datac$MAX <- min(datac$min)
+ datac$MIN <- min(datac$min)
  datac$MAX <- max(datac$max)
  
  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
